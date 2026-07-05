@@ -1,0 +1,144 @@
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Text
+} from "@chakra-ui/react"
+
+import { useNavigate } from "react-router-dom"
+
+export default function ReleaseCard({ release }) {
+
+  const navigate = useNavigate()
+
+  return (
+
+    <Box
+      cursor="pointer"
+      role="group"
+      onClick={() => navigate(`/music/${release.id}`)}
+    >
+
+      {/* COVER */}
+
+      <Box overflow="visible">
+
+        <Image
+          src={release.cover}
+          alt={release.title}
+          w="100%"
+          aspectRatio={1}
+          objectFit="cover"
+          boxShadow="2xl"
+          transition="transform .45s ease"
+          _groupHover={{
+            transform: "scale(1.08)"
+          }}
+        />
+
+      </Box>
+
+      {/* INFO */}
+
+      <Box
+        mt={{ base: 2, lg: 4 }}
+        position="relative"
+        minH="54px"
+      >
+
+        {/* Texto */}
+
+        <Box
+          transition="opacity .2s ease"
+          _groupHover={{
+            opacity: 0
+          }}
+        >
+
+<Heading
+  fontSize={{ base: "sm", lg: "xl" }}
+  fontWeight={{ base: "600", lg: "600" }}
+  lineHeight="1.2"
+  whiteSpace="nowrap"
+  overflow="hidden"
+  textOverflow="ellipsis"
+>
+            {release.title}
+          </Heading>
+
+          <Text
+            mt={{ base: 0, lg: 1 }}
+            fontSize={{ base: "xs", lg: "xl" }}
+            textTransform="uppercase"
+            color="gray.400"
+            letterSpacing="1px"
+            noOfLines={2}
+          >
+            {release.artist}
+          </Text>
+
+        </Box>
+
+        {/* Línea */}
+
+        <Flex
+          position="absolute"
+          inset="0"
+          align="center"
+          opacity={0}
+          transition="opacity .2s ease"
+          _groupHover={{
+            opacity: 1
+          }}
+        >
+
+<Box
+  w="70%"
+  h="2px"
+  overflow="hidden"
+  display="flex"
+  alignItems="center"
+>
+  <Box
+    h="2px"
+    w="100%"
+    bg="white"
+    transformOrigin="left"
+    transform="scaleX(0)"
+    transition="transform .5s ease"
+    _groupHover={{
+      transform: "scaleX(1)"
+    }}
+  />
+</Box>
+
+<Text
+  ml="0px"
+  mt="-6px"
+  fontSize="30px"
+  lineHeight="1"
+  fontWeight="300"
+  opacity={0}
+  transform="translateX(-8px)"
+  transition="
+    opacity .15s ease .35s,
+    transform .15s ease .35s
+  "
+  _groupHover={{
+    opacity: 1,
+    transform: "translateX(0)"
+  }}
+>
+  ›
+</Text>
+
+        </Flex>
+
+      </Box>
+
+    </Box>
+
+  )
+
+}
