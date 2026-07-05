@@ -1,4 +1,13 @@
-import { Box, HStack, Link } from "@chakra-ui/react"
+import {
+  Box,
+  Heading,
+  HStack,
+  Link,
+  Text,
+  VStack,
+  SimpleGrid
+} from "@chakra-ui/react"
+
 import {
   FaInstagram,
   FaSpotify,
@@ -7,11 +16,12 @@ import {
   FaTiktok,
   FaApple
 } from "react-icons/fa"
+
 import { SiBeatport } from "react-icons/si"
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/Artnologia_",
+    href: "https://www.instagram.com/artnologia_",
     icon: <FaInstagram />
   },
   {
@@ -43,31 +53,145 @@ const socialLinks = [
 export default function Footer() {
   return (
     <Box
+      bg="black"
       borderTop="3px solid"
       borderColor="white"
       py={6}
-      bg="black"
-      display="flex"
-      justifyContent="center"
+      px={6}
     >
-      <HStack
-        spacing={3}
-        fontSize="2xl"
-        color="white"
-      >
-        {socialLinks.map(({ href, icon }) => (
-          <Link
-            key={href}
-            href={href}
-            isExternal
-            _hover={{
-              color: "gray.400"
-            }}
+
+      <VStack spacing={5}>
+
+        {/* CONTACT */}
+
+        <Box w="100%" maxW="1000px">
+
+          <Heading
+            fontSize="sm"
+            fontWeight="500"
+            letterSpacing="4px"
+            textAlign="center"
+            mb={4}
           >
-            {icon}
-          </Link>
-        ))}
-      </HStack>
+            CONTACT
+          </Heading>
+
+          <SimpleGrid
+            columns={{ base: 1, lg: 3 }}
+            spacing={{ base: 1, lg: 10 }}
+            textAlign="center"
+          >
+
+            <Box>
+
+              <Text
+                fontSize="xs"
+                color="gray.500"
+                textTransform="uppercase"
+                letterSpacing="2px"
+                mb={-1}
+              >
+                BOOKINGS
+              </Text>
+
+              <Link
+                href="mailto:aldo@conceptoneagency.com"
+                fontSize="sm"
+                transition="all .2s ease"
+                _hover={{
+                  color: "gray.400"
+                }}
+              >
+                aldo@conceptoneagency.com
+              </Link>
+
+            </Box>
+
+            <Box>
+
+              <Text
+                fontSize="xs"
+                color="gray.500"
+                textTransform="uppercase"
+                letterSpacing="2px"
+                mb={-1}
+              >
+                MANAGEMENT
+              </Text>
+
+              <Link
+                href="https://instagram.com/jassigonzalez"
+                isExternal
+                fontSize="sm"
+                transition="all .2s ease"
+                _hover={{
+                  color: "gray.400"
+                }}
+              >
+                jassigonzalez@conceptoneagency.com
+              </Link>
+
+            </Box>
+
+
+            <Box>
+
+              <Text
+                fontSize="xs"
+                color="gray.500"
+                textTransform="uppercase"
+                letterSpacing="2px"
+                mb={-1}
+              >
+                PROMO
+              </Text>
+
+              <Link
+                href="mailto:aldo@conceptoneagency.com"
+                fontSize="sm"
+                transition="all .2s ease"
+                _hover={{
+                  color: "gray.400"
+                }}
+              >
+                artnologia@cocoamusic.com
+              </Link>
+
+            </Box>
+
+          </SimpleGrid>
+
+        </Box>
+
+        {/* SOCIALS */}
+
+        <HStack
+          spacing={4}
+          fontSize="2xl"
+          color="white"
+          flexWrap="wrap"
+          justify="center"
+        >
+
+          {socialLinks.map(({ href, icon }) => (
+            <Link
+              key={href}
+              href={href}
+              isExternal
+              transition="all .2s ease"
+              _hover={{
+                color: "gray.400",
+                transform: "scale(1.15)"
+              }}
+            >
+              {icon}
+            </Link>
+          ))}
+
+        </HStack>
+
+      </VStack>
+
     </Box>
   )
 }
