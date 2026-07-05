@@ -4,6 +4,8 @@ import Footer from "./components/Footer"
 import Login from "./pages/Login"
 import NextDates from "./pages/NextDates"
 import OldDates from "./pages/OldDates"
+import MusicPage from "./pages/MusicPage"
+import ReleasePreviewPage from "./pages/ReleasePreviewPage"
 import { Box } from "@chakra-ui/react"
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/next-dates" element={<NextDates />} />
             <Route path="/old-dates" element={<OldDates />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/music" element={<MusicPage />} />
+            <Route path="/music/:id" element={<ReleasePreviewPage />} />
           </Routes>
         </Box>
 
