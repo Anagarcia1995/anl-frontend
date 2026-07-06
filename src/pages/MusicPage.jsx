@@ -216,17 +216,18 @@ mt={{ base: 24, lg: 10 }}
 
 {isAdmin && !showForm && (
   <Button
-    size="sm"
-    mb={6}
-    variant="outline"
-    borderColor="gray.400"
-    color="white"
-    borderRadius="0"
-    transition="all 0.2s ease"
-    _hover={{
-      bg: "white",
-      color: "black"
-    }}
+  w="100%"
+  h="32px"
+  mb={6}
+  variant="outline"
+  borderColor="gray.400"
+  color="white"
+  borderRadius="0"
+  transition="all .2s ease"
+  _hover={{
+    bg: "white",
+    color: "black",
+  }}
     onClick={() => setShowForm(true)}
   >
     <FiPlus size={23} />

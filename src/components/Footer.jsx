@@ -56,15 +56,15 @@ export default function Footer() {
       bg="black"
       borderTop="3px solid"
       borderColor="white"
-      py={6}
-      px={6}
+      py={{ base: 4, lg: 10 }}
+      px={8}
     >
 
       <VStack spacing={5}>
 
         {/* CONTACT */}
 
-        <Box w="100%" maxW="1000px">
+        <Box w="100%" maxW="1300px">
 
           <Heading
             fontSize="sm"
@@ -78,7 +78,7 @@ export default function Footer() {
 
           <SimpleGrid
             columns={{ base: 1, lg: 3 }}
-            spacing={{ base: 1, lg: 10 }}
+            spacing={{ base: 0, lg: 10 }}
             textAlign="center"
           >
 
@@ -166,7 +166,7 @@ export default function Footer() {
         {/* SOCIALS */}
 
         <HStack
-          spacing={4}
+          spacing={{ base: 4, lg: 6 }}
           fontSize="2xl"
           color="white"
           flexWrap="wrap"

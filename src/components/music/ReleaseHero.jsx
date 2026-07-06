@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Icon,
   Image,
@@ -9,13 +8,12 @@ import {
 import { useNavigate } from "react-router-dom"
 
 import { FaArrowLeft } from "react-icons/fa"
-import { SiBeatport } from "react-icons/si"
 
 import { API_URL } from "../../services/api"
 
 import ReleaseInfo from "./ReleaseInfo"
 import ReleaseEditForm from "./ReleaseEditForm"
-import ReleaseAdminActions from "./ReleaseAdminActions"
+import ReleaseActions from "./ReleaseActions"
 
 export default function ReleaseHero({
   release,
@@ -40,7 +38,7 @@ export default function ReleaseHero({
   editBeatport,
   setEditBeatport,
   setEditCoverImage,
-
+  //handleDeleteRelease,
   handleUpdateRelease,
 
   resetEditor,
@@ -123,58 +121,13 @@ export default function ReleaseHero({
 
       {/* ACTIONS */}
 
-      <Flex
-        w={{ base: "100%", lg: "20%" }}
-        minH={{ base: "auto", lg: "390px" }}
-        direction="column"
-        align={{ base: "stretch", lg: "flex-end" }}
-        justify={{ base: "flex-start", lg: "space-between" }}
-      >
-        <Icon
-          as={FaArrowLeft}
-          boxSize={6}
-          cursor="pointer"
-          alignSelf={{ base: "flex-start", lg: "flex-end" }}
-          display={{ base: "none", lg: "block" }}
-          onClick={() => navigate("/music")}
-          transition="all .2s ease"
-          _hover={{
-            color: "gray.500",
-            transform: "scale(1.25)",
-          }}
-        />
+<ReleaseActions
+  release={release}
+  isEditing={isEditing}
+  loadRelease={loadRelease}
+  setIsEditing={setIsEditing}
+/>
 
-        <ReleaseAdminActions
-          onEdit={() => {
-            loadRelease(release)
-            setIsEditing(true)
-          }}
-          onDelete={() => {}}
-        />
-
-        <Button
-          bg="black"
-          color="white"
-          borderRadius="0"
-          border="1px solid white"
-          letterSpacing="2px"
-          fontSize={{ base: "xs", lg: "sm" }}
-          rightIcon={<SiBeatport />}
-          w={{ base: "170px", lg: "auto" }}
-          px={{ base: 0, lg: 8 }}
-          h={{ base: "48px", lg: "45px" }}
-          alignSelf={{ base: "center", lg: "flex-end" }}
-          transition="all .2s ease"
-          _hover={{
-            bg: "white",
-            color: "black",
-            transform: "scale(1.08)",
-          }}
-        >
-          BUY ON
-        </Button>
       </Flex>
-
-    </Flex>
   )
 }

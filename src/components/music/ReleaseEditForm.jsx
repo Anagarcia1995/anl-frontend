@@ -3,8 +3,7 @@ import {
   Flex,
   Icon,
   Input,
-  SimpleGrid,
-  Text
+  SimpleGrid, 
 } from "@chakra-ui/react"
 
 import {
@@ -47,7 +46,8 @@ export default function ReleaseEditForm({
 
       <SimpleGrid
         columns={2}
-        spacing={10}
+        spacing={5}
+        templateColumns={{ base: "60% 32%", lg: "1fr 1fr" }}
       >
 
         {/* LEFT */}
@@ -208,7 +208,7 @@ export default function ReleaseEditForm({
 
       </SimpleGrid>
 
-      <Box mt={8}>
+      <Box mt={2}>
         <EventFormActions
           onSave={handleSave}
           onCancel={handleCancel}
