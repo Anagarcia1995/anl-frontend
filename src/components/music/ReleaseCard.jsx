@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
+import { API_URL } from "../../services/api"
 
 export default function ReleaseCard({ release }) {
 
@@ -17,25 +18,25 @@ export default function ReleaseCard({ release }) {
     <Box
       cursor="pointer"
       role="group"
-      onClick={() => navigate(`/music/${release.id}`)}
+      onClick={() => navigate(`/music/${release._id}`)}
     >
 
       {/* COVER */}
 
       <Box overflow="visible">
 
-        <Image
-          src={release.cover}
-          alt={release.title}
-          w="100%"
-          aspectRatio={1}
-          objectFit="cover"
-          boxShadow="2xl"
-          transition="transform .45s ease"
-          _groupHover={{
-            transform: "scale(1.08)"
-          }}
-        />
+<Image
+  src={`${API_URL}${release.coverImage}`}
+  alt={release.title}
+  w="100%"
+  aspectRatio={1}
+  objectFit="cover"
+  boxShadow="2xl"
+  transition="transform .45s ease"
+  _groupHover={{
+    transform: "scale(1.08)"
+  }}
+/>
 
       </Box>
 
@@ -79,6 +80,8 @@ export default function ReleaseCard({ release }) {
           </Text>
 
         </Box>
+
+        
 
         {/* Línea */}
 
@@ -133,11 +136,14 @@ export default function ReleaseCard({ release }) {
   ›
 </Text>
 
+
+
         </Flex>
 
       </Box>
 
     </Box>
+
 
   )
 

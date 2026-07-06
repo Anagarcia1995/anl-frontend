@@ -1,15 +1,89 @@
+import ReleaseForm from "../components/music/ReleaseForm"
 import ReleasesSection from "../components/music/ReleasesSection"
+import { useState } from "react"
+import useReleasesData from "../hooks/useReleasesData"
+import { createRelease } from "../services/releaseService"
+
 
 import {
   Box,
   Flex,
   Heading,
   Image,
-  Text, Divider
+  Text,
+  Divider,
+  Button,
 } from "@chakra-ui/react"
 
-export default function MusicPage() {
+import { FiPlus } from "react-icons/fi"
 
+import { useAuth } from "../context/AuthContext"
+
+import useNewReleaseForm from "../hooks/useNewReleaseForm"
+
+export default function MusicPage() {
+  const { isAdmin } = useAuth()
+
+  const [showForm, setShowForm] = useState(false)
+
+  const {
+    releases,
+    //loading,
+    loadReleases,
+  } = useReleasesData()
+
+  const {
+    title,
+    setTitle,
+    artist,
+    setArtist,
+    label,
+    setLabel,
+    releaseDate,
+    setReleaseDate,
+    spotify,
+    setSpotify,
+    appleMusic,
+    setAppleMusic,
+    soundcloud,
+    setSoundcloud,
+    youtube,
+    setYoutube,
+    beatport,
+    setBeatport,
+    coverImage,
+    setCoverImage,
+    resetNewReleaseForm,
+  } = useNewReleaseForm()
+
+  const handleSaveRelease = async () => {
+  try {
+    const formData = new FormData()
+
+    formData.append("title", title)
+    formData.append("artist", artist)
+    formData.append("label", label)
+    formData.append("releaseDate", releaseDate)
+    formData.append("spotify", spotify)
+    formData.append("appleMusic", appleMusic)
+    formData.append("soundcloud", soundcloud)
+    formData.append("youtube", youtube)
+    formData.append("beatport", beatport)
+
+    if (coverImage) {
+      formData.append("coverImage", coverImage)
+    }
+
+    await createRelease(formData)
+
+    await loadReleases()
+
+    resetNewReleaseForm()
+    setShowForm(false)
+  } catch (error) {
+    console.error(error)
+  }
+}
 
   return (
     <Box
@@ -140,7 +214,52 @@ mt={{ base: 24, lg: 10 }}
   }}
 />
 
-<ReleasesSection/>
+{isAdmin && !showForm && (
+  <Button
+    size="sm"
+    mb={6}
+    variant="outline"
+    borderColor="gray.400"
+    color="white"
+    borderRadius="0"
+    transition="all 0.2s ease"
+    _hover={{
+      bg: "white",
+      color: "black"
+    }}
+    onClick={() => setShowForm(true)}
+  >
+    <FiPlus size={23} />
+  </Button>
+)}
+
+{isAdmin && showForm && (
+  <ReleaseForm
+    title={title}
+    setTitle={setTitle}
+    artist={artist}
+    setArtist={setArtist}
+    label={label}
+    setLabel={setLabel}
+    releaseDate={releaseDate}
+    setReleaseDate={setReleaseDate}
+    spotify={spotify}
+    setSpotify={setSpotify}
+    appleMusic={appleMusic}
+    setAppleMusic={setAppleMusic}
+    soundcloud={soundcloud}
+    setSoundcloud={setSoundcloud}
+    youtube={youtube}
+    setYoutube={setYoutube}
+    beatport={beatport}
+    setBeatport={setBeatport}
+    setCoverImage={setCoverImage}
+    handleSaveRelease={handleSaveRelease}
+    onCancel={() => setShowForm(false)}
+  />
+)}
+
+<ReleasesSection releases={releases} />
 
     </Box>
   )
