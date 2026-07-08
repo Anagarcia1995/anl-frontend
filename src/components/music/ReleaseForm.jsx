@@ -18,8 +18,10 @@ import {
 import { SiBeatport } from "react-icons/si"
 import { useState } from "react"
 
+
 import FormInput from "../EventForm/FormInput"
 import EventFormActions from "../EventForm/EventFormActions"
+import DateInput from "../EventForm/DateInput"
 
 export default function ReleaseForm({
   title,
@@ -138,11 +140,10 @@ templateColumns={{
 
     <Flex mb={4}>
       <Box flex={1}>
-        <FormInput
-          type="date"
-          value={releaseDate}
-          onChange={(e) => setReleaseDate(e.target.value)}
-        />
+<DateInput
+    date={releaseDate}
+    setDate={setReleaseDate}
+/>
       </Box>
     </Flex>
 

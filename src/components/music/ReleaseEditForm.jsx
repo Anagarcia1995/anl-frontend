@@ -16,6 +16,7 @@ import {
 import { SiBeatport } from "react-icons/si"
 
 import FormInput from "../EventForm/FormInput"
+import DateInput from "../EventForm/DateInput"
 import EventFormActions from "../EventForm/EventFormActions"
 
 export default function ReleaseEditForm({
@@ -92,13 +93,10 @@ export default function ReleaseEditForm({
           <Flex  align="center"
             gap={3}
             mb={4}> 
-          <FormInput
-            type="date"
-            value={editReleaseDate}
-            onChange={(e) =>
-              setEditReleaseDate(e.target.value)
-            }
-          />
+<DateInput
+  date={editReleaseDate}
+  setDate={setEditReleaseDate}
+/>
             </Flex>
 
           <Input

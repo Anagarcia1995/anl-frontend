@@ -1,12 +1,12 @@
 import { useState } from "react"
 import useCitySearch from "./useCitySearch"
-import { getDefaultEventDate } from "../utils/date"
+import { getDefaultDate } from "../utils/date"
 
 export default function useNewEventForm() {
   const [eventName, setEventName] = useState("")
   const [venueName, setVenueName] = useState("")
   const [ticketUrl, setTicketUrl] = useState("")
-  const [date, setDate] = useState(getDefaultEventDate())
+  const [date, setDate] = useState(getDefaultDate())
 
   const {
     city,
@@ -24,7 +24,7 @@ export default function useNewEventForm() {
     setVenueName("")
     setTicketUrl("")
     resetCitySearch()
-    setDate(getDefaultEventDate())
+    setDate(getDefaultDate())
   }
 
   const hasNewEventChanges =

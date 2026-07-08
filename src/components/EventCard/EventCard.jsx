@@ -4,28 +4,12 @@ import { useEffect, useState } from "react"
 import EventEditForm from "../EventEditForm"
 import EventCardContent from "./EventCardContent"
 import { formatDateForApi } from "../../utils/date"
+import { formatDateForInput } from "../../utils/date"
 
 import {
   hasUnsavedChanges
 } from "../../utils/hasUnsavedChanges"
 
-const formatDateForInput = (dateString) => {
-  if (!dateString) return ""
-
-  const date = new Date(dateString)
-
-  const day = String(
-    date.getDate()
-  ).padStart(2, "0")
-
-  const month = String(
-    date.getMonth() + 1
-  ).padStart(2, "0")
-
-  const year = date.getFullYear()
-
-  return `${day}/${month}/${year}`
-}
 
 export default function EventCard({
   event,

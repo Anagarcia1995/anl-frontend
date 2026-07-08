@@ -1,10 +1,12 @@
 import { useState } from "react"
+import { getDefaultDate } from "../utils/date"
+
 
 export default function useNewReleaseForm() {
   const [title, setTitle] = useState("")
   const [artist, setArtist] = useState("")
   const [label, setLabel] = useState("")
-  const [releaseDate, setReleaseDate] = useState("")
+  const [releaseDate, setReleaseDate] = useState(getDefaultDate())
   const [spotify, setSpotify] = useState("")
   const [appleMusic, setAppleMusic] = useState("")
   const [soundcloud, setSoundcloud] = useState("")
@@ -12,11 +14,12 @@ export default function useNewReleaseForm() {
   const [beatport, setBeatport] = useState("")
   const [coverImage, setCoverImage] = useState(null)
 
+
   const resetNewReleaseForm = () => {
     setTitle("")
     setArtist("")
     setLabel("")
-    setReleaseDate("")
+    setReleaseDate(getDefaultDate())
     setSpotify("")
     setAppleMusic("")
     setSoundcloud("")

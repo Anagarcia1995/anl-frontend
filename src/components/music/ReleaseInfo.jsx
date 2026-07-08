@@ -14,6 +14,7 @@ import {
   FaYoutube,
 } from "react-icons/fa"
 
+import { formatDateForInput } from "../../utils/date"
 import { SiBeatport } from "react-icons/si"
 
 export default function ReleaseInfo({ release }) {
@@ -49,7 +50,7 @@ export default function ReleaseInfo({ release }) {
         </Text>
 
         <Text fontSize="md">
-          {release.releaseDate}
+          {formatDateForInput(release.releaseDate)}
         </Text>
       </Box>
 

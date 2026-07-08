@@ -6,6 +6,7 @@ import {
 
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { formatDateForApi } from "../utils/date"
 
 
 
@@ -75,7 +76,10 @@ const handleUpdateRelease = async () => {
     formData.append("title", editTitle)
     formData.append("artist", editArtist)
     formData.append("label", editLabel)
-    formData.append("releaseDate", editReleaseDate)
+formData.append(
+  "releaseDate",
+  formatDateForApi(editReleaseDate)
+)
     formData.append("spotify", editSpotify)
     formData.append("appleMusic", editAppleMusic)
     formData.append("soundcloud", editSoundcloud)

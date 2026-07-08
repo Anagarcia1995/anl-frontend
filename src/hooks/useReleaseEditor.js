@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { formatDateForInput } from "../utils/date"
 
 export default function useReleaseEditor() {
   const [editTitle, setEditTitle] = useState("")
@@ -16,9 +17,9 @@ export default function useReleaseEditor() {
     setEditTitle(release.title)
     setEditArtist(release.artist)
     setEditLabel(release.label)
-    setEditReleaseDate(
-      release.releaseDate.slice(0, 10)
-    )
+setEditReleaseDate(
+  formatDateForInput(release.releaseDate)
+)
     setEditSpotify(release.spotify || "")
     setEditAppleMusic(release.appleMusic || "")
     setEditSoundcloud(release.soundcloud || "")

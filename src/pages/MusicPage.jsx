@@ -3,6 +3,7 @@ import ReleasesSection from "../components/music/ReleasesSection"
 import { useState } from "react"
 import useReleasesData from "../hooks/useReleasesData"
 import { createRelease } from "../services/releaseService"
+import { formatDateForApi } from "../utils/date"
 
 
 import {
@@ -63,7 +64,10 @@ export default function MusicPage() {
     formData.append("title", title)
     formData.append("artist", artist)
     formData.append("label", label)
-    formData.append("releaseDate", releaseDate)
+formData.append(
+  "releaseDate",
+  formatDateForApi(releaseDate)
+)
     formData.append("spotify", spotify)
     formData.append("appleMusic", appleMusic)
     formData.append("soundcloud", soundcloud)
