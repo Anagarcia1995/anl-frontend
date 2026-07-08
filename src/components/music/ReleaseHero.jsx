@@ -18,7 +18,6 @@ import ReleaseActions from "./ReleaseActions"
 export default function ReleaseHero({
   release,
   isEditing,
-
   editTitle,
   setEditTitle,
   editArtist,
@@ -38,12 +37,11 @@ export default function ReleaseHero({
   editBeatport,
   setEditBeatport,
   setEditCoverImage,
-  //handleDeleteRelease,
   handleUpdateRelease,
-
   resetEditor,
   setIsEditing,
   loadRelease,
+  onDelete,
 }) {
   const navigate = useNavigate()
 
@@ -126,6 +124,7 @@ export default function ReleaseHero({
   isEditing={isEditing}
   loadRelease={loadRelease}
   setIsEditing={setIsEditing}
+  onDelete={onDelete}
 />
 
       </Flex>

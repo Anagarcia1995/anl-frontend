@@ -48,3 +48,12 @@ export const updateRelease = async (id, formData) => {
 
   return await response.json()
 }
+
+export const deleteRelease = async (id) => {
+  const response = await fetch(`${API_URL}/api/releases/${id}`, {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+  })
+
+  return await response.json()
+}

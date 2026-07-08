@@ -5,17 +5,16 @@ import {
 } from "@chakra-ui/react"
 
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { formatDateForApi } from "../utils/date"
-
-
-
 import { useState } from "react"
 
 import {
   fetchReleaseById,
   updateRelease,
+  deleteRelease
 } from "../services/releaseService"
+
 import ReleasesSection from "../components/music/ReleasesSection"
 import ReleaseHero from "../components/music/ReleaseHero"
 import useReleaseEditor from "../hooks/useReleaseEditor"
@@ -23,6 +22,7 @@ import useReleaseEditor from "../hooks/useReleaseEditor"
 export default function ReleasePreview() {
 
   const { id } = useParams()
+  const navigate = useNavigate()
 
 
 
@@ -106,6 +106,16 @@ setIsEditing(false)
   }
 }
 
+const handleDeleteRelease = async () => {
+  try {
+    await deleteRelease(id)
+
+    navigate("/music")
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 if (!release) {
   return (
     <Box p={10}>
@@ -151,6 +161,7 @@ if (!release) {
   resetEditor={resetEditor}
   setIsEditing={setIsEditing}
   loadRelease={loadRelease}
+  onDelete={handleDeleteRelease}
 />
 
       {/* ---------- DIVIDER ---------- */}
