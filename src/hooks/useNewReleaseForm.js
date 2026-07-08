@@ -32,7 +32,7 @@ export default function useNewReleaseForm() {
     title ||
     artist ||
     label ||
-    releaseDate ||
+    releaseDate !== getDefaultDate() ||
     spotify ||
     appleMusic ||
     soundcloud ||

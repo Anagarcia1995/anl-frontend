@@ -6,15 +6,16 @@ import {
 } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
-
 import { FaArrowLeft } from "react-icons/fa"
-
 import { API_URL } from "../../services/api"
+import { useState } from "react"
 
+import UnsavedChangesModal from "../UnsavedChangesModal"
 import ReleaseInfo from "./ReleaseInfo"
 import ReleaseEditForm from "./ReleaseEditForm"
 import ReleaseActions from "./ReleaseActions"
-
+import { formatDateForInput } from "../../utils/date"
+import { hasUnsavedChanges } from "../../utils/hasUnsavedChanges"
 export default function ReleaseHero({
   release,
   isEditing,
@@ -44,6 +45,38 @@ export default function ReleaseHero({
   onDelete,
 }) {
   const navigate = useNavigate()
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false)
+
+  const initialData = {
+  title: release.title || "",
+  artist: release.artist || "",
+  label: release.label || "",
+  releaseDate: release.releaseDate
+    ? formatDateForInput(release.releaseDate)
+    : "",
+  spotify: release.spotify || "",
+  appleMusic: release.appleMusic || "",
+  soundcloud: release.soundcloud || "",
+  youtube: release.youtube || "",
+  beatport: release.beatport || "",
+}
+
+const currentData = {
+  title: editTitle,
+  artist: editArtist,
+  label: editLabel,
+  releaseDate: editReleaseDate,
+  spotify: editSpotify,
+  appleMusic: editAppleMusic,
+  soundcloud: editSoundcloud,
+  youtube: editYoutube,
+  beatport: editBeatport,
+}
+
+const hasChanges = hasUnsavedChanges(
+  initialData,
+  currentData
+)
 
   return (
     <Flex
@@ -107,10 +140,15 @@ export default function ReleaseHero({
             setEditBeatport={setEditBeatport}
             setEditCoverImage={setEditCoverImage}
             handleSave={handleUpdateRelease}
-            handleCancel={() => {
-              resetEditor()
-              setIsEditing(false)
-            }}
+handleCancel={() => {
+  if (hasChanges) {
+    setShowUnsavedModal(true)
+    return
+  }
+
+  resetEditor()
+  setIsEditing(false)
+}}
           />
         ) : (
           <ReleaseInfo release={release} />
@@ -126,6 +164,20 @@ export default function ReleaseHero({
   setIsEditing={setIsEditing}
   onDelete={onDelete}
 />
+
+{showUnsavedModal && (
+  <UnsavedChangesModal
+    title="Discard changes?"
+    onCancel={() =>
+      setShowUnsavedModal(false)
+    }
+    onConfirm={() => {
+      setShowUnsavedModal(false)
+      resetEditor()
+      setIsEditing(false)
+    }}
+  />
+)}
 
       </Flex>
   )
