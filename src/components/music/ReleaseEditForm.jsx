@@ -61,9 +61,14 @@ export default function ReleaseEditForm({
           <FormInput
             placeholder="Title"
             value={editTitle}
-            onChange={(e) =>
-              setEditTitle(e.target.value)
-            }
+onChange={(e) =>
+  setEditTitle(
+    e.target.value.replace(
+      /\b\w/g,
+      (char) => char.toUpperCase()
+    )
+  )
+}
           />
             </Flex>
           <Flex  align="center"
@@ -72,9 +77,11 @@ export default function ReleaseEditForm({
           <FormInput
             placeholder="Artist"
             value={editArtist}
-            onChange={(e) =>
-              setEditArtist(e.target.value)
-            }
+onChange={(e) =>
+  setEditArtist(
+    e.target.value.toUpperCase()
+  )
+}
           />
           </Flex>
 

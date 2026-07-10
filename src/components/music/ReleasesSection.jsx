@@ -30,13 +30,19 @@ export default function ReleasesSection({
     ? releases.filter((release) => release._id !== excludeId)
     : releases
 
+const sortedReleases = [...filteredReleases].sort(
+  (a, b) =>
+    new Date(b.releaseDate) -
+    new Date(a.releaseDate)
+)
+
   return (
     <Box>
       <SimpleGrid
         columns={{ base: 2, lg: 4 }}
         spacing={{ base: 4, lg: 10 }}
       >
-        {filteredReleases.map((release) => (
+        {sortedReleases.map((release) => (
           <ReleaseCard
             key={release._id}
             release={release}

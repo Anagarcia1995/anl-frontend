@@ -16,7 +16,7 @@ import {
 } from "react-icons/fa"
 
 import { SiBeatport } from "react-icons/si"
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 
 import FormInput from "../EventForm/FormInput"
@@ -48,6 +48,7 @@ export default function ReleaseForm({
 }) 
 {
   const [coverPreview, setCoverPreview] = useState(null)
+  const fileInputRef = useRef(null)
 
   return (
 <Box
@@ -80,6 +81,17 @@ templateColumns={{
     alignItems="center"
     justifyContent="center"
     overflow="hidden"
+
+  cursor="pointer"
+  transition="all .2s ease"
+  _hover={{
+    opacity: 0.8,
+  }}
+    
+onClick={() => {
+  fileInputRef.current?.click()
+}}
+
   >
     {coverPreview ? (
       <Image
@@ -95,6 +107,7 @@ templateColumns={{
         letterSpacing="2px"
         textTransform="uppercase"
         fontSize="sm"
+        
       >
         COVER PREVIEW
       </Text>
@@ -113,7 +126,14 @@ templateColumns={{
         <FormInput
           placeholder="Title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+onChange={(e) =>
+  setTitle(
+    e.target.value.replace(
+      /\b\w/g,
+      (char) => char.toUpperCase()
+    )
+  )
+}
         />
       </Box>
     </Flex>
@@ -123,7 +143,11 @@ templateColumns={{
         <FormInput
           placeholder="Artist"
           value={artist}
-          onChange={(e) => setArtist(e.target.value)}
+onChange={(e) =>
+  setArtist(
+    e.target.value.toUpperCase()
+  )
+}
         />
       </Box>
     </Flex>
@@ -148,6 +172,7 @@ templateColumns={{
     </Flex>
 
     <Input
+      ref={fileInputRef}
       type="file"
       accept="image/*"
       borderRadius="0"
