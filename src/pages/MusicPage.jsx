@@ -4,7 +4,19 @@ import { useState } from "react"
 import useReleasesData from "../hooks/useReleasesData"
 import { createRelease } from "../services/releaseService"
 import { formatDateForApi } from "../utils/date"
+import { validateRequiredFields } from "../utils/validateRequiredFields"
+import { FiPlus } from "react-icons/fi"
+import { useAuth } from "../context/AuthContext"
+import { useToast } from "@chakra-ui/react"
+import { showToast } from "../utils/showToast"
+import useNewReleaseForm from "../hooks/useNewReleaseForm"
+import UnsavedChangesModal from "../components/UnsavedChangesModal"
 
+import {
+  getActionMessage,
+  getRequiredFieldsMessage,
+  getRequiredMessage
+} from "../utils/messages"
 
 import {
   Box,
@@ -16,16 +28,12 @@ import {
   Button,
 } from "@chakra-ui/react"
 
-import { FiPlus } from "react-icons/fi"
-
-import { useAuth } from "../context/AuthContext"
-
-import useNewReleaseForm from "../hooks/useNewReleaseForm"
-
 export default function MusicPage() {
-  const { isAdmin } = useAuth()
 
+  const { isAdmin } = useAuth()
+  const toast = useToast()
   const [showForm, setShowForm] = useState(false)
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false)
 
   const {
     releases,
@@ -55,10 +63,52 @@ export default function MusicPage() {
     coverImage,
     setCoverImage,
     resetNewReleaseForm,
+    hasNewReleaseChanges,
   } = useNewReleaseForm()
 
   const handleSaveRelease = async () => {
   try {
+
+    
+const missingFields = validateRequiredFields([
+  {
+    label: "Title",
+    value: title,
+  },
+  {
+    label: "Artist",
+    value: artist,
+  },
+  {
+    label: "Label",
+    value: label,
+  },
+  {
+    label: "Beatport link",
+    value: beatport,
+  },
+  {
+    label: "Cover image",
+    value: coverImage,
+  },
+])
+
+if (missingFields.length > 1) {
+  showToast(
+    toast,
+    getRequiredFieldsMessage()
+  )
+  return
+}
+
+if (missingFields.length === 1) {
+  showToast(
+    toast,
+    getRequiredMessage(missingFields[0])
+  )
+  return
+}
+
     const formData = new FormData()
 
     formData.append("title", title)
@@ -78,12 +128,20 @@ formData.append(
       formData.append("coverImage", coverImage)
     }
 
-    await createRelease(formData)
+await createRelease(formData)
 
-    await loadReleases()
+await loadReleases()
 
-    resetNewReleaseForm()
-    setShowForm(false)
+showToast(
+  toast,
+  getActionMessage(
+    "Release",
+    "created"
+  )
+)
+
+resetNewReleaseForm()
+setShowForm(false)
   } catch (error) {
     console.error(error)
   }
@@ -260,7 +318,28 @@ mt={{ base: 24, lg: 10 }}
     setBeatport={setBeatport}
     setCoverImage={setCoverImage}
     handleSaveRelease={handleSaveRelease}
-    onCancel={() => setShowForm(false)}
+onCancel={() => {
+  if (hasNewReleaseChanges) {
+    setShowUnsavedModal(true)
+    return
+  }
+
+  resetNewReleaseForm()
+  setShowForm(false)
+}}
+  />
+)}
+
+{showUnsavedModal && (
+  <UnsavedChangesModal
+    title="Unsaved changes"
+    description="You have unsaved changes. Do you want to discard them?"
+    onCancel={() => setShowUnsavedModal(false)}
+    onConfirm={() => {
+      setShowUnsavedModal(false)
+      resetNewReleaseForm()
+      setShowForm(false)
+    }}
   />
 )}
 

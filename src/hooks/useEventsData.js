@@ -9,6 +9,7 @@ import {
 
 import { getUpcomingEvents } from "../utils/events"
 import { formatDateForApi } from "../utils/date"
+import { getActionMessage } from "../utils/messages"
 
 export default function useEventsData({
   toast,
@@ -68,7 +69,13 @@ export default function useEventsData({
       resetNewEventForm()
       onEventCreated()
 
-      showToast(toast, "Event created")
+      showToast(
+        toast,
+        getActionMessage(
+          "Event",
+          "created"
+        )
+      )
     } catch (error) {
       console.error(error)
     }
@@ -82,7 +89,13 @@ export default function useEventsData({
         prev.filter((event) => event._id !== id)
       )
 
-      showToast(toast, "Event deleted")
+      showToast(
+        toast,
+        getActionMessage(
+          "Event",
+          "deleted"
+        )
+      )
     } catch (error) {
       console.error("Error deleting event", error)
     }
@@ -100,7 +113,13 @@ export default function useEventsData({
         )
       )
 
-      showToast(toast, "Event updated")
+      showToast(
+        toast,
+        getActionMessage(
+          "Event",
+          "updated"
+        )
+      )
     } catch (error) {
       console.error("Error updating event", error)
     }

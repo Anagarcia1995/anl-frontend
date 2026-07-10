@@ -3,11 +3,14 @@ import {
   Divider,
   Heading,
 } from "@chakra-ui/react"
+import { useToast } from "@chakra-ui/react"
 
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { formatDateForApi } from "../utils/date"
 import { useState } from "react"
+import { showToast } from "../utils/showToast"
+import { getActionMessage } from "../utils/messages"
 
 import {
   fetchReleaseById,
@@ -23,6 +26,7 @@ export default function ReleasePreview() {
 
   const { id } = useParams()
   const navigate = useNavigate()
+  const toast = useToast()
 
 
 
@@ -100,7 +104,14 @@ loadRelease(updated)
 
 setIsEditing(false)
 
-    setIsEditing(false)
+showToast(
+  toast,
+  getActionMessage(
+    "Release",
+    "updated"
+  )
+)
+
   } catch (error) {
     console.error(error)
   }
@@ -108,9 +119,17 @@ setIsEditing(false)
 
 const handleDeleteRelease = async () => {
   try {
-    await deleteRelease(id)
+await deleteRelease(id)
 
-    navigate("/music")
+showToast(
+  toast,
+  getActionMessage(
+    "Release",
+    "deleted"
+  )
+)
+
+navigate("/music")
   } catch (error) {
     console.error(error)
   }
