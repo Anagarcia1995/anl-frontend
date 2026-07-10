@@ -129,7 +129,9 @@ showToast(
   )
 )
 
-navigate("/music")
+setTimeout(() => {
+  navigate("/music")
+}, 1300)
   } catch (error) {
     console.error(error)
   }
