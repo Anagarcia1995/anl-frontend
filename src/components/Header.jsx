@@ -89,7 +89,7 @@ export default function Header() {
     display={{ base: "none", lg: "flex" }}
     align="center"
     gap={10}
-    mb={-1}
+    mb={-16}
     mr="15px"
   >
     <NavItem to="/">Home</NavItem>

@@ -1,15 +1,11 @@
 import {
+  Box,
   IconButton,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerBody,
-  DrawerCloseButton,
   VStack,
-  useDisclosure,
 } from "@chakra-ui/react"
 
 import { FiMenu } from "react-icons/fi"
+import { useDisclosure } from "@chakra-ui/react"
 
 import NavItem from "./NavItem"
 
@@ -25,53 +21,94 @@ export default function MobileMenu() {
         color="white"
         fontSize="28px"
         aria-label="Open menu"
-        onClick={onOpen}
+        onClick={isOpen ? onClose : onOpen}
         _hover={{
           bg: "transparent",
         }}
+        _active={{
+          bg: "transparent",
+        }}
+        _focus={{
+          boxShadow: "none",
+        }}
+        _focusVisible={{
+          boxShadow: "none",
+        }}
       />
 
-      
-
-      <Drawer
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
+      <Box
+        display={{ base: "block", lg: "none" }}
+        position="fixed"
+        top="75px"
+        left={isOpen ? "0" : "-180px"}
+        w="130px"
+        bg="black"
+        borderRight="2px solid"
+        borderBottom="3px solid"
+        borderColor="white"
+        transition="left .25s ease"
+        zIndex="20"
       >
-
- 
-
-        <DrawerOverlay />
-
-        
-
-        <DrawerContent bg="black" color="white" maxW="110px">
-          <DrawerCloseButton />
-
-          
-
-          <DrawerBody pt={20} px={4}>
-            <VStack
-              align="flex-start"
-              spacing={8}
+        <VStack
+          align="stretch"
+          spacing={0}
+          py={0}
+        >
+          <Box
+            py={4}
+            px={6}
+            borderBottom="2px solid"
+            borderColor="white"
+          >
+            <NavItem
+              to="/"
+              onClick={onClose}
             >
-              <NavItem to="/">Home</NavItem>
+              Home
+            </NavItem>
+          </Box>
 
-              <NavItem to="/music">
-                Music
-              </NavItem>
+          <Box
+            py={4}
+            px={6}
+            borderBottom="2px solid"
+            borderColor="white"
+          >
+            <NavItem
+              to="/music"
+              onClick={onClose}
+            >
+              Music
+            </NavItem>
+          </Box>
 
-              <NavItem to="/video">
-                Videos
-              </NavItem>
+          <Box
+            py={4}
+            px={6}
+            borderBottom="2px solid"
+            borderColor="white"
+          >
+            <NavItem
+              to="/video"
+              onClick={onClose}
+            >
+              Videos
+            </NavItem>
+          </Box>
 
-              <NavItem to="/next-dates">
-                Tour
-              </NavItem>
-            </VStack>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+          <Box
+            py={4}
+            px={6}
+          >
+            <NavItem
+              to="/next-dates"
+              onClick={onClose}
+            >
+              Tour
+            </NavItem>
+          </Box>
+        </VStack>
+      </Box>
     </>
   )
 }
