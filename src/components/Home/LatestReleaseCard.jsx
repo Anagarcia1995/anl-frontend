@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   Heading,
   Image,
   Text,
@@ -14,46 +15,92 @@ export default function LatestReleaseCard({
   const navigate = useNavigate()
 
   return (
-    <Box
+    <Flex
+      direction={{
+        base: "row",
+        lg: "column",
+      }}
+      align={{
+        base: "center",
+        lg: "stretch",
+      }}
+      gap={{
+        base: 5,
+        lg: 0,
+      }}
       cursor="pointer"
       onClick={() =>
         navigate(`/music/${release._id}`)
       }
     >
-      <Image
-        src={`${API_URL}${release.coverImage}`}
-        alt={release.title}
-        w="100%"
-        aspectRatio={1}
-        objectFit="cover"
-        filter="drop-shadow(0 0 18px rgba(255,255,255,.12))"
-      />
+      {/* COVER */}
 
-<Box mt={5}>
-  <Heading
-    fontSize="2xl"
-    fontWeight="600"
-    lineHeight="1.2"
-    whiteSpace="nowrap"
-    overflow="hidden"
-    textOverflow="ellipsis"
-  >
-    {release.title}
-  </Heading>
+      <Box
+        w={{
+          base: "40%",
+          lg: "100%",
+        }}
+        flexShrink={0}
+        overflow="hidden"
+      >
+        <Image
+          src={`${API_URL}${release.coverImage}`}
+          alt={release.title}
+          w="100%"
+          aspectRatio={1}
+          objectFit="cover"
+          filter="drop-shadow(0 0 18px rgba(255,255,255,.12))"
+          transition="all .5s ease"
+          _hover={{
+            transform: "scale(1.10)",
+          }}
+        />
+      </Box>
 
-  <Text
-    mt={1}
-    fontSize="lg"
-    color="gray.400"
-    textTransform="uppercase"
-    letterSpacing="2px"
-    whiteSpace="nowrap"
-    overflow="hidden"
-    textOverflow="ellipsis"
-  >
-    {release.artist}
-  </Text>
-</Box>
-    </Box>
+      {/* INFO */}
+
+      <Box
+        flex="1"
+        minW={0}
+        mt={{
+          base: 0,
+          lg: 5,
+        }}
+      >
+        <Heading
+              fontSize={{
+                base: "2xl",
+                lg: "2xl",
+              }}
+
+          fontWeight="600"
+          lineHeight="1.2"
+          whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
+        >
+          {release.title}
+        </Heading>
+
+        <Text
+          mt={1}
+              fontSize={{
+                base: "lg",
+                lg: "2xl",
+              }}
+          color="gray.400"
+          textTransform="uppercase"
+              letterSpacing={{
+                base: "0.95px",
+                lg: "2px",
+              }}
+          whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
+        >
+          {release.artist}
+        </Text>
+      </Box>
+    </Flex>
   )
 }

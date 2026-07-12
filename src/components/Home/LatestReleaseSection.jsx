@@ -24,28 +24,48 @@ export default function LatestReleaseSection() {
   const otherReleases = releases.slice(1)
 
   return (
-    <Box py={12}>
+    <Box py={{ base: 5, lg: 12 }}>
       <Box
         maxW="1450px"
         mx="auto"
-        px={8}
+        px={{ base: 0, lg: 8 }}
       >
         <Flex
+          direction={{
+            base: "column",
+            lg: "row",
+          }}
           align="stretch"
-          gap={8}
+          gap={{
+            base: 4,
+            lg: 8,
+          }}
         >
           {/* ---------- LATEST ---------- */}
 
           <Box
-            w="340px"
+            w={{
+              base: "100%",
+              lg: "340px",
+            }}
             border="1px solid"
             borderColor="whiteAlpha.400"
-            p={7}
+            p={{
+              base: 2,
+              lg: 7,
+            }}
+            flexShrink={0}
           >
             <Heading
-              mb={8}
-              fontSize="lg"
-              letterSpacing="3px"
+              mb={{
+                base: 4,
+                lg: 8,
+              }}
+  fontSize={{
+    base: "md",
+    lg: "lg",
+  }}
+                letterSpacing="3px"
             >
               LATEST RELEASE
             </Heading>
@@ -58,29 +78,40 @@ export default function LatestReleaseSection() {
           {/* ---------- CAROUSEL ---------- */}
 
           <Flex
-            flex="1"
+            w="100%"
+            minW={0}
+            flex={{
+              base: "none",
+              lg: "1",
+            }}
             direction="column"
             justify="space-between"
             border="1px solid"
             borderColor="whiteAlpha.400"
-            p={7}
-
+            p={{
+              base: 2,
+              lg: 7,
+            }}
           >
-
-
             <ReleaseCarousel
               releases={otherReleases}
             />
 
             <Text
-              mt={8}
+mt={{
+  base: 4,
+  lg: 8,
+}}
               alignSelf="flex-end"
               cursor="pointer"
               letterSpacing="4px"
-              transition="all .2s ease"
+              fontSize={{
+                base: "xs",
+                lg: "md",
+              }}
+              transition="all .5s ease"
               _hover={{
-                color: "gray.400",
-                transform: "translateX(4px)",
+                transform: "scale(1.12)",
               }}
               onClick={() => navigate("/music")}
             >

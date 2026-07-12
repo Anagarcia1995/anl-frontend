@@ -56,13 +56,13 @@ export default function ReleaseCarousel({
   }, [emblaApi])
 
   return (
-    <Box mt="70px">
+    <Box mt={{ base: 6, lg: "70px" }}>
 
       {/* CAROUSEL + ARROWS */}
 
       <Box
         position="relative"
-        px={12}
+        px={{ base: 6, lg: 12 }}
       >
         {/* LEFT */}
 
@@ -75,11 +75,11 @@ export default function ReleaseCarousel({
           cursor="pointer"
           boxSize={5}
           zIndex={2}
-          transition="all .2s ease"
+          transition="all .3s ease"
           _hover={{
             color: "gray.400",
             transform:
-              "translateY(-50%) scale(1.15)",
+              "translateY(-50%) scale(1.25)",
           }}
           onClick={() =>
             emblaApi?.scrollPrev()
@@ -98,8 +98,11 @@ export default function ReleaseCarousel({
             {releases.map((release) => (
               <Box
                 key={release._id}
-                flex="0 0 25%"
-                px={2}
+flex={{
+  base: "0 0 33%",
+  lg: "0 0 25%",
+}}
+                px={{ base: 1, lg: 2 }}
                 cursor="pointer"
                 onClick={() =>
                   navigate(
@@ -113,17 +116,17 @@ export default function ReleaseCarousel({
                   w="100%"
                   aspectRatio={1}
                   objectFit="cover"
-                  transition="all .3s ease"
+                  transition="all .5s ease"
                   _hover={{
                     transform:
-                      "scale(1.04)",
+                      "scale(1.14)",
                   }}
                 />
 
                 <Text
-                  mt={3}
-                  ml="5px"
-                  fontSize="sm"
+  mt={{ base: 2, lg: 3 }}
+  ml={{ base: 1, lg: "5px" }}
+  fontSize={{ base: "xs", lg: "sm" }}
                   color="white"
                   letterSpacing="1px"
                   noOfLines={1}
@@ -146,11 +149,11 @@ export default function ReleaseCarousel({
           cursor="pointer"
           boxSize={5}
           zIndex={2}
-          transition="all .2s ease"
+          transition="all .3s ease"
           _hover={{
             color: "gray.400",
             transform:
-              "translateY(-50%) scale(1.15)",
+              "translateY(-50%) scale(1.25)",
           }}
           onClick={() =>
             emblaApi?.scrollNext()
@@ -161,7 +164,7 @@ export default function ReleaseCarousel({
       {/* INDICATORS */}
 
       <Box
-        mt={12}
+mt={{ base: 7, lg: 12 }}
         display="flex"
         justifyContent="center"
         gap={2}
