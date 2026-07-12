@@ -37,7 +37,7 @@ export default function LatestReleaseCard({
 
       <Box
         w={{
-          base: "40%",
+          base: "35%",
           lg: "100%",
         }}
         flexShrink={0}
@@ -69,7 +69,7 @@ export default function LatestReleaseCard({
       >
         <Heading
               fontSize={{
-                base: "2xl",
+                base: "20px",
                 lg: "2xl",
               }}
 
@@ -83,9 +83,9 @@ export default function LatestReleaseCard({
         </Heading>
 
         <Text
-          mt={1}
+          mt={0}
               fontSize={{
-                base: "lg",
+                base: "md",
                 lg: "2xl",
               }}
           color="gray.400"

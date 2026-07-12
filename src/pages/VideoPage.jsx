@@ -23,12 +23,18 @@ const videos = [
 
 export default function VideosSection() {
   return (
-    <Box
-      maxW="1450px"
-      mx="auto"
-      px={{ base: 4, lg: 40 }}
-      py={{ base: 8, lg: 14 }}
-    >
+<Box
+  maxW={{
+    base: "100%",
+    md: "900px",
+  }}
+  mx={{ md: "auto" }}
+  px={{ md: 6 }}
+  py={{
+    base: 4,
+    md: 20,
+  }}
+>
       <Heading
         mb={{ base: 6, lg: 10 }}
         fontSize={{ base: "md", lg: "lg" }}
@@ -39,7 +45,7 @@ export default function VideosSection() {
 
       <Flex
         direction={{ base: "column", lg: "row" }}
-        gap={{ base: 6, lg: 20 }}
+        gap={{ base: 6, lg: 8 }}
       >
         {videos.map((video) => (
           <Box

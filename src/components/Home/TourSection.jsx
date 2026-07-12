@@ -65,7 +65,7 @@ export default function TourSection() {
     <Box
       w="calc(100% + 32px)"
       ml="-16px"
-      py={{ base: 4, lg: 12 }}
+      py={{ base: 4, lg: 8 }}
     >
       <Box
         position="relative"

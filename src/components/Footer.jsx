@@ -56,7 +56,7 @@ export default function Footer() {
       bg="black"
       borderTop="3px solid"
       borderColor="white"
-      py={{ base: 4, lg: 10 }}
+      py={{ base: 4, lg: 6 }}
       px={8}
     >
 
@@ -72,13 +72,14 @@ export default function Footer() {
             letterSpacing="4px"
             textAlign="center"
             mb={4}
+            display={{ base: "none", lg: "block" }}
           >
             CONTACT
           </Heading>
 
           <SimpleGrid
             columns={{ base: 1, lg: 3 }}
-            spacing={{ base: 0, lg: 10 }}
+            spacing={{ base: 2, lg: 10 }}
             textAlign="center"
           >
 
@@ -191,6 +192,17 @@ export default function Footer() {
         </HStack>
 
       </VStack>
+
+      <Text
+  mt={{ base: 2, lg: 5 }}
+  fontSize="9px"
+  color="gray.500"
+  letterSpacing="1.5px"
+  textAlign="center"
+  textTransform="uppercase"
+>
+  © {new Date().getFullYear()} ART NO LOGIA. ALL RIGHTS RESERVED.
+</Text>
 
     </Box>
   )

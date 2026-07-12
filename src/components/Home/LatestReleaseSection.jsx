@@ -24,7 +24,7 @@ export default function LatestReleaseSection() {
   const otherReleases = releases.slice(1)
 
   return (
-    <Box py={{ base: 5, lg: 28 }}>
+    <Box py={{ base: 0, lg: 28 }}>
       <Box
         maxW="1450px"
         mx="auto"
@@ -58,7 +58,7 @@ export default function LatestReleaseSection() {
           >
             <Heading
               mb={{
-                base: 4,
+                base: 2,
                 lg: 8,
               }}
   fontSize={{

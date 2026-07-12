@@ -10,9 +10,9 @@ export default function HeroSection() {
 <Flex
   direction={{ base: "row", lg: "row" }}
   w="100%"
-  maxW="1300px"
+  maxW="1450px"
   mx="auto"
-  px={{ base: 2, lg: 10 }}
+  px={{ base: 2, lg: 8 }}
   pt={{ base: 2, lg: 4 }}
   pb={{ base: 0, lg: 4 }}
   align="stretch"

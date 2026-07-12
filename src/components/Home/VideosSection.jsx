@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   Image,
   Text,
 } from "@chakra-ui/react"
@@ -24,16 +23,9 @@ export default function VideosSection() {
     <Box
       maxW="1450px"
       mx="auto"
-      px={{ base: 4, lg: 40 }}
-      py={{ base: 6, lg: 10 }}
+      px={{ base: 4, lg: 30 }}
+      py={{ base: 6, lg: 24 }}
     >
-      <Heading
-        mb={{ base: 5, lg: 10 }}
-        fontSize={{ base: "md", lg: "lg" }}
-        letterSpacing="3px"
-      >
-        DJ SETS
-      </Heading>
 
       <Flex
         direction={{ base: "column", lg: "row" }}
