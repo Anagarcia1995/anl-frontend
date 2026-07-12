@@ -7,6 +7,7 @@ import NextDates from "./pages/NextDates"
 import OldDates from "./pages/OldDates"
 import MusicPage from "./pages/MusicPage"
 import ReleasePreviewPage from "./pages/ReleasePreviewPage"
+import VideoPage from "./pages/VideoPage"
 import { Box } from "@chakra-ui/react"
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/music" element={<MusicPage />} />
             <Route path="/music/:id" element={<ReleasePreviewPage />} />
+            <Route path="/video" element={<VideoPage />} />
           </Routes>
         </Box>
 

@@ -1,6 +1,8 @@
 import { Box } from "@chakra-ui/react"
 
 import LatestReleaseSection from "../components/Home/LatestReleaseSection"
+import  VideosSection from "../components/Home/VideosSection"
+
 
 export default function HomePage() {
   return (
@@ -11,7 +13,7 @@ export default function HomePage() {
 
       {/* NextShowSection */}
 
-      {/* VideosSection */}
+      <VideosSection />
 
       {/* BioSection */}
     </Box>
