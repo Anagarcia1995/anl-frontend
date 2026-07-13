@@ -1,13 +1,15 @@
 import FormInput from "./FormInput"
+import { getDefaultDate } from "../../utils/date"
 
-const editablePositions = [0, 1, 3, 4]
+const editablePositions = [0, 1, 3, 4, 8, 9]
+const defaultDate = getDefaultDate()
 
 export default function DateInput({
   date,
   setDate
 }) {
   const handleDateMouseDown = (e) => {
-    if (date === "DD/MM/2026") {
+    if (date === defaultDate) {
       e.preventDefault()
 
       requestAnimationFrame(() => {
