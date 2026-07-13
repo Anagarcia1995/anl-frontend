@@ -17,7 +17,16 @@ import {
 import { formatDateForPreview } from "../../utils/date"
 import { SiBeatport } from "react-icons/si"
 
+
 export default function ReleaseInfo({ release }) {
+
+  const hasPlatforms =
+  release.spotify ||
+  release.appleMusic ||
+  release.soundcloud ||
+  release.youtube ||
+  release.beatport
+  
   return (
     <>
       <Heading
@@ -69,30 +78,42 @@ export default function ReleaseInfo({ release }) {
         </Text>
       </Box>
 
-      <HStack
-        spacing={4}
-        fontSize="2xl"
-      >
-        <Link href={release.spotify} isExternal>
-          <Icon as={FaSpotify} />
-        </Link>
+{hasPlatforms && (
+  <HStack
+    spacing={4}
+    fontSize="2xl"
+  >
+    {release.spotify && (
+      <Link href={release.spotify} isExternal>
+        <Icon as={FaSpotify} />
+      </Link>
+    )}
 
-        <Link href={release.appleMusic} isExternal>
-          <Icon as={FaApple} />
-        </Link>
+    {release.appleMusic && (
+      <Link href={release.appleMusic} isExternal>
+        <Icon as={FaApple} />
+      </Link>
+    )}
 
-        <Link href={release.soundcloud} isExternal>
-          <Icon as={FaSoundcloud} />
-        </Link>
+    {release.soundcloud && (
+      <Link href={release.soundcloud} isExternal>
+        <Icon as={FaSoundcloud} />
+      </Link>
+    )}
 
-        <Link href={release.youtube} isExternal>
-          <Icon as={FaYoutube} />
-        </Link>
+    {release.youtube && (
+      <Link href={release.youtube} isExternal>
+        <Icon as={FaYoutube} />
+      </Link>
+    )}
 
-        <Link href={release.beatport} isExternal>
-          <Icon as={SiBeatport} />
-        </Link>
-      </HStack>
+    {release.beatport && (
+      <Link href={release.beatport} isExternal>
+        <Icon as={SiBeatport} />
+      </Link>
+    )}
+  </HStack>
+)}
     </>
   )
 }

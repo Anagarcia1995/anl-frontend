@@ -34,20 +34,6 @@ const [release, setRelease] = useState(null)
 
 const [isEditing, setIsEditing] = useState(false)
 
-useEffect(() => {
-  const loadCurrentRelease = async () => {
-    const data = await fetchReleaseById(id)
-    setRelease(data)
-  }
-
-  loadCurrentRelease()
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  })
-}, [id])
-
 const {
   editTitle,
   setEditTitle,
@@ -72,6 +58,24 @@ const {
   loadRelease,
   resetEditor,
 } = useReleaseEditor()
+
+useEffect(() => {
+  const loadCurrentRelease = async () => {
+    const data = await fetchReleaseById(id)
+    setRelease(data)
+
+loadRelease(data)
+setIsEditing(false)
+
+  }
+
+  loadCurrentRelease()
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  })
+}, [id])
 
 const handleUpdateRelease = async () => {
   try {

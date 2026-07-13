@@ -124,7 +124,7 @@ onClick={() => {
     <Flex mb={4}>
       <Box flex={1}>
         <FormInput
-          placeholder="Title"
+          placeholder="Title *"
           value={title}
 onChange={(e) =>
   setTitle(
@@ -141,7 +141,7 @@ onChange={(e) =>
     <Flex mb={4}>
       <Box flex={1}>
         <FormInput
-          placeholder="Artist"
+          placeholder="Artist *"
           value={artist}
 onChange={(e) =>
   setArtist(
@@ -155,7 +155,7 @@ onChange={(e) =>
     <Flex mb={4}>
       <Box flex={1}>
         <FormInput
-          placeholder="Label"
+          placeholder="Label *"
           value={label}
           onChange={(e) => setLabel(e.target.value)}
         />
@@ -240,7 +240,7 @@ onChange={(e) =>
       <Icon as={SiBeatport} />
       <Box flex={1}>
         <FormInput
-          placeholder="Beatport"
+          placeholder="Beatport *"
           value={beatport}
           onChange={(e) => setBeatport(e.target.value)}
         />

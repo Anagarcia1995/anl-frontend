@@ -7,6 +7,8 @@ import {
   Flex
 } from "@chakra-ui/react"
 
+import { FiLogOut } from "react-icons/fi"
+
 import NavItem from "./Header/NavItem"
 
 export default function Header() {
@@ -111,9 +113,10 @@ export default function Header() {
         transform: "scale(1.1)",
       }}
       position={{ base: "static", lg: "absolute" }}
-      right={{ lg: 3 }}
+      right={{ lg: 12 }}
       top={{ lg: 0 }}
     >
+      <FiLogOut size={22} />
     </Box>
   )}
 </Flex>
