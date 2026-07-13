@@ -3,10 +3,13 @@ import useCitySearch from "./useCitySearch"
 import { getDefaultDate } from "../utils/date"
 
 export default function useNewEventForm() {
-  const [eventName, setEventName] = useState("")
-  const [venueName, setVenueName] = useState("")
-  const [ticketUrl, setTicketUrl] = useState("")
-  const [date, setDate] = useState(getDefaultDate())
+
+const defaultDate = getDefaultDate()
+
+const [eventName, setEventName] = useState("")
+const [venueName, setVenueName] = useState("")
+const [ticketUrl, setTicketUrl] = useState("")
+const [date, setDate] = useState(defaultDate)
 
   const {
     city,
@@ -24,7 +27,7 @@ export default function useNewEventForm() {
     setVenueName("")
     setTicketUrl("")
     resetCitySearch()
-    setDate(getDefaultDate())
+    setDate(defaultDate) 
   }
 
   const hasNewEventChanges =
@@ -32,7 +35,7 @@ export default function useNewEventForm() {
     venueName ||
     ticketUrl ||
     city ||
-    date
+    date !== defaultDate
 
   return {
     eventName,

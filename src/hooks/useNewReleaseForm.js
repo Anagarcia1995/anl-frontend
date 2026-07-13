@@ -3,10 +3,13 @@ import { getDefaultDate } from "../utils/date"
 
 
 export default function useNewReleaseForm() {
+
+  const defaultDate = getDefaultDate()
+
   const [title, setTitle] = useState("")
   const [artist, setArtist] = useState("")
   const [label, setLabel] = useState("")
-  const [releaseDate, setReleaseDate] = useState(getDefaultDate())
+  const [releaseDate, setReleaseDate] = useState(defaultDate)
   const [spotify, setSpotify] = useState("")
   const [appleMusic, setAppleMusic] = useState("")
   const [soundcloud, setSoundcloud] = useState("")
@@ -19,7 +22,7 @@ export default function useNewReleaseForm() {
     setTitle("")
     setArtist("")
     setLabel("")
-    setReleaseDate(getDefaultDate())
+    setReleaseDate(defaultDate)
     setSpotify("")
     setAppleMusic("")
     setSoundcloud("")
@@ -28,17 +31,18 @@ export default function useNewReleaseForm() {
     setCoverImage(null)
   }
 
-  const hasNewReleaseChanges =
-    title ||
-    artist ||
-    label ||
-    releaseDate !== getDefaultDate() ||
-    spotify ||
-    appleMusic ||
-    soundcloud ||
-    youtube ||
-    beatport ||
-    coverImage
+const hasNewReleaseChanges = Boolean(
+  title.trim() ||
+  artist.trim() ||
+  label.trim() ||
+  releaseDate !== defaultDate ||
+  spotify.trim() ||
+  appleMusic.trim() ||
+  soundcloud.trim() ||
+  youtube.trim() ||
+  beatport.trim() ||
+  coverImage
+)
 
   return {
     title,
