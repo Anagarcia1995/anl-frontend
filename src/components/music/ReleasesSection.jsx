@@ -10,6 +10,7 @@ import ReleaseCard from "./ReleaseCard"
 export default function ReleasesSection({
   releases: releasesProp,
   excludeId,
+  onReleaseClick,
 }) {
   const [localReleases, setLocalReleases] = useState([])
 
@@ -43,10 +44,11 @@ const sortedReleases = [...filteredReleases].sort(
         spacing={{ base: 4, lg: 10 }}
       >
         {sortedReleases.map((release) => (
-          <ReleaseCard
-            key={release._id}
-            release={release}
-          />
+<ReleaseCard
+  key={release._id}
+  release={release}
+  onClick={onReleaseClick}
+/>
         ))}
       </SimpleGrid>
     </Box>

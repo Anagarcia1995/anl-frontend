@@ -4,34 +4,29 @@ import {
   Heading,
 } from "@chakra-ui/react"
 import { useToast } from "@chakra-ui/react"
-
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { formatDateForApi } from "../utils/date"
 import { useState } from "react"
 import { showToast } from "../utils/showToast"
 import { getActionMessage } from "../utils/messages"
-
 import {
   fetchReleaseById,
   updateRelease,
   deleteRelease
 } from "../services/releaseService"
-
 import ReleasesSection from "../components/music/ReleasesSection"
 import ReleaseHero from "../components/music/ReleaseHero"
 import useReleaseEditor from "../hooks/useReleaseEditor"
+import { hasUnsavedReleaseChanges } from "../utils/hasUnsavedReleaseChanges"
+import { formatDateForInput } from "../utils/date"
 
 export default function ReleasePreview() {
 
   const { id } = useParams()
   const navigate = useNavigate()
   const toast = useToast()
-
-
-
 const [release, setRelease] = useState(null)
-
 const [isEditing, setIsEditing] = useState(false)
 
 const {
@@ -63,19 +58,46 @@ useEffect(() => {
   const loadCurrentRelease = async () => {
     const data = await fetchReleaseById(id)
     setRelease(data)
-
 loadRelease(data)
 setIsEditing(false)
-
   }
-
   loadCurrentRelease()
-
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   })
 }, [id])
+
+const initialData = {
+  title: release?.title || "",
+  artist: release?.artist || "",
+  label: release?.label || "",
+  releaseDate: release?.releaseDate
+    ? formatDateForInput(release.releaseDate)
+    : "",
+  spotify: release?.spotify || "",
+  appleMusic: release?.appleMusic || "",
+  soundcloud: release?.soundcloud || "",
+  youtube: release?.youtube || "",
+  beatport: release?.beatport || "",
+}
+
+const currentData = {
+  title: editTitle,
+  artist: editArtist,
+  label: editLabel,
+  releaseDate: editReleaseDate,
+  spotify: editSpotify,
+  appleMusic: editAppleMusic,
+  soundcloud: editSoundcloud,
+  youtube: editYoutube,
+  beatport: editBeatport,
+}
+
+const hasChanges = hasUnsavedReleaseChanges(
+  initialData,
+  currentData
+)
 
 const handleUpdateRelease = async () => {
   try {
@@ -99,13 +121,9 @@ formData.append(
     }
 
 await updateRelease(id, formData)
-
 const updated = await fetchReleaseById(id)
-
 setRelease(updated)
-
 loadRelease(updated)
-
 setIsEditing(false)
 
 showToast(
@@ -115,16 +133,13 @@ showToast(
     "updated"
   )
 )
-
   } catch (error) {
     console.error(error)
   }
 }
-
 const handleDeleteRelease = async () => {
   try {
 await deleteRelease(id)
-
 showToast(
   toast,
   getActionMessage(
@@ -132,25 +147,19 @@ showToast(
     "deleted"
   )
 )
-
 setTimeout(() => {
   navigate("/music")
 }, 1300)
   } catch (error) {
     console.error(error)
-  }
-}
-
+  }}
 if (!release) {
   return (
     <Box p={10}>
       Loading...
     </Box>
-  )
-}
-
+  )}
   return (
-
     <Box
       maxW="1450px"
       mx="auto"
@@ -158,7 +167,6 @@ if (!release) {
       py={{ base: 5, lg: 16 }}
       pb={{ base: 5, lg: 10 }}
     >
-
       {/* ---------- HERO ---------- */}
 <ReleaseHero
   release={release}
@@ -187,15 +195,13 @@ if (!release) {
   setIsEditing={setIsEditing}
   loadRelease={loadRelease}
   onDelete={handleDeleteRelease}
+  hasChanges={hasChanges}
 />
-
       {/* ---------- DIVIDER ---------- */}
-
 <Divider
   borderColor="gray.700"
   mb={5}
 />
-
 <Heading
   fontSize={{
     base: "15px",
@@ -213,16 +219,11 @@ if (!release) {
 >
   MORE RELEASES
 </Heading>
-
 <Divider
   borderColor="gray.700"
   mb={10}
 />
-
       <ReleasesSection excludeId={release._id} />
-
     </Box>
-
   )
-
 }

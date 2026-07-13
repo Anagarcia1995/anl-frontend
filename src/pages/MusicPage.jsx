@@ -11,6 +11,7 @@ import { useToast } from "@chakra-ui/react"
 import { showToast } from "../utils/showToast"
 import useNewReleaseForm from "../hooks/useNewReleaseForm"
 import UnsavedChangesModal from "../components/UnsavedChangesModal"
+import MusicHeader from "../components/music/MusicHeader"
 
 import {
   getActionMessage,
@@ -20,9 +21,6 @@ import {
 
 import {
   Box,
-  Flex,
-  Heading,
-  Text,
   Button,
 } from "@chakra-ui/react"
 
@@ -154,91 +152,9 @@ setShowForm(false)
 >
 
 {/* MUSIC HEADER */}
-
-<Box mb={{ base: 6, lg: 12 }}>
-  {/* TITLE */}
-
-  <Heading
-    fontFamily="'Bebas Neue', sans-serif"
-    fontSize={{
-      base: "3xl",
-      lg: "8xl",
-    }}
-    fontWeight="400"
-    lineHeight="0.8"
-    letterSpacing="2px"
-    mb={{
-      base: 3,
-      lg: 5,
-    }}
-  >
-    MUSIC
-  </Heading>
-
-  {/* MOBILE + DESKTOP INFO */}
-
-  <Flex
-    direction={{
-      base: "column",
-      lg: "row",
-    }}
-    align={{
-      base: "stretch",
-      lg: "center",
-    }}
-    gap={{
-      base: 2,
-      lg: 6,
-    }}
-  >
-    <Text
-      color="gray.400"
-      fontSize={{
-        base: "12px",
-        lg: "sm",
-      }}
-      letterSpacing={{
-        base: "1.3px",
-        lg: "4px",
-      }}
-      textTransform="uppercase"
-      whiteSpace="nowrap"
-    >
-      Originals · Remixes · Collaborations
-    </Text>
-
-    <Flex
-      flex="1"
-      align="center"
-      gap={{
-        base: 3,
-        lg: 6,
-      }}
-    >
-      <Box
-        flex="1"
-        h="1px"
-        bg="whiteAlpha.400"
-      />
-
-      <Text
-        color="gray.400"
-        fontSize={{
-          base: "12px",
-          lg: "sm",
-        }}
-        letterSpacing={{
-          base: "1.5px",
-          lg: "3px",
-        }}
-        textTransform="uppercase"
-        whiteSpace="nowrap"
-      >
-        {String(releases.length).padStart(2, "0")} Releases
-      </Text>
-    </Flex>
-  </Flex>
-</Box>
+<MusicHeader
+  releaseCount={releases.length}
+/>
 
 {isAdmin && !showForm && (
   <Button

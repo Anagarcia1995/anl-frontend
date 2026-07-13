@@ -5,26 +5,20 @@ import {
   Image,
   Text
 } from "@chakra-ui/react"
-
-import { useNavigate } from "react-router-dom"
 import { API_URL } from "../../services/api"
 
-export default function ReleaseCard({ release }) {
-
-  const navigate = useNavigate()
-
+export default function ReleaseCard({
+  release,
+  onClick,
+}) {
   return (
-
     <Box
       cursor="pointer"
       role="group"
-      onClick={() => navigate(`/music/${release._id}`)}
+      onClick={() => onClick(release)}
     >
-
       {/* COVER */}
-
       <Box overflow="visible">
-
 <Image
   src={`${API_URL}${release.coverImage}`}
   alt={release.title}
@@ -37,26 +31,20 @@ export default function ReleaseCard({ release }) {
     transform: "scale(1.08)"
   }}
 />
-
       </Box>
-
       {/* INFO */}
-
       <Box
         mt={{ base: 2, lg: 4 }}
         position="relative"
         minH="54px"
       >
-
         {/* Texto */}
-
         <Box
           transition="opacity .2s ease"
           _groupHover={{
             opacity: 0
           }}
         >
-
 <Heading
   fontSize={{ base: "sm", lg: "xl" }}
   fontWeight={{ base: "600", lg: "600" }}
@@ -67,7 +55,6 @@ export default function ReleaseCard({ release }) {
 >
             {release.title}
           </Heading>
-
           <Text
             mt={{ base: 0, lg: 1 }}
             fontSize={{ base: "xs", lg: "xl" }}
@@ -78,13 +65,8 @@ export default function ReleaseCard({ release }) {
           >
             {release.artist}
           </Text>
-
-        </Box>
-
-        
-
+        </Box>      
         {/* Línea */}
-
         <Flex
           position="absolute"
           inset="0"
@@ -95,7 +77,6 @@ export default function ReleaseCard({ release }) {
             opacity: 1
           }}
         >
-
 <Box
   w="70%"
   h="2px"
@@ -115,7 +96,6 @@ export default function ReleaseCard({ release }) {
     }}
   />
 </Box>
-
 <Text
   ml="0px"
   mt="-6px"
@@ -135,16 +115,8 @@ export default function ReleaseCard({ release }) {
 >
   ›
 </Text>
-
-
-
         </Flex>
-
       </Box>
-
     </Box>
-
-
   )
-
 }
