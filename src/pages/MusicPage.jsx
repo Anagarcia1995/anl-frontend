@@ -12,6 +12,7 @@ import { showToast } from "../utils/showToast"
 import useNewReleaseForm from "../hooks/useNewReleaseForm"
 import UnsavedChangesModal from "../components/UnsavedChangesModal"
 import MusicHeader from "../components/music/MusicHeader"
+import { useNavigate } from "react-router-dom"
 
 import {
   getActionMessage,
@@ -28,6 +29,7 @@ export default function MusicPage() {
 
   const { isAdmin } = useAuth()
   const toast = useToast()
+  const navigate = useNavigate()
   const [showForm, setShowForm] = useState(false)
   const [showUnsavedModal, setShowUnsavedModal] = useState(false)
 
@@ -60,6 +62,11 @@ export default function MusicPage() {
     resetNewReleaseForm,
     hasNewReleaseChanges,
   } = useNewReleaseForm()
+
+
+  const handleReleaseClick = (release) => {
+  navigate(`/music/${release._id}`)
+  }
 
   const handleSaveRelease = async () => {
   try {
@@ -101,6 +108,9 @@ if (missingFields.length === 1) {
     toast,
     getRequiredMessage(missingFields[0])
   )
+
+
+
   return
 }
 
@@ -223,8 +233,10 @@ onCancel={() => {
   />
 )}
 
-<ReleasesSection releases={releases} />
-
+<ReleasesSection
+  releases={releases}
+  onReleaseClick={handleReleaseClick}
+/>
     </Box>
   )
 

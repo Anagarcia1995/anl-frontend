@@ -7,7 +7,6 @@ import {
 
 import { FaArrowLeft } from "react-icons/fa"
 import { SiBeatport } from "react-icons/si"
-import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 import ReleaseAdminActions from "./ReleaseAdminActions"
@@ -20,12 +19,11 @@ export default function ReleaseActions({
   onDelete,
 }) {
   const navigate = useNavigate()
-  const { isAdmin } = useAuth()
 
   return (
     <Flex
       w={{ base: "100%", lg: "20%" }}
-      minH={{ base: "auto", lg: "390px" }}
+      minH={{ base: "auto", lg: "450px" }}
       direction="column"
       align={{ base: "stretch", lg: "flex-end" }}
       justify={{ base: "flex-start", lg: "space-between" }}
@@ -45,12 +43,13 @@ export default function ReleaseActions({
       />
 
 <Flex
-  align="center"
-  justify={{
-    base: isAdmin ? "flex-end" : "center",
-    lg: "flex-end",
+  direction={{
+    base: "column",
+    lg: "column",
+    xl: "row",
   }}
-  gap={5}
+  align="flex-end"
+  gap={4}
 >
 
         <ReleaseAdminActions

@@ -43,7 +43,7 @@ export default function ReleaseInfo({ release }) {
         letterSpacing="3px"
         fontWeight="400"
         fontSize={{ base: "md", lg: "lg" }}
-        mb={{ base: 4, lg: 14 }}
+        mb={{ base: 4, md: 6, lg: 10 }}
       >
         {release.artist}
       </Text>
@@ -63,7 +63,7 @@ export default function ReleaseInfo({ release }) {
         </Text>
       </Box>
 
-      <Box mb={{ base: 3, lg: 8 }}>
+      <Box mb={{ base: 3, md: 4, lg: 6 }}>
         <Text
           color="gray.500"
           fontSize="sm"

@@ -88,7 +88,7 @@ export default function Header() {
   {/* DESKTOP NAV */}
 
   <Flex
-    display={{ base: "none", lg: "flex" }}
+    display={{ base: "none", xl: "flex" }}
     align="center"
     gap={10}
     mb={-16}

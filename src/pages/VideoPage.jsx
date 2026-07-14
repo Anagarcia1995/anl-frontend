@@ -44,23 +44,27 @@ export default function VideosSection() {
       </Heading>
 
       <Flex
-        direction={{ base: "column", lg: "row" }}
+        direction={{ base: "column", md: "row" }}
         gap={{ base: 6, lg: 8 }}
+        align="center"
       >
         {videos.map((video) => (
-          <Box
-            key={video.id}
-            flex="1"
-            cursor="pointer"
-            role="group"
-            onClick={() =>
-              window.open(
-                video.url,
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
-          >
+<Box
+  key={video.id}
+  flex="1"
+  maxW={{ base: "720px", xl: "none" }}
+  w="100%"
+  mx="auto"
+  cursor="pointer"
+  role="group"
+  onClick={() =>
+    window.open(
+      video.url,
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
+>
             {/* VIDEO PREVIEW */}
 
             <Box

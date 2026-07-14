@@ -5,17 +5,15 @@ import {
   Image,
 } from "@chakra-ui/react"
 
-import { FaArrowLeft } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
-
+import { FaArrowLeft } from "react-icons/fa"
 import { API_URL } from "../../services/api"
+import { useState } from "react"
 
+import UnsavedChangesModal from "../UnsavedChangesModal"
 import ReleaseInfo from "./ReleaseInfo"
 import ReleaseEditForm from "./ReleaseEditForm"
 import ReleaseActions from "./ReleaseActions"
-import UnsavedChangesModal from "../UnsavedChangesModal"
-
-import { useState } from "react"
 
 export default function ReleaseHero({
   release,
@@ -46,17 +44,16 @@ export default function ReleaseHero({
   onDelete,
   hasChanges,
 }) {
-      const navigate = useNavigate()
 
-  const [showUnsavedModal, setShowUnsavedModal] =
-    useState(false)
+  const navigate = useNavigate()
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false)
 
 return (
   <>
-    {/* MOBILE */}
+    {/* MOBILE / TABLET */}
 
     <Flex
-      display={{ base: "flex", md: "none" }}
+      display={{ base: "flex", lg: "none" }}
       direction="column"
       gap={6}
       mb={10}
@@ -72,7 +69,6 @@ return (
           mb={6}
           cursor="pointer"
           onClick={() => navigate("/music")}
-          display="block"
         />
 
         <Image
@@ -85,74 +81,33 @@ return (
         />
       </Box>
 
-      <Box px={2}>
-        {isEditing ? (
-          <ReleaseEditForm
-            editTitle={editTitle}
-            setEditTitle={setEditTitle}
-            editArtist={editArtist}
-            setEditArtist={setEditArtist}
-            editLabel={editLabel}
-            setEditLabel={setEditLabel}
-            editReleaseDate={editReleaseDate}
-            setEditReleaseDate={setEditReleaseDate}
-            editSpotify={editSpotify}
-            setEditSpotify={setEditSpotify}
-            editAppleMusic={editAppleMusic}
-            setEditAppleMusic={setEditAppleMusic}
-            editSoundcloud={editSoundcloud}
-            setEditSoundcloud={setEditSoundcloud}
-            editYoutube={editYoutube}
-            setEditYoutube={setEditYoutube}
-            editBeatport={editBeatport}
-            setEditBeatport={setEditBeatport}
-            setEditCoverImage={setEditCoverImage}
-            handleSave={handleUpdateRelease}
-            handleCancel={() => {
-              if (hasChanges) {
-                setShowUnsavedModal(true)
-                return
-              }
+      <ReleaseInfo release={release} />
 
-              resetEditor()
-              setIsEditing(false)
-            }}
-          />
-        ) : (
-          <ReleaseInfo release={release} />
-        )}
-
-        <Box mt={8}>
-          <ReleaseActions
-            release={release}
-            isEditing={isEditing}
-            loadRelease={loadRelease}
-            setIsEditing={setIsEditing}
-            onDelete={onDelete}
-          />
-        </Box>
-      </Box>
+      <ReleaseActions
+        release={release}
+        isEditing={isEditing}
+        loadRelease={loadRelease}
+        setIsEditing={setIsEditing}
+        onDelete={onDelete}
+      />
     </Flex>
 
-    {/* TABLET + DESKTOP */}
+    {/* DESKTOP */}
 
     <Flex
-      display={{ base: "none", md: "flex" }}
-      gap={16}
+      display={{ base: "none", xl: "flex" }}
+      direction="row"
+      gap={{
+        lg: 10,
+        xl: 16,
+      }}
       align="flex-end"
       mb={16}
     >
       <Box
-        w={{
-          md: "330px",
-          xl: "30%",
-        }}
-        minW={{
-          md: "260px",
-          xl: "390px",
-        }}
+        w="30%"
+        minW="390px"
       >
-        
         <Image
           src={`${API_URL}${release.coverImage}`}
           alt={release.title}
@@ -163,7 +118,11 @@ return (
         />
       </Box>
 
-      <Box flex="1">
+      <Flex
+        w="45%"
+        direction="column"
+        justify="space-between"
+      >
         {isEditing ? (
           <ReleaseEditForm
             editTitle={editTitle}
@@ -199,17 +158,15 @@ return (
         ) : (
           <ReleaseInfo release={release} />
         )}
-      </Box>
+      </Flex>
 
-      <Box flex="0 0 auto">
-        <ReleaseActions
-          release={release}
-          isEditing={isEditing}
-          loadRelease={loadRelease}
-          setIsEditing={setIsEditing}
-          onDelete={onDelete}
-        />
-      </Box>
+      <ReleaseActions
+        release={release}
+        isEditing={isEditing}
+        loadRelease={loadRelease}
+        setIsEditing={setIsEditing}
+        onDelete={onDelete}
+      />
     </Flex>
 
     {showUnsavedModal && (

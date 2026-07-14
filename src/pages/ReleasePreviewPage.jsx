@@ -20,6 +20,7 @@ import ReleaseHero from "../components/music/ReleaseHero"
 import useReleaseEditor from "../hooks/useReleaseEditor"
 import { hasUnsavedReleaseChanges } from "../utils/hasUnsavedReleaseChanges"
 import { formatDateForInput } from "../utils/date"
+import UnsavedChangesModal from "../components/UnsavedChangesModal"
 
 export default function ReleasePreview() {
 
@@ -28,6 +29,8 @@ export default function ReleasePreview() {
   const toast = useToast()
 const [release, setRelease] = useState(null)
 const [isEditing, setIsEditing] = useState(false)
+const [showSwitchModal, setShowSwitchModal] = useState(false)
+const [switchTarget, setSwitchTarget] = useState(null)
 
 const {
   editTitle,
@@ -153,6 +156,17 @@ setTimeout(() => {
   } catch (error) {
     console.error(error)
   }}
+
+const handleReleaseClick = (selectedRelease) => {
+  if (!isEditing || !hasChanges) {
+    navigate(`/music/${selectedRelease._id}`)
+    return
+  }
+
+  setSwitchTarget(selectedRelease)
+  setShowSwitchModal(true)
+}
+
 if (!release) {
   return (
     <Box p={10}>
@@ -161,9 +175,9 @@ if (!release) {
   )}
   return (
     <Box
-      maxW="1450px"
+      maxW="1600px"
       mx="auto"
-      px={10}
+      px={{ base: 6, lg: 8 }}
       py={{ base: 5, lg: 16 }}
       pb={{ base: 5, lg: 10 }}
     >
@@ -223,7 +237,27 @@ if (!release) {
   borderColor="gray.700"
   mb={10}
 />
-      <ReleasesSection excludeId={release._id} />
+<ReleasesSection
+  excludeId={release._id}
+  onReleaseClick={handleReleaseClick}
+/>
+
+{showSwitchModal && (
+  <UnsavedChangesModal
+    title="Discard changes?"
+    description="You have unsaved changes. Do you want to discard them and open another release?"
+    onCancel={() => {
+      setShowSwitchModal(false)
+      setSwitchTarget(null)
+    }}
+    onConfirm={() => {
+      setShowSwitchModal(false)
+      resetEditor()
+      setIsEditing(false)
+      navigate(`/music/${switchTarget._id}`)
+    }}
+  />
+)}
     </Box>
   )
 }
