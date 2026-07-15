@@ -61,32 +61,34 @@ export default function ReleaseActions({
           onDelete={onDelete}
         />
 
-<Link
-  href={release.beatport}
-  isExternal
-  _hover={{ textDecoration: "none" }}
->
-  <Button
-    bg="black"
-    color="white"
-    borderRadius="0"
-    border="1px solid white"
-    letterSpacing="2px"
-    fontSize={{ base: "xs", lg: "sm" }}
-    rightIcon={<SiBeatport />}
-    w={{ base: "170px", lg: "auto" }}
-    px={{ base: 0, lg: 8 }}
-    h={{ base: "48px", lg: "45px" }}
-    transition="all .2s ease"
-    _hover={{
-      bg: "white",
-      color: "black",
-      transform: "scale(1.08)",
-    }}
+{!isEditing && (
+  <Link
+    href={release.beatport}
+    isExternal
+    _hover={{ textDecoration: "none" }}
   >
-    BUY ON
-  </Button>
-</Link>
+    <Button
+      bg="black"
+      color="white"
+      borderRadius="0"
+      border="1px solid white"
+      letterSpacing="2px"
+      fontSize={{ base: "xs", lg: "sm" }}
+      rightIcon={<SiBeatport />}
+      w={{ base: "170px", lg: "auto" }}
+      px={{ base: 0, lg: 8 }}
+      h={{ base: "48px", lg: "45px" }}
+      transition="all .2s ease"
+      _hover={{
+        bg: "white",
+        color: "black",
+        transform: "scale(1.08)",
+      }}
+    >
+      BUY ON
+    </Button>
+  </Link>
+)}
       </Flex>
     </Flex>
   )

@@ -48,7 +48,7 @@ export default function HeroSection() {
 
 <Flex
   w={{ base: "50%", lg: "50%" }}
-  h={{ base: "250px", lg: "430px" }}
+  h={{ base: "230px", lg: "430px" }}
   align="center"
   justify="center"
   px={{ base: 2, lg: 10 }}
@@ -59,9 +59,9 @@ export default function HeroSection() {
   fontWeight="400"
   lineHeight={{ base: "0.88", lg: "0.82" }}
   fontSize={{
-    base: "4xl",
+    base: "5xl",
     md: "5xl",
-    lg: "8xl",
+    lg: "9xl",
   }}
 w="100%"
 textAlign="left"

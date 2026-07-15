@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react"
 
+import { validateRequiredFields } from "../utils/validateRequiredFields"
+
+import {
+  getRequiredFieldsMessage,
+  getRequiredMessage,
+  getActionMessage
+} from "../utils/messages"
+
 import {
   fetchEvents,
   createEvent,
@@ -9,7 +17,6 @@ import {
 
 import { getUpcomingEvents } from "../utils/events"
 import { formatDateForApi } from "../utils/date"
-import { getActionMessage } from "../utils/messages"
 
 export default function useEventsData({
   toast,
@@ -47,10 +54,40 @@ export default function useEventsData({
       date: formatDateForApi(date)
     }
 
-    if (!city || !date) {
-      console.error("Missing required event data", eventData)
-      return
-    }
+const missingFields = validateRequiredFields([
+  {
+    label: "Event name",
+    value: eventName,
+  },
+  {
+    label: "Venue name",
+    value: venueName,
+  },
+  {
+    label: "City",
+    value: city,
+  },
+  {
+    label: "Date",
+    value: date,
+  },
+])
+
+if (missingFields.length > 1) {
+  showToast(
+    toast,
+    getRequiredFieldsMessage()
+  )
+  return
+}
+
+if (missingFields.length === 1) {
+  showToast(
+    toast,
+    getRequiredMessage(missingFields[0])
+  )
+  return
+}
 
     try {
       const createdEvent = await createEvent(eventData)

@@ -28,7 +28,7 @@ export default function EventEditForm({
       <SimpleGrid
         columns={2}
         spacing={2}
-        mb={4}
+        mb={2}
       >
         <FormInput
           placeholder="Event name"

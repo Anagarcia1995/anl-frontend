@@ -217,7 +217,7 @@ const eventDetails = [
             cursor="pointer"
             fontSize={{
               base: "xs",
-              lg: "sm",
+              lg: "md",
             }}
             letterSpacing="4px"
             textTransform="uppercase"

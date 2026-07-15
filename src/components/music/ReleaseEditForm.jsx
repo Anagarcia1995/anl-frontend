@@ -48,7 +48,7 @@ export default function ReleaseEditForm({
       <SimpleGrid
         columns={2}
         spacing={5}
-        templateColumns={{ base: "60% 32%", lg: "1fr 1fr" }}
+        templateColumns={{ base: "50% 43%", lg: "1fr 1fr" }}
       >
 
         {/* LEFT */}

@@ -99,7 +99,7 @@ export default function ReleaseCarousel({
               <Box
                 key={release._id}
 flex={{
-  base: "0 0 33%",
+  base: "0 0 28%",
   lg: "0 0 25%",
 }}
                 px={{ base: 1, lg: 2 }}
@@ -164,17 +164,17 @@ flex={{
       {/* INDICATORS */}
 
       <Box
-mt={{ base: 7, lg: 12 }}
+mt={{ base: 7, lg:10 }}
         display="flex"
         justifyContent="center"
-        gap={2}
+        gap={4}
       >
         {releases.map((_, index) => (
           <Box
             key={index}
             w={
               index === selectedIndex
-                ? "38px"
+                ? "48px"
                 : "18px"
             }
             h="2px"

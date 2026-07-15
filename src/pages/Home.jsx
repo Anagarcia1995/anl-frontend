@@ -10,14 +10,9 @@ export default function HomePage() {
   return (
     <Box>
       <HeroSection />
-
       <LatestReleaseSection />
-
       <TourSection />
-
       <VideosSection />
-
-      {/* BioSection */}
     </Box>
   )
 }

@@ -36,7 +36,7 @@ export default function LatestReleaseCard({
       {/* COVER */}
 <Box
   flex={{
-    base: "0 0 40%",
+    base: "0 0 30%",
     lg: "1",
   }}
   overflow="hidden"

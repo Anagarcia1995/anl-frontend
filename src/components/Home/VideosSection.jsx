@@ -24,7 +24,7 @@ export default function VideosSection() {
       maxW="1450px"
       mx="auto"
       px={{ base: 4, lg: 30 }}
-      py={{ base: 6, lg: 24 }}
+      py={{ base: 3, lg: 24 }}
     >
 
       <Flex
