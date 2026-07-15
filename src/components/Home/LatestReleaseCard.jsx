@@ -34,16 +34,13 @@ export default function LatestReleaseCard({
       }
     >
       {/* COVER */}
-
-      <Box
-        w={{
-          base: "35%",
-          mdToLg: "28%",
-          lg: "100%",
-        }}
-        flexShrink={0}
-        overflow="hidden"
-      >
+<Box
+  flex={{
+    base: "0 0 40%",
+    lg: "1",
+  }}
+  overflow="hidden"
+>
         <Image
           src={`${API_URL}${release.coverImage}`}
           alt={release.title}
@@ -63,10 +60,6 @@ export default function LatestReleaseCard({
       <Box
         flex="1"
         minW={0}
-        mt={{
-          base: 0,
-          lg: 5,
-        }}
 
       >
         <Heading
