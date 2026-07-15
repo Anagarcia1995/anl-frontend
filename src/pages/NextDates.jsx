@@ -34,6 +34,7 @@ export default function NextDates() {
     date,
     setDate,
     city,
+    defaultDate,
     countryCode,
     filteredCities,
     preferredRegion,
@@ -58,6 +59,7 @@ export default function NextDates() {
       venueName,
       ticketUrl,
       city,
+      defaultDate,
       countryCode,
       date,
       resetNewEventForm

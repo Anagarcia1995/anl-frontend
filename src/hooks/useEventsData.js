@@ -42,6 +42,7 @@ export default function useEventsData({
       city,
       countryCode,
       date,
+      defaultDate,
       resetNewEventForm
     } = newEventForm
 
@@ -69,7 +70,7 @@ const missingFields = validateRequiredFields([
   },
   {
     label: "Date",
-    value: date,
+    value: date !== defaultDate,
   },
 ])
 
@@ -90,6 +91,10 @@ if (missingFields.length === 1) {
 }
 
     try {
+
+      console.log(date)
+console.log(defaultDate)
+
       const createdEvent = await createEvent(eventData)
 
       if (!createdEvent) {

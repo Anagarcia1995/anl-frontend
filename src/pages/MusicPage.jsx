@@ -46,6 +46,7 @@ export default function MusicPage() {
     label,
     setLabel,
     releaseDate,
+    defaultDate,
     setReleaseDate,
     spotify,
     setSpotify,
@@ -84,6 +85,10 @@ const missingFields = validateRequiredFields([
   {
     label: "Label",
     value: label,
+  },
+  {
+    label: "Release date",
+    value: releaseDate !== defaultDate,
   },
   {
     label: "Beatport link",

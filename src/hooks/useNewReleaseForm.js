@@ -53,6 +53,7 @@ const hasNewReleaseChanges = Boolean(
     setLabel,
     releaseDate,
     setReleaseDate,
+    defaultDate,
     spotify,
     setSpotify,
     appleMusic,

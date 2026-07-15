@@ -46,6 +46,7 @@ const [date, setDate] = useState(defaultDate)
     setTicketUrl,
     date,
     setDate,
+    defaultDate,
     city,
     countryCode,
     filteredCities,

@@ -19,7 +19,7 @@ import {
 import ReleasesSection from "../components/music/ReleasesSection"
 import ReleaseHero from "../components/music/ReleaseHero"
 import useReleaseEditor from "../hooks/useReleaseEditor"
-import { hasUnsavedReleaseChanges } from "../utils/hasUnsavedReleaseChanges"
+import { hasUnsavedChanges } from "../utils/hasUnsavedChanges"
 import { formatDateForInput } from "../utils/date"
 import UnsavedChangesModal from "../components/UnsavedChangesModal"
 
@@ -98,7 +98,7 @@ const currentData = {
   beatport: editBeatport,
 }
 
-const hasChanges = hasUnsavedReleaseChanges(
+const hasChanges = hasUnsavedChanges(
   initialData,
   currentData
 )

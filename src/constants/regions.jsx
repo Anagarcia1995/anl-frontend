@@ -19,5 +19,5 @@ export const EUROPE = [
   "DE",
   "NL",
   "BE",
-  "UK"
+  "GB"
 ]
