@@ -73,6 +73,7 @@ export default function LatestReleaseCard({
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"
+          marginTop="0px"
         >
           {release.title}
         </Heading>

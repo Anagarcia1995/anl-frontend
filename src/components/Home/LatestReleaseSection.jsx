@@ -46,7 +46,7 @@ export default function LatestReleaseSection() {
           <Box
             w={{
               base: "100%",
-              lg: "340px",
+              lg: "320px",
             }}
             border="1px solid"
             borderColor="whiteAlpha.400"
@@ -90,7 +90,7 @@ export default function LatestReleaseSection() {
             borderColor="whiteAlpha.400"
             p={{
               base: 2,
-              lg: 7,
+              lg: 3,
             }}
           >
             <ReleaseCarousel
@@ -103,6 +103,8 @@ mt={{
   lg: 8,
 }}
               alignSelf="flex-end"
+              marginRight="55px"
+              marginBottom="20px"
               cursor="pointer"
               letterSpacing="4px"
               fontSize={{
