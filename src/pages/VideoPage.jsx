@@ -44,7 +44,7 @@ export default function VideosSection() {
       </Heading>
 
       <Flex
-        direction={{ base: "column", md: "row" }}
+        direction={{ base: "column", xl: "row" }}
         gap={{ base: 6, lg: 8 }}
         align="center"
       >

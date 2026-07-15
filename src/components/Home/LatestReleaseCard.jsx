@@ -38,6 +38,7 @@ export default function LatestReleaseCard({
       <Box
         w={{
           base: "35%",
+          mdToLg: "28%",
           lg: "100%",
         }}
         flexShrink={0}
@@ -66,6 +67,7 @@ export default function LatestReleaseCard({
           base: 0,
           lg: 5,
         }}
+
       >
         <Heading
               fontSize={{
