@@ -3,6 +3,7 @@ import {
   Divider,
   Heading,
 } from "@chakra-ui/react"
+import { Link } from "react-router-dom"
 import { useToast } from "@chakra-ui/react"
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
@@ -216,23 +217,36 @@ if (!release) {
   borderColor="gray.700"
   mb={5}
 />
-<Heading
-  fontSize={{
-    base: "15px",
-    lg: "md"
-  }}
-  fontWeight="500"
-  letterSpacing={{
-    base: "3px",
-    lg: "2px"
-  }}
-  mb={{
-    base: 4,
-    lg: 5
+<Link
+  to="/music"
+  style={{
+    textDecoration: "none",
+    display: "inline-block",
   }}
 >
-  MORE RELEASES
-</Heading>
+  <Heading
+    fontSize={{
+      base: "15px",
+      lg: "md",
+    }}
+    fontWeight="500"
+    letterSpacing={{
+      base: "3px",
+      lg: "2px",
+    }}
+    mb={{
+      base: 4,
+      lg: 5,
+    }}
+    cursor="pointer"
+    transition="all .2s ease"
+    _hover={{
+      color: "gray.400",
+    }}
+  >
+    MORE RELEASES
+  </Heading>
+</Link>
 <Divider
   borderColor="gray.700"
   mb={10}

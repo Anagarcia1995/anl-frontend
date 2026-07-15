@@ -7,6 +7,7 @@ import {
   Flex
 } from "@chakra-ui/react"
 
+import { Link } from "react-router-dom"
 import { FiLogOut } from "react-icons/fi"
 
 import NavItem from "./Header/NavItem"
@@ -39,10 +40,18 @@ export default function Header() {
 
   {/* LOGO */}
 
+<Link
+  to="/"
+  style={{
+    textDecoration: "none",
+    display: "contents",
+  }}
+>
   <Box
     position={{ base: "absolute", lg: "static" }}
     left={{ base: "50%", lg: "auto" }}
     transform={{ base: "translateX(-50%)", lg: "none" }}
+    cursor="pointer"
   >
     {/* MOBILE */}
 
@@ -84,11 +93,12 @@ export default function Header() {
       </Text>
     </Box>
   </Box>
+</Link>
 
   {/* DESKTOP NAV */}
 
   <Flex
-    display={{ base: "none", xl: "flex" }}
+    display={{ base: "none", lg: "flex" }}
     align="center"
     gap={10}
     mb={-16}
