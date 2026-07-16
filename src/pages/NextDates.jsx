@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { Text, Box, Button, useToast } from "@chakra-ui/react"
 import { showToast } from "../utils/showToast"
-import { Link } from "react-router-dom"
 import { FiPlus } from "react-icons/fi"
 
 import useNewEventForm from "../hooks/useNewEventForm"
 import useEventsData from "../hooks/useEventsData"
+import DateNavigation from "../components/Dates/DateNavigation"
 
 import { useAuth } from "../context/AuthContext"
 import EventMonthList from "../components/EventMonthList"
@@ -165,6 +165,8 @@ export default function NextDates() {
         md: 20
       }}
     >
+      <DateNavigation />
+
       {showSwitchModal && (
         <UnsavedChangesModal
           title={
@@ -239,27 +241,6 @@ export default function NextDates() {
           onUpdate={handleUpdateEvent}
         />
       )}
-
-      <Link
-        to="/old-dates"
-        style={{
-          textDecoration: "none"
-        }}
-      >
-        <Text
-          mt={0}
-          textAlign="center"
-          fontSize="sm"
-          letterSpacing="1px"
-          color="gray.500"
-          cursor="pointer"
-          _hover={{
-            color: "white"
-          }}
-        >
-          View Past Dates
-        </Text>
-      </Link>
     </Box>
   )
 }

@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react"
-import { Text, Box } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
+import {
+  Box,
+  Text,
+} from "@chakra-ui/react"
 
+import DateNavigation from "../components/Dates/DateNavigation"
 import EventMonthList from "../components/EventMonthList"
+
 import { fetchEvents } from "../services/eventsService"
-import { getPastEvents, groupEventsByMonth } from "../utils/events"
+import {
+  getPastEvents,
+  groupEventsByMonth,
+} from "../utils/events"
+
+const EVENTS_PER_PAGE = 6
 
 export default function OldDates() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
+  const [visibleEvents, setVisibleEvents] = useState(EVENTS_PER_PAGE)
 
   useEffect(() => {
     fetchEvents().then((data) => {
@@ -17,7 +27,14 @@ export default function OldDates() {
     })
   }, [])
 
-  const grouped = groupEventsByMonth(events)
+  if (loading) {
+    return <Text>Loading...</Text>
+  }
+
+  const grouped = groupEventsByMonth(
+    events.slice(0, visibleEvents)
+  )
+
   const entries = Object.entries(grouped)
 
   return (
@@ -25,20 +42,14 @@ export default function OldDates() {
       display="flex"
       flexDirection="column"
       height="100%"
-      maxW={{
-        base: "100%",
-        md: "900px"
-      }}
+      maxW={{ base: "100%", md: "900px" }}
       mx={{ md: "auto" }}
       px={{ md: 6 }}
-      py={{
-        base: 4,
-        md: 20
-      }}
+      py={{ base: 4, md: 20 }}
     >
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : events.length === 0 ? (
+      <DateNavigation />
+
+      {events.length === 0 ? (
         <Text
           color="gray.500"
           fontSize="sm"
@@ -54,25 +65,27 @@ export default function OldDates() {
         />
       )}
 
-      <Link
-        to="/next-dates"
-        style={{
-          textDecoration: "none"
-        }}
-      >
+      {visibleEvents < events.length && (
         <Text
-          mt={0}
+          mt={8}
           textAlign="center"
           fontSize="sm"
+          letterSpacing="2px"
           color="gray.500"
           cursor="pointer"
+          transition="all .2s ease"
           _hover={{
-            color: "white"
+            color: "white",
           }}
+          onClick={() =>
+            setVisibleEvents(
+              (prev) => prev + EVENTS_PER_PAGE
+            )
+          }
         >
-          View Next Dates.
+          Load More
         </Text>
-      </Link>
+      )}
     </Box>
   )
 }

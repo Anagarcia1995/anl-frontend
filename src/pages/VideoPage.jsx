@@ -23,18 +23,12 @@ const videos = [
 
 export default function VideosSection() {
   return (
-<Box
-  maxW={{
-    base: "100%",
-    md: "900px",
-  }}
-  mx={{ md: "auto" }}
-  px={{ md: 6 }}
-  py={{
-    base: 4,
-    md: 20,
-  }}
->
+    <Box
+      maxW={{ base: "100%", md: "900px" }}
+      mx={{ md: "auto" }}
+      px={{ md: 6 }}
+      py={{ base: 4, md: 20 }}
+    >
       <Heading
         mb={{ base: 6, lg: 10 }}
         fontSize={{ base: "md", lg: "lg" }}
@@ -49,22 +43,18 @@ export default function VideosSection() {
         align="center"
       >
         {videos.map((video) => (
-<Box
-  key={video.id}
-  flex="1"
-  maxW={{ base: "720px", xl: "none" }}
-  w="100%"
-  mx="auto"
-  cursor="pointer"
-  role="group"
-  onClick={() =>
-    window.open(
-      video.url,
-      "_blank",
-      "noopener,noreferrer"
-    )
-  }
->
+          <Box
+            key={video.id}
+            flex="1"
+            w="100%"
+            maxW={{ base: "720px", xl: "none" }}
+            mx="auto"
+            cursor="pointer"
+            role="group"
+            onClick={() =>
+              window.open(video.url, "_blank", "noopener,noreferrer")
+            }
+          >
             {/* VIDEO PREVIEW */}
 
             <Box
@@ -82,19 +72,13 @@ export default function VideosSection() {
                 objectFit="cover"
               />
 
-              {/* DARK OVERLAY */}
-
               <Box
                 position="absolute"
                 inset="0"
                 bg="blackAlpha.300"
                 transition="background .3s ease"
-                _groupHover={{
-                  bg: "blackAlpha.500",
-                }}
+                _groupHover={{ bg: "blackAlpha.500" }}
               />
-
-              {/* PLAY */}
 
               <Flex
                 position="absolute"
