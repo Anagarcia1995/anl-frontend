@@ -1,13 +1,7 @@
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-} from "@chakra-ui/react"
-
+import { Box, Flex, Image, Text } from "@chakra-ui/react"
 import { FaPlay } from "react-icons/fa"
 
-const videos = [
+const featuredVideos = [
   {
     id: "HSUfDzzpK1s",
     url: "https://www.youtube.com/watch?v=HSUfDzzpK1s&t=575s",
@@ -19,6 +13,14 @@ const videos = [
 ]
 
 export default function VideosSection() {
+  const openVideo = (url) => {
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
+
   return (
     <Box
       maxW="1450px"
@@ -26,24 +28,17 @@ export default function VideosSection() {
       px={{ base: 4, lg: 30 }}
       py={{ base: 3, lg: 24 }}
     >
-
       <Flex
         direction={{ base: "column", lg: "row" }}
         gap={{ base: 4, lg: 8 }}
       >
-        {videos.map((video) => (
+        {featuredVideos.map((video) => (
           <Box
             key={video.id}
             flex="1"
             cursor="pointer"
             role="group"
-            onClick={() =>
-              window.open(
-                video.url,
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
+            onClick={() => openVideo(video.url)}
           >
             {/* PREVIEW */}
 

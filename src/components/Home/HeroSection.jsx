@@ -7,27 +7,21 @@ import {
 
 export default function HeroSection() {
   return (
-<Flex
-  direction={{ base: "row", lg: "row" }}
-  w="100%"
-  maxW="1450px"
-  mx="auto"
-  px={{ base: 2, lg: 8 }}
-  pt={{ base: 2, lg: 4 }}
-  pb={{ base: 0, lg: 4 }}
-  align="stretch"
->
+    <Flex
+      direction="row"
+      w="100%"
+      maxW="1450px"
+      mx="auto"
+      px={{ base: 2, lg: 8 }}
+      pt={{ base: 2, lg: 4 }}
+      pb={{ base: 0, lg: 4 }}
+      align="stretch"
+    >
       {/* IMAGE */}
 
       <Box
-  w={{
-    base: "50%",
-    lg: "50%",
-  }}
-        h={{
-          base: "220px",
-          lg: "430px",
-        }}
+        w="50%"
+        h={{ base: "220px", lg: "430px" }}
         overflow="hidden"
         flexShrink={0}
       >
@@ -46,42 +40,55 @@ export default function HeroSection() {
 
       {/* TEXT */}
 
-<Flex
-  w={{ base: "50%", lg: "50%" }}
-  h={{ base: "230px", lg: "430px" }}
-  align="center"
-  justify="center"
-  px={{ base: 2, lg: 10 }}
-  bg="black"
->
-<Heading
-  fontFamily="'Bebas Neue', sans-serif"
-  fontWeight="400"
-  lineHeight={{ base: "0.88", lg: "0.82" }}
-  fontSize={{
-    base: "5xl",
-    md: "5xl",
-    lg: "9xl",
-  }}
-w="100%"
-textAlign="left"
->
-  <Box display={{ base: "block", lg: "none" }}>
-    MUSIC
-    <br />
-    FROM
-    <br />
-    THE
-    <br />
-    FUTURE.
-  </Box>
+      <Flex
+        w="50%"
+        h={{ base: "230px", lg: "430px" }}
+        align="center"
+        justify="center"
+        px={{ base: 2, lg: 10 }}
+        bg="black"
+      >
+        <Heading
+          w="100%"
+          textAlign="left"
+          fontFamily="'Bebas Neue', sans-serif"
+          fontWeight="400"
+          lineHeight={{
+            base: "0.88",
+            lg: "0.82",
+          }}
+          fontSize={{
+            base: "5xl",
+            md: "5xl",
+            lg: "9xl",
+          }}
+        >
+          <Box
+            display={{
+              base: "block",
+              lg: "none",
+            }}
+          >
+            MUSIC
+            <br />
+            FROM
+            <br />
+            THE
+            <br />
+            FUTURE.
+          </Box>
 
-  <Box display={{ base: "none", lg: "block" }}>
-    MUSIC FROM
-    <br />
-    THE FUTURE.
-  </Box>
-</Heading>
+          <Box
+            display={{
+              base: "none",
+              lg: "block",
+            }}
+          >
+            MUSIC FROM
+            <br />
+            THE FUTURE.
+          </Box>
+        </Heading>
       </Flex>
     </Flex>
   )

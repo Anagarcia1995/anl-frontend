@@ -1,8 +1,8 @@
 import {
   Box,
+  Icon,
   Image,
   Text,
-  Icon,
 } from "@chakra-ui/react"
 
 import {
@@ -26,21 +26,23 @@ export default function ReleaseCarousel({
 }) {
   const navigate = useNavigate()
 
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedIndex, setSelectedIndex] =
+    useState(0)
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: "start",
-      slidesToScroll: 1,
-    },
-    [
-      Autoplay({
-        delay: 4000,
-        stopOnInteraction: false,
-      }),
-    ]
-  )
+  const [emblaRef, emblaApi] =
+    useEmblaCarousel(
+      {
+        loop: true,
+        align: "start",
+        slidesToScroll: 1,
+      },
+      [
+        Autoplay({
+          delay: 4000,
+          stopOnInteraction: false,
+        }),
+      ]
+    )
 
   useEffect(() => {
     if (!emblaApi) return
@@ -57,23 +59,20 @@ export default function ReleaseCarousel({
 
   return (
     <Box mt={{ base: 6, lg: "70px" }}>
-
-      {/* CAROUSEL + ARROWS */}
+      {/* CAROUSEL */}
 
       <Box
         position="relative"
         px={{ base: 6, lg: 12 }}
       >
-        {/* LEFT */}
-
         <Icon
           as={FaChevronLeft}
           position="absolute"
           left="0"
           top="40%"
           transform="translateY(-50%)"
-          cursor="pointer"
           boxSize={5}
+          cursor="pointer"
           zIndex={2}
           transition="all .3s ease"
           _hover={{
@@ -92,16 +91,14 @@ export default function ReleaseCarousel({
           overflow="hidden"
           ref={emblaRef}
         >
-          {/* CONTAINER */}
-
           <Box display="flex">
             {releases.map((release) => (
               <Box
                 key={release._id}
-flex={{
-  base: "0 0 28%",
-  lg: "0 0 25%",
-}}
+                flex={{
+                  base: "0 0 28%",
+                  lg: "0 0 25%",
+                }}
                 px={{ base: 1, lg: 2 }}
                 cursor="pointer"
                 onClick={() =>
@@ -124,9 +121,12 @@ flex={{
                 />
 
                 <Text
-  mt={{ base: 2, lg: 3 }}
-  ml={{ base: 1, lg: "5px" }}
-  fontSize={{ base: "xs", lg: "sm" }}
+                  mt={{ base: 2, lg: 3 }}
+                  ml={{ base: 1, lg: "5px" }}
+                  fontSize={{
+                    base: "xs",
+                    lg: "sm",
+                  }}
                   color="white"
                   letterSpacing="1px"
                   noOfLines={1}
@@ -138,16 +138,14 @@ flex={{
           </Box>
         </Box>
 
-        {/* RIGHT */}
-
         <Icon
           as={FaChevronRight}
           position="absolute"
           right="0"
           top="40%"
           transform="translateY(-50%)"
-          cursor="pointer"
           boxSize={5}
+          cursor="pointer"
           zIndex={2}
           transition="all .3s ease"
           _hover={{
@@ -164,14 +162,14 @@ flex={{
       {/* INDICATORS */}
 
       <Box
-mt={{ base: 7, lg:10 }}
+        mt={{ base: 7, lg: 10 }}
         display="flex"
         justifyContent="center"
         gap={4}
       >
-        {releases.map((_, index) => (
+        {releases.map((release, index) => (
           <Box
-            key={index}
+            key={release._id}
             w={
               index === selectedIndex
                 ? "48px"
@@ -183,8 +181,8 @@ mt={{ base: 7, lg:10 }}
                 ? "white"
                 : "whiteAlpha.300"
             }
-            transition="all .25s ease"
             cursor="pointer"
+            transition="all .25s ease"
             onClick={() =>
               emblaApi?.scrollTo(index)
             }

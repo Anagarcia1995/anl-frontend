@@ -1,179 +1,197 @@
+import { useEffect, useState } from "react"
+
 import {
   Box,
   Divider,
   Heading,
+  useToast,
 } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
-import { useToast } from "@chakra-ui/react"
-import { useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { formatDateForApi } from "../utils/date"
-import { useState } from "react"
-import { showToast } from "../utils/showToast"
-import { getActionMessage } from "../utils/messages"
+
 import {
-  fetchReleaseById,
-  updateRelease,
-  deleteRelease
-} from "../services/releaseService"
-import ReleasesSection from "../components/music/ReleasesSection"
+  Link,
+  useNavigate,
+  useParams,
+} from "react-router-dom"
+
 import ReleasePreviewLayout from "../components/music/ReleasePreviewLayout"
-import useReleaseEditor from "../hooks/useReleaseEditor"
-import { hasUnsavedChanges } from "../utils/hasUnsavedChanges"
-import { formatDateForInput } from "../utils/date"
+import ReleasesSection from "../components/music/ReleasesSection"
 import UnsavedChangesModal from "../components/UnsavedChangesModal"
 
-export default function ReleasePreview() {
+import useReleaseEditor from "../hooks/useReleaseEditor"
 
+import { deleteRelease, fetchReleaseById, updateRelease } from "../services/releaseService"
+
+import { formatDateForApi, formatDateForInput} from "../utils/date"
+
+import { getActionMessage } from "../utils/messages"
+
+import { hasUnsavedChanges } from "../utils/hasUnsavedChanges"
+import { showToast } from "../utils/showToast"
+
+export default function ReleasePreview() {
   const { id } = useParams()
   const navigate = useNavigate()
   const toast = useToast()
-const [release, setRelease] = useState(null)
-const [isEditing, setIsEditing] = useState(false)
-const [showSwitchModal, setShowSwitchModal] = useState(false)
-const [switchTarget, setSwitchTarget] = useState(null)
 
-const {
-  editTitle,
-  setEditTitle,
-  editArtist,
-  setEditArtist,
-  editLabel,
-  setEditLabel,
-  editReleaseDate,
-  setEditReleaseDate,
-  editSpotify,
-  setEditSpotify,
-  editAppleMusic,
-  setEditAppleMusic,
-  editSoundcloud,
-  setEditSoundcloud,
-  editYoutube,
-  setEditYoutube,
-  editBeatport,
-  setEditBeatport,
-  editCoverImage,
-  setEditCoverImage,
-  loadRelease,
-  resetEditor,
-} = useReleaseEditor()
+  const [release, setRelease] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [showSwitchModal, setShowSwitchModal] = useState(false)
+  const [switchTarget, setSwitchTarget] = useState(null)
 
-useEffect(() => {
-  const loadCurrentRelease = async () => {
-    const data = await fetchReleaseById(id)
-    setRelease(data)
-loadRelease(data)
-setIsEditing(false)
-  }
-  loadCurrentRelease()
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  })
-}, [id])
+  const {
+    editTitle,
+    setEditTitle,
+    editArtist,
+    setEditArtist,
+    editLabel,
+    setEditLabel,
+    editReleaseDate,
+    setEditReleaseDate,
+    editSpotify,
+    setEditSpotify,
+    editAppleMusic,
+    setEditAppleMusic,
+    editSoundcloud,
+    setEditSoundcloud,
+    editYoutube,
+    setEditYoutube,
+    editBeatport,
+    setEditBeatport,
+    editCoverImage,
+    setEditCoverImage,
+    loadRelease,
+    resetEditor,
+  } = useReleaseEditor()
 
-const initialData = {
-  title: release?.title || "",
-  artist: release?.artist || "",
-  label: release?.label || "",
-  releaseDate: release?.releaseDate
-    ? formatDateForInput(release.releaseDate)
-    : "",
-  spotify: release?.spotify || "",
-  appleMusic: release?.appleMusic || "",
-  soundcloud: release?.soundcloud || "",
-  youtube: release?.youtube || "",
-  beatport: release?.beatport || "",
-}
+  useEffect(() => {
+    const loadReleaseData = async () => {
+      const data = await fetchReleaseById(id)
 
-const currentData = {
-  title: editTitle,
-  artist: editArtist,
-  label: editLabel,
-  releaseDate: editReleaseDate,
-  spotify: editSpotify,
-  appleMusic: editAppleMusic,
-  soundcloud: editSoundcloud,
-  youtube: editYoutube,
-  beatport: editBeatport,
-}
-
-const hasChanges = hasUnsavedChanges(
-  initialData,
-  currentData
-)
-
-const handleUpdateRelease = async () => {
-  try {
-    const formData = new FormData()
-
-    formData.append("title", editTitle)
-    formData.append("artist", editArtist)
-    formData.append("label", editLabel)
-formData.append(
-  "releaseDate",
-  formatDateForApi(editReleaseDate)
-)
-    formData.append("spotify", editSpotify)
-    formData.append("appleMusic", editAppleMusic)
-    formData.append("soundcloud", editSoundcloud)
-    formData.append("youtube", editYoutube)
-    formData.append("beatport", editBeatport)
-
-    if (editCoverImage) {
-      formData.append("coverImage", editCoverImage)
+      setRelease(data)
+      loadRelease(data)
+      setIsEditing(false)
     }
 
-await updateRelease(id, formData)
-const updated = await fetchReleaseById(id)
-setRelease(updated)
-loadRelease(updated)
-setIsEditing(false)
+    loadReleaseData()
 
-showToast(
-  toast,
-  getActionMessage(
-    "Release",
-    "updated"
-  )
-)
-  } catch (error) {
-    console.error(error)
-  }
-}
-const handleDeleteRelease = async () => {
-  try {
-await deleteRelease(id)
-showToast(
-  toast,
-  getActionMessage(
-    "Release",
-    "deleted"
-  )
-)
-setTimeout(() => {
-  navigate("/music")
-}, 1300)
-  } catch (error) {
-    console.error(error)
-  }}
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }, [id, loadRelease])
 
-const handleReleaseClick = (selectedRelease) => {
-  if (!isEditing || !hasChanges) {
-    navigate(`/music/${selectedRelease._id}`)
-    return
+  const showReleaseToast = (action) =>
+    showToast(
+      toast,
+      getActionMessage("Release", action)
+    )
+
+  const initialData = {
+    title: release?.title || "",
+    artist: release?.artist || "",
+    label: release?.label || "",
+    releaseDate: release?.releaseDate
+      ? formatDateForInput(release.releaseDate)
+      : "",
+    spotify: release?.spotify || "",
+    appleMusic: release?.appleMusic || "",
+    soundcloud: release?.soundcloud || "",
+    youtube: release?.youtube || "",
+    beatport: release?.beatport || "",
   }
 
-  setSwitchTarget(selectedRelease)
-  setShowSwitchModal(true)
-}
+  const currentData = {
+    title: editTitle,
+    artist: editArtist,
+    label: editLabel,
+    releaseDate: editReleaseDate,
+    spotify: editSpotify,
+    appleMusic: editAppleMusic,
+    soundcloud: editSoundcloud,
+    youtube: editYoutube,
+    beatport: editBeatport,
+  }
 
-if (!release) {
-  return (
-    <Box p={10}>
-      Loading...
-    </Box>
-  )}
+  const hasChanges = hasUnsavedChanges(
+    initialData,
+    currentData
+  )
+
+  const handleUpdateRelease = async () => {
+    try {
+      const formData = new FormData()
+
+      formData.append("title", editTitle)
+      formData.append("artist", editArtist)
+      formData.append("label", editLabel)
+      formData.append(
+        "releaseDate",
+        formatDateForApi(editReleaseDate)
+      )
+      formData.append("spotify", editSpotify)
+      formData.append("appleMusic", editAppleMusic)
+      formData.append("soundcloud", editSoundcloud)
+      formData.append("youtube", editYoutube)
+      formData.append("beatport", editBeatport)
+
+      if (editCoverImage) {
+        formData.append(
+          "coverImage",
+          editCoverImage
+        )
+      }
+
+      await updateRelease(id, formData)
+
+      const updated =
+        await fetchReleaseById(id)
+
+      setRelease(updated)
+      loadRelease(updated)
+      setIsEditing(false)
+
+      showReleaseToast("updated")
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleDeleteRelease = async () => {
+    try {
+      await deleteRelease(id)
+
+      showReleaseToast("deleted")
+
+      setTimeout(() => {
+        navigate("/music")
+      }, 1300)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleReleaseClick = (
+    selectedRelease
+  ) => {
+    if (!isEditing || !hasChanges) {
+      navigate(
+        `/music/${selectedRelease._id}`
+      )
+      return
+    }
+
+    setSwitchTarget(selectedRelease)
+    setShowSwitchModal(true)
+  }
+
+  if (!release) {
+    return (
+      <Box p={10}>
+        Loading...
+      </Box>
+    )
+  }
+
   return (
     <Box
       maxW="1600px"
@@ -182,96 +200,114 @@ if (!release) {
       py={{ base: 5, lg: 16 }}
       pb={{ base: 5, lg: 10 }}
     >
-      {/* ---------- HERO ---------- */}
-<ReleasePreviewLayout
-  release={release}
-  isEditing={isEditing}
-  editTitle={editTitle}
-  setEditTitle={setEditTitle}
-  editArtist={editArtist}
-  setEditArtist={setEditArtist}
-  editLabel={editLabel}
-  setEditLabel={setEditLabel}
-  editReleaseDate={editReleaseDate}
-  setEditReleaseDate={setEditReleaseDate}
-  editSpotify={editSpotify}
-  setEditSpotify={setEditSpotify}
-  editAppleMusic={editAppleMusic}
-  setEditAppleMusic={setEditAppleMusic}
-  editSoundcloud={editSoundcloud}
-  setEditSoundcloud={setEditSoundcloud}
-  editYoutube={editYoutube}
-  setEditYoutube={setEditYoutube}
-  editBeatport={editBeatport}
-  setEditBeatport={setEditBeatport}
-  setEditCoverImage={setEditCoverImage}
-  handleUpdateRelease={handleUpdateRelease}
-  resetEditor={resetEditor}
-  setIsEditing={setIsEditing}
-  loadRelease={loadRelease}
-  onDelete={handleDeleteRelease}
-  hasChanges={hasChanges}
-/>
-      {/* ---------- DIVIDER ---------- */}
-<Divider
-  borderColor="gray.700"
-  mb={5}
-/>
-<Link
-  to="/music"
-  style={{
-    textDecoration: "none",
-    display: "inline-block",
-  }}
->
-  <Heading
-    fontSize={{
-      base: "15px",
-      lg: "md",
-    }}
-    fontWeight="500"
-    letterSpacing={{
-      base: "3px",
-      lg: "2px",
-    }}
-    mb={{
-      base: 4,
-      lg: 5,
-    }}
-    cursor="pointer"
-    transition="all .2s ease"
-    _hover={{
-      color: "gray.400",
-    }}
-  >
-    MORE RELEASES
-  </Heading>
-</Link>
-<Divider
-  borderColor="gray.700"
-  mb={10}
-/>
-<ReleasesSection
-  excludeId={release._id}
-  onReleaseClick={handleReleaseClick}
-/>
+      <ReleasePreviewLayout
+        release={release}
+        isEditing={isEditing}
+        editTitle={editTitle}
+        setEditTitle={setEditTitle}
+        editArtist={editArtist}
+        setEditArtist={setEditArtist}
+        editLabel={editLabel}
+        setEditLabel={setEditLabel}
+        editReleaseDate={editReleaseDate}
+        setEditReleaseDate={
+          setEditReleaseDate
+        }
+        editSpotify={editSpotify}
+        setEditSpotify={setEditSpotify}
+        editAppleMusic={editAppleMusic}
+        setEditAppleMusic={
+          setEditAppleMusic
+        }
+        editSoundcloud={editSoundcloud}
+        setEditSoundcloud={
+          setEditSoundcloud
+        }
+        editYoutube={editYoutube}
+        setEditYoutube={setEditYoutube}
+        editBeatport={editBeatport}
+        setEditBeatport={
+          setEditBeatport
+        }
+        setEditCoverImage={
+          setEditCoverImage
+        }
+        handleUpdateRelease={
+          handleUpdateRelease
+        }
+        resetEditor={resetEditor}
+        setIsEditing={setIsEditing}
+        loadRelease={loadRelease}
+        onDelete={handleDeleteRelease}
+        hasChanges={hasChanges}
+      />
 
-{showSwitchModal && (
-  <UnsavedChangesModal
-    title="Discard changes?"
-    description="You have unsaved changes. Do you want to discard them and open another release?"
-    onCancel={() => {
-      setShowSwitchModal(false)
-      setSwitchTarget(null)
-    }}
-    onConfirm={() => {
-      setShowSwitchModal(false)
-      resetEditor()
-      setIsEditing(false)
-      navigate(`/music/${switchTarget._id}`)
-    }}
-  />
-)}
+      <Divider
+        borderColor="gray.700"
+        mb={5}
+      />
+
+      <Link
+        to="/music"
+        style={{
+          textDecoration: "none",
+          display: "inline-block",
+        }}
+      >
+        <Heading
+          fontSize={{
+            base: "15px",
+            lg: "md",
+          }}
+          fontWeight="500"
+          letterSpacing={{
+            base: "3px",
+            lg: "2px",
+          }}
+          mb={{
+            base: 4,
+            lg: 5,
+          }}
+          cursor="pointer"
+          transition="all .2s ease"
+          _hover={{
+            color: "gray.400",
+          }}
+        >
+          MORE RELEASES
+        </Heading>
+      </Link>
+
+      <Divider
+        borderColor="gray.700"
+        mb={10}
+      />
+
+      <ReleasesSection
+        excludeId={release._id}
+        onReleaseClick={
+          handleReleaseClick
+        }
+      />
+
+      {showSwitchModal && (
+        <UnsavedChangesModal
+          title="Discard changes?"
+          description="You have unsaved changes. Do you want to discard them and open another release?"
+          onCancel={() => {
+            setShowSwitchModal(false)
+            setSwitchTarget(null)
+          }}
+          onConfirm={() => {
+            setShowSwitchModal(false)
+            resetEditor()
+            setIsEditing(false)
+            navigate(
+              `/music/${switchTarget._id}`
+            )
+          }}
+        />
+      )}
     </Box>
   )
 }

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+
 import {
   Box,
   Flex,
@@ -11,12 +12,14 @@ export default function NavItem({
   onClick,
 }) {
   return (
-    <NavLink to={to}>
+    <NavLink
+      to={to}
+      onClick={onClick}
+    >
       {({ isActive }) => (
         <Flex
           align="center"
           gap={1}
-          onClick={onClick}
         >
           {/* MOBILE */}
 
@@ -29,6 +32,8 @@ export default function NavItem({
             opacity={isActive ? 1 : 0}
             transition="opacity .2s ease"
           />
+
+          {/* LABEL */}
 
           <Text
             fontSize="14px"

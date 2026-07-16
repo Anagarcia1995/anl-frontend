@@ -2,10 +2,10 @@ import {
   Box,
   IconButton,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react"
 
 import { FiMenu } from "react-icons/fi"
-import { useDisclosure } from "@chakra-ui/react"
 
 import NavItem from "./NavItem"
 
@@ -17,30 +17,22 @@ export default function MobileMenu() {
       <IconButton
         display={{ base: "flex", lg: "none" }}
         icon={<FiMenu />}
+        aria-label="Open menu"
         variant="ghost"
         color="white"
         fontSize="28px"
-        aria-label="Open menu"
         onClick={isOpen ? onClose : onOpen}
-        _hover={{
-          bg: "transparent",
-        }}
-        _active={{
-          bg: "transparent",
-        }}
-        _focus={{
-          boxShadow: "none",
-        }}
-        _focusVisible={{
-          boxShadow: "none",
-        }}
+        _hover={{ bg: "transparent" }}
+        _active={{ bg: "transparent" }}
+        _focus={{ boxShadow: "none" }}
+        _focusVisible={{ boxShadow: "none" }}
       />
 
       <Box
         display={{ base: "block", lg: "none" }}
         position="fixed"
         top="75px"
-        left={isOpen ? "0" : "-180px"}
+        left={isOpen ? 0 : "-180px"}
         w="130px"
         bg="black"
         borderRight="2px solid"
@@ -52,7 +44,6 @@ export default function MobileMenu() {
         <VStack
           align="stretch"
           spacing={0}
-          py={0}
         >
           <Box
             py={4}

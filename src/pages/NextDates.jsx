@@ -69,9 +69,6 @@ export default function NextDates() {
     }
   })
 
-  const grouped = groupEventsByMonth(events)
-  const entries = Object.entries(grouped)
-
   const handleRequestEdit = (eventId) => {
     if (showForm) {
       if (hasNewEventChanges) {
@@ -148,6 +145,9 @@ export default function NextDates() {
 
     setShowForm(false)
   }
+
+  const grouped = groupEventsByMonth(events)
+  const entries = Object.entries(grouped)
 
   return (
     <Box

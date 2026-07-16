@@ -1,25 +1,17 @@
+import { useEffect, useState } from "react"
+
 import {
   Box,
   Flex,
   Text,
 } from "@chakra-ui/react"
 
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { fetchEvents } from "../../services/eventsService"
 import { getUpcomingEvents } from "../../utils/events"
 
-const formatEventDate = (date) => {
-  if (!date) return ""
-
-  const formatted = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "2-digit",
-  }).format(new Date(date))
-
-  return formatted.toUpperCase()
-}
+import { formatEventDate } from "../../utils/date"
 
 export default function TourSection() {
   const navigate = useNavigate()
@@ -48,8 +40,9 @@ export default function TourSection() {
     loadEvents()
   }, [])
 
-  if (loading) return null
-  if (!events.length) return null
+  if (loading || !events.length) {
+    return null
+  }
 
   const handleEventClick = (ticketUrl) => {
     if (!ticketUrl) return
@@ -115,13 +108,12 @@ export default function TourSection() {
             gap={{ base: 3, lg: 5 }}
           >
             {events.map((event) => {
-const eventDetails = [
-  event.venueName,
-    event.city,
-
-]
-  .filter(Boolean)
-  .join(" - ")
+              const eventDetails = [
+                event.venueName,
+                event.city,
+              ]
+                .filter(Boolean)
+                .join(" - ")
 
               return (
                 <Box
@@ -185,7 +177,8 @@ const eventDetails = [
                     overflow="hidden"
                     textOverflow="ellipsis"
                   >
-                    {formatEventDate(event.date)}  {event.eventName}
+                    {formatEventDate(event.date)}{" "}
+                    {event.eventName}
                   </Text>
 
                   {/* DATE + CITY + VENUE */}
@@ -193,12 +186,8 @@ const eventDetails = [
                   <Text
                     mt={1}
                     color="gray.300"
-                    fontSize={{
-                      base: "md",
-                      lg: "md",
-                    }}
+                    fontSize="md"
                     letterSpacing="1px"
-                    textTransform="none"
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textOverflow="ellipsis"

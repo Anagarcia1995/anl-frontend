@@ -44,3 +44,14 @@ export const formatDateForPreview = (dateString) => {
     year: "numeric",
   })
 }
+
+export const formatEventDate = (date) => {
+  if (!date) return ""
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit",
+  })
+    .format(new Date(date))
+    .toUpperCase()
+}

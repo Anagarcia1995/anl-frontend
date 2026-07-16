@@ -17,8 +17,9 @@ export default function LatestReleaseSection() {
 
   const { releases, loading } = useReleasesData()
 
-  if (loading) return null
-  if (!releases.length) return null
+  if (loading || !releases.length) {
+    return null
+  }
 
   const latestRelease = releases[0]
   const otherReleases = releases.slice(1)
@@ -31,41 +32,23 @@ export default function LatestReleaseSection() {
         px={{ base: 0, lg: 8 }}
       >
         <Flex
-          direction={{
-            base: "column",
-            lg: "row",
-          }}
+          direction={{ base: "column", lg: "row" }}
           align="stretch"
-          gap={{
-            base: 2,
-            lg: 8,
-          }}
+          gap={{ base: 2, lg: 8 }}
         >
           {/* ---------- LATEST ---------- */}
 
           <Box
-            w={{
-              base: "100%",
-              lg: "320px",
-            }}
+            w={{ base: "100%", lg: "320px" }}
+            flexShrink={0}
             border="1px solid"
             borderColor="whiteAlpha.400"
-            p={{
-              base: 2,
-              lg: 7,
-            }}
-            flexShrink={0}
+            p={{ base: 2, lg: 7 }}
           >
             <Heading
-              mb={{
-                base: 2,
-                lg: 8,
-              }}
-  fontSize={{
-    base: "md",
-    lg: "lg",
-  }}
-                letterSpacing="3px"
+              mb={{ base: 2, lg: 8 }}
+              fontSize={{ base: "md", lg: "lg" }}
+              letterSpacing="3px"
             >
               LATEST RELEASE
             </Heading>
@@ -80,42 +63,32 @@ export default function LatestReleaseSection() {
           <Flex
             w="100%"
             minW={0}
-            flex={{
-              base: "none",
-              lg: "1",
-            }}
+            flex={{ base: "none", lg: 1 }}
             direction="column"
             justify="space-between"
             border="1px solid"
             borderColor="whiteAlpha.400"
-            p={{
-              base: 2,
-              lg: 3,
-            }}
+            p={{ base: 2, lg: 3 }}
           >
             <ReleaseCarousel
               releases={otherReleases}
             />
 
             <Text
-mt={{
-  base: 4,
-  lg: 8,
-}}
+              mt={{ base: 4, lg: 8 }}
+              mr="55px"
+              mb="20px"
               alignSelf="flex-end"
-              marginRight="55px"
-              marginBottom="20px"
               cursor="pointer"
+              fontSize={{ base: "xs", lg: "md" }}
               letterSpacing="4px"
-              fontSize={{
-                base: "xs",
-                lg: "md",
-              }}
               transition="all .5s ease"
               _hover={{
                 transform: "scale(1.12)",
               }}
-              onClick={() => navigate("/music")}
+              onClick={() =>
+                navigate("/music")
+              }
             >
               VIEW ALL
             </Text>

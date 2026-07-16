@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
+
 import { API_URL } from "../../services/api"
 
 export default function LatestReleaseCard({
@@ -16,31 +17,23 @@ export default function LatestReleaseCard({
 
   return (
     <Flex
-      direction={{
-        base: "row",
-        lg: "column",
-      }}
-      align={{
-        base: "center",
-        lg: "stretch",
-      }}
-      gap={{
-        base: 5,
-        lg: 0,
-      }}
+      direction={{ base: "row", lg: "column" }}
+      align={{ base: "center", lg: "stretch" }}
+      gap={{ base: 5, lg: 0 }}
       cursor="pointer"
       onClick={() =>
         navigate(`/music/${release._id}`)
       }
     >
       {/* COVER */}
-<Box
-  flex={{
-    base: "0 0 30%",
-    lg: "1",
-  }}
-  overflow="hidden"
->
+
+      <Box
+        flex={{
+          base: "0 0 30%",
+          lg: 1,
+        }}
+        overflow="hidden"
+      >
         <Image
           src={`${API_URL}${release.coverImage}`}
           alt={release.title}
@@ -58,38 +51,36 @@ export default function LatestReleaseCard({
       {/* INFO */}
 
       <Box
-        flex="1"
+        flex={1}
         minW={0}
-
       >
         <Heading
-              fontSize={{
-                base: "20px",
-                lg: "2xl",
-              }}
-
+          mt={0}
+          fontSize={{
+            base: "20px",
+            lg: "2xl",
+          }}
           fontWeight="600"
           lineHeight="1.2"
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"
-          marginTop="0px"
         >
           {release.title}
         </Heading>
 
         <Text
           mt={0}
-              fontSize={{
-                base: "md",
-                lg: "2xl",
-              }}
+          fontSize={{
+            base: "md",
+            lg: "2xl",
+          }}
           color="gray.400"
           textTransform="uppercase"
-              letterSpacing={{
-                base: "0.95px",
-                lg: "2px",
-              }}
+          letterSpacing={{
+            base: "0.95px",
+            lg: "2px",
+          }}
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"
