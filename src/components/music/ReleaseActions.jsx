@@ -2,7 +2,7 @@ import {
   Button,
   Flex,
   Icon,
-  Link
+  Link,
 } from "@chakra-ui/react"
 
 import { FaArrowLeft } from "react-icons/fa"
@@ -28,6 +28,8 @@ export default function ReleaseActions({
       align={{ base: "stretch", lg: "flex-end" }}
       justify={{ base: "flex-start", lg: "space-between" }}
     >
+      {/* BACK */}
+
       <Icon
         as={FaArrowLeft}
         boxSize={6}
@@ -37,21 +39,22 @@ export default function ReleaseActions({
         transition="all .2s ease"
         _hover={{
           color: "gray.500",
-          transform: "scale(1.25)"
+          transform: "scale(1.25)",
         }}
         onClick={() => navigate("/music")}
       />
 
-<Flex
-  direction={{
-    base: "column",
-    lg: "column",
-    xl: "row",
-  }}
-  align="flex-end"
-  gap={4}
->
+      {/* ACTIONS */}
 
+      <Flex
+        direction={{
+          base: "column",
+          lg: "column",
+          xl: "row",
+        }}
+        align="flex-end"
+        gap={4}
+      >
         <ReleaseAdminActions
           isEditing={isEditing}
           onEdit={() => {
@@ -61,34 +64,36 @@ export default function ReleaseActions({
           onDelete={onDelete}
         />
 
-{!isEditing && (
-  <Link
-    href={release.beatport}
-    isExternal
-    _hover={{ textDecoration: "none" }}
-  >
-    <Button
-      bg="black"
-      color="white"
-      borderRadius="0"
-      border="1px solid white"
-      letterSpacing="2px"
-      fontSize={{ base: "xs", lg: "sm" }}
-      rightIcon={<SiBeatport />}
-      w={{ base: "170px", lg: "auto" }}
-      px={{ base: 0, lg: 8 }}
-      h={{ base: "48px", lg: "45px" }}
-      transition="all .2s ease"
-      _hover={{
-        bg: "white",
-        color: "black",
-        transform: "scale(1.08)",
-      }}
-    >
-      BUY ON
-    </Button>
-  </Link>
-)}
+        {!isEditing && release.beatport && (
+          <Link
+            href={release.beatport}
+            isExternal
+            _hover={{
+              textDecoration: "none",
+            }}
+          >
+            <Button
+              bg="black"
+              color="white"
+              borderRadius="0"
+              border="1px solid white"
+              letterSpacing="2px"
+              fontSize={{ base: "xs", lg: "sm" }}
+              rightIcon={<SiBeatport />}
+              w={{ base: "170px", lg: "auto" }}
+              px={{ base: 0, lg: 8 }}
+              h={{ base: "48px", lg: "45px" }}
+              transition="all .2s ease"
+              _hover={{
+                bg: "white",
+                color: "black",
+                transform: "scale(1.08)",
+              }}
+            >
+              BUY ON
+            </Button>
+          </Link>
+        )}
       </Flex>
     </Flex>
   )

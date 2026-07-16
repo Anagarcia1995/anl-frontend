@@ -17,7 +17,7 @@ import {
   deleteRelease
 } from "../services/releaseService"
 import ReleasesSection from "../components/music/ReleasesSection"
-import ReleaseHero from "../components/music/ReleaseHero"
+import ReleasePreviewLayout from "../components/music/ReleasePreviewLayout"
 import useReleaseEditor from "../hooks/useReleaseEditor"
 import { hasUnsavedChanges } from "../utils/hasUnsavedChanges"
 import { formatDateForInput } from "../utils/date"
@@ -183,7 +183,7 @@ if (!release) {
       pb={{ base: 5, lg: 10 }}
     >
       {/* ---------- HERO ---------- */}
-<ReleaseHero
+<ReleasePreviewLayout
   release={release}
   isEditing={isEditing}
   editTitle={editTitle}

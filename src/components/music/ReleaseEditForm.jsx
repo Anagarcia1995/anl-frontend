@@ -3,21 +3,20 @@ import {
   Flex,
   Icon,
   Input,
-  SimpleGrid, 
+  SimpleGrid,
 } from "@chakra-ui/react"
 
 import {
-  FaSpotify,
   FaApple,
   FaSoundcloud,
-  FaYoutube
+  FaSpotify,
+  FaYoutube,
 } from "react-icons/fa"
-
 import { SiBeatport } from "react-icons/si"
 
-import FormInput from "../EventForm/FormInput"
 import DateInput from "../EventForm/DateInput"
 import EventFormActions from "../EventForm/EventFormActions"
+import FormInput from "../EventForm/FormInput"
 
 export default function ReleaseEditForm({
   editTitle,
@@ -44,67 +43,76 @@ export default function ReleaseEditForm({
 }) {
   return (
     <Box mt={2}>
-
       <SimpleGrid
         columns={2}
         spacing={5}
-        templateColumns={{ base: "50% 43%", lg: "1fr 1fr" }}
+        templateColumns={{
+          base: "50% 43%",
+          lg: "1fr 1fr",
+        }}
       >
-
         {/* LEFT */}
 
         <Box mb={4}>
-
-          <Flex  align="center"
+          <Flex
+            align="center"
             gap={3}
-            mb={4}> 
-          <FormInput
-            placeholder="Title"
-            value={editTitle}
-onChange={(e) =>
-  setEditTitle(
-    e.target.value.replace(
-      /\b\w/g,
-      (char) => char.toUpperCase()
-    )
-  )
-}
-          />
-            </Flex>
-          <Flex  align="center"
-            gap={3}
-            mb={4}> 
-          <FormInput
-            placeholder="Artist"
-            value={editArtist}
-onChange={(e) =>
-  setEditArtist(
-    e.target.value.toUpperCase()
-  )
-}
-          />
+            mb={4}
+          >
+            <FormInput
+              placeholder="Title"
+              value={editTitle}
+              onChange={(e) =>
+                setEditTitle(
+                  e.target.value.replace(
+                    /\b\w/g,
+                    (char) => char.toUpperCase()
+                  )
+                )
+              }
+            />
           </Flex>
 
-          <Flex  align="center"
+          <Flex
+            align="center"
             gap={3}
-            mb={4}> 
-          <FormInput
-            placeholder="Label"
-            value={editLabel}
-            onChange={(e) =>
-              setEditLabel(e.target.value)
-            }
-          />
-            </Flex>
+            mb={4}
+          >
+            <FormInput
+              placeholder="Artist"
+              value={editArtist}
+              onChange={(e) =>
+                setEditArtist(
+                  e.target.value.toUpperCase()
+                )
+              }
+            />
+          </Flex>
 
-          <Flex  align="center"
+          <Flex
+            align="center"
             gap={3}
-            mb={4}> 
-<DateInput
-  date={editReleaseDate}
-  setDate={setEditReleaseDate}
-/>
-            </Flex>
+            mb={4}
+          >
+            <FormInput
+              placeholder="Label"
+              value={editLabel}
+              onChange={(e) =>
+                setEditLabel(e.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            align="center"
+            gap={3}
+            mb={4}
+          >
+            <DateInput
+              date={editReleaseDate}
+              setDate={setEditReleaseDate}
+            />
+          </Flex>
 
           <Input
             type="file"
@@ -113,22 +121,18 @@ onChange={(e) =>
             bg="transparent"
             borderColor="whiteAlpha.400"
             onChange={(e) =>
-              setEditCoverImage(
-                e.target.files[0]
-              )
+              setEditCoverImage(e.target.files[0])
             }
           />
-
         </Box>
 
         {/* RIGHT */}
 
         <Box>
-
           <Flex
-  align="center"
-  gap={3}
-  mb={4}
+            align="center"
+            gap={3}
+            mb={4}
           >
             <Icon as={FaSpotify} />
             <Box flex={1}>
@@ -208,9 +212,7 @@ onChange={(e) =>
               />
             </Box>
           </Flex>
-
         </Box>
-
       </SimpleGrid>
 
       <Box mt={2}>
@@ -219,7 +221,6 @@ onChange={(e) =>
           onCancel={handleCancel}
         />
       </Box>
-
     </Box>
   )
 }

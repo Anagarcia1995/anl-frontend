@@ -1,22 +1,32 @@
-import { Flex, Icon } from "@chakra-ui/react";
-import { FiEdit2, FiTrash2 } from "react-icons/fi";
-import { useAuth } from "../../context/AuthContext";
+import {
+  Flex,
+  Icon,
+} from "@chakra-ui/react"
+
+import {
+  FiEdit2,
+  FiTrash2,
+} from "react-icons/fi"
+
+import { useAuth } from "../../context/AuthContext"
 
 export default function ReleaseAdminActions({
   isEditing,
   onEdit,
   onDelete,
 }) {
-  const { isAdmin } = useAuth();
+  const { isAdmin } = useAuth()
 
-  if (!isAdmin) return null;
+  if (!isAdmin) {
+    return null
+  }
 
   return (
     <Flex
       gap={4}
+      align="center"
       color="white"
       fontSize="18px"
-      align="center"
     >
       {!isEditing && (
         <Icon
@@ -27,8 +37,8 @@ export default function ReleaseAdminActions({
             transform: "scale(1.15)",
           }}
           onClick={(e) => {
-            e.stopPropagation();
-            onEdit?.();
+            e.stopPropagation()
+            onEdit?.()
           }}
         />
       )}
@@ -41,10 +51,10 @@ export default function ReleaseAdminActions({
           transform: "scale(1.15)",
         }}
         onClick={(e) => {
-          e.stopPropagation();
-          onDelete?.();
+          e.stopPropagation()
+          onDelete?.()
         }}
       />
     </Flex>
-  );
+  )
 }

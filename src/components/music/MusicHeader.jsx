@@ -5,7 +5,9 @@ import {
   Text,
 } from "@chakra-ui/react"
 
-export default function MusicHeader({ releaseCount }) {
+export default function MusicHeader({
+  releaseCount,
+}) {
   return (
     <Box mb={{ base: 6, lg: 12 }}>
       {/* TITLE */}
@@ -27,7 +29,7 @@ export default function MusicHeader({ releaseCount }) {
         MUSIC
       </Heading>
 
-      {/* MOBILE + DESKTOP INFO */}
+      {/* INFO */}
 
       <Flex
         direction={{

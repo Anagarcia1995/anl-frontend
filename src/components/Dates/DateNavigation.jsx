@@ -8,15 +8,15 @@ export default function DateNavigation() {
   return (
     <Flex
       justify="right"
-      gap={10}
-      mb={10}
+      gap={5}
+      mb={5}
     >
       <NavLink to="/next-dates">
         {({ isActive }) => (
           <Text
             fontSize="sm"
             letterSpacing="2px"
-            textTransform="uppercase"
+            textTransform="camelcase"
             borderBottom={
               isActive
                 ? "1px solid white"
@@ -38,7 +38,7 @@ export default function DateNavigation() {
           <Text
             fontSize="sm"
             letterSpacing="2px"
-            textTransform="uppercase"
+            textTransform="camelcase"
             borderBottom={
               isActive
                 ? "1px solid white"

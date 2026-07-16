@@ -8,25 +8,23 @@ import {
 } from "@chakra-ui/react"
 
 import {
-  FaSpotify,
   FaApple,
   FaSoundcloud,
+  FaSpotify,
   FaYoutube,
 } from "react-icons/fa"
-
-import { formatDateForPreview } from "../../utils/date"
 import { SiBeatport } from "react-icons/si"
 
+import { formatDateForPreview } from "../../utils/date"
 
 export default function ReleaseInfo({ release }) {
-
   const hasPlatforms =
-  release.spotify ||
-  release.appleMusic ||
-  release.soundcloud ||
-  release.youtube ||
-  release.beatport
-  
+    release.spotify ||
+    release.appleMusic ||
+    release.soundcloud ||
+    release.youtube ||
+    release.beatport
+
   return (
     <>
       <Heading
@@ -78,42 +76,59 @@ export default function ReleaseInfo({ release }) {
         </Text>
       </Box>
 
-{hasPlatforms && (
-  <HStack
-    spacing={4}
-    fontSize="2xl"
-  >
-    {release.spotify && (
-      <Link href={release.spotify} isExternal>
-        <Icon as={FaSpotify} />
-      </Link>
-    )}
+      {/* PLATFORMS */}
 
-    {release.appleMusic && (
-      <Link href={release.appleMusic} isExternal>
-        <Icon as={FaApple} />
-      </Link>
-    )}
+      {hasPlatforms && (
+        <HStack
+          spacing={4}
+          fontSize="2xl"
+        >
+          {release.spotify && (
+            <Link
+              href={release.spotify}
+              isExternal
+            >
+              <Icon as={FaSpotify} />
+            </Link>
+          )}
 
-    {release.soundcloud && (
-      <Link href={release.soundcloud} isExternal>
-        <Icon as={FaSoundcloud} />
-      </Link>
-    )}
+          {release.appleMusic && (
+            <Link
+              href={release.appleMusic}
+              isExternal
+            >
+              <Icon as={FaApple} />
+            </Link>
+          )}
 
-    {release.youtube && (
-      <Link href={release.youtube} isExternal>
-        <Icon as={FaYoutube} />
-      </Link>
-    )}
+          {release.soundcloud && (
+            <Link
+              href={release.soundcloud}
+              isExternal
+            >
+              <Icon as={FaSoundcloud} />
+            </Link>
+          )}
 
-    {release.beatport && (
-      <Link href={release.beatport} isExternal>
-        <Icon as={SiBeatport} />
-      </Link>
-    )}
-  </HStack>
-)}
+          {release.youtube && (
+            <Link
+              href={release.youtube}
+              isExternal
+            >
+              <Icon as={FaYoutube} />
+            </Link>
+          )}
+
+          {release.beatport && (
+            <Link
+              href={release.beatport}
+              isExternal
+            >
+              <Icon as={SiBeatport} />
+            </Link>
+          )}
+        </HStack>
+      )}
     </>
   )
 }

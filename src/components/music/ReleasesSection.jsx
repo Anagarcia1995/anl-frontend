@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+
 import {
   Box,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react"
 
 import { fetchReleases } from "../../services/releaseService"
+
 import ReleaseCard from "./ReleaseCard"
 
 export default function ReleasesSection({
@@ -15,20 +17,22 @@ export default function ReleasesSection({
   const [localReleases, setLocalReleases] = useState([])
 
   useEffect(() => {
-    if (!releasesProp) {
-      const loadReleases = async () => {
-        const data = await fetchReleases()
-        setLocalReleases(data)
-      }
+    if (releasesProp) return
 
-      loadReleases()
+    const loadReleases = async () => {
+      const data = await fetchReleases()
+      setLocalReleases(data)
     }
+
+    loadReleases()
   }, [releasesProp])
 
-  const releases = releasesProp || localReleases
+  const releases = releasesProp ?? localReleases
 
   const filteredReleases = excludeId
-    ? releases.filter((release) => release._id !== excludeId)
+    ? releases.filter(
+        (release) => release._id !== excludeId
+      )
     : releases
 
   const sortedReleases = [...filteredReleases].sort(
@@ -38,7 +42,10 @@ export default function ReleasesSection({
   )
 
   return (
-    <Box maxW={{ base: "700px", xl: "100%" }} mx="auto">
+    <Box
+      maxW={{ base: "700px", xl: "100%" }}
+      mx="auto"
+    >
       <SimpleGrid
         columns={{
           base: 2,
