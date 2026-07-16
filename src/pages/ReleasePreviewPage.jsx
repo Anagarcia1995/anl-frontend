@@ -78,7 +78,7 @@ export default function ReleasePreview() {
       top: 0,
       behavior: "smooth",
     })
-  }, [id, loadRelease])
+  }, [id])
 
   const showReleaseToast = (action) =>
     showToast(

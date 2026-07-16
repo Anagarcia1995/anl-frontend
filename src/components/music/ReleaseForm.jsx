@@ -2,68 +2,126 @@ import {
   Box,
   Flex,
   Icon,
+  Image,
   Input,
   SimpleGrid,
+  Text,
 } from "@chakra-ui/react"
 
 import {
-  FaSpotify,
   FaApple,
   FaSoundcloud,
+  FaSpotify,
   FaYoutube,
 } from "react-icons/fa"
 
 import { SiBeatport } from "react-icons/si"
+import { useRef, useState } from "react"
 
-import FormInput from "../EventForm/FormInput"
 import DateInput from "../EventForm/DateInput"
 import EventFormActions from "../EventForm/EventFormActions"
+import FormInput from "../EventForm/FormInput"
 
-export default function ReleaseEditForm({
-  editTitle,
-  setEditTitle,
-  editArtist,
-  setEditArtist,
-  editLabel,
-  setEditLabel,
-  editReleaseDate,
-  setEditReleaseDate,
-  editSpotify,
-  setEditSpotify,
-  editAppleMusic,
-  setEditAppleMusic,
-  editSoundcloud,
-  setEditSoundcloud,
-  editYoutube,
-  setEditYoutube,
-  editBeatport,
-  setEditBeatport,
-  setEditCoverImage,
-  handleSave,
-  handleCancel,
+export default function ReleaseForm({
+  title,
+  setTitle,
+  artist,
+  setArtist,
+  label,
+  setLabel,
+  releaseDate,
+  setReleaseDate,
+  spotify,
+  setSpotify,
+  appleMusic,
+  setAppleMusic,
+  soundcloud,
+  setSoundcloud,
+  youtube,
+  setYoutube,
+  beatport,
+  setBeatport,
+  setCoverImage,
+  handleSaveRelease,
+  onCancel,
 }) {
-  return (
-    <Box mt={2}>
-      <SimpleGrid
-        columns={2}
-        spacing={5}
-        templateColumns={{
-          base: "50% 43%",
-          lg: "1fr 1fr",
-        }}
-      >
-        {/* LEFT */}
+  const [coverPreview, setCoverPreview] =
+    useState(null)
 
-        <Box mb={4}>
+  const fileInputRef = useRef(null)
+
+  return (
+    <Box
+      maxW="1400px"
+      mx="auto"
+      px={{ base: 0, lg: 8 }}
+      mb="40px"
+    >
+      <SimpleGrid
+        columns={{ base: 2, lg: 3 }}
+        spacing={{ base: 4, lg: 10 }}
+        templateColumns={{
+          base: "1fr 1fr",
+          lg: "260px 1fr 1fr",
+        }}
+        alignItems="start"
+      >
+        {/* COVER */}
+
+        <Box display={{ base: "none", lg: "block" }}>
+          <Box
+            w="90%"
+            mx="auto"
+            aspectRatio={1}
+            border="1px solid"
+            borderColor="whiteAlpha.300"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            overflow="hidden"
+            cursor="pointer"
+            transition="all .2s ease"
+            _hover={{
+              opacity: 0.8,
+            }}
+            onClick={() =>
+              fileInputRef.current?.click()
+            }
+          >
+            {coverPreview ? (
+              <Image
+                src={coverPreview}
+                alt="Cover preview"
+                w="100%"
+                h="100%"
+                objectFit="cover"
+              />
+            ) : (
+              <Text
+                color="gray.500"
+                letterSpacing="2px"
+                textTransform="uppercase"
+                fontSize="sm"
+              >
+                COVER PREVIEW
+              </Text>
+            )}
+          </Box>
+        </Box>
+
+        {/* INFO */}
+
+        <Box px={{ base: 2, lg: 0 }}>
           <Box mb={4}>
             <FormInput
-              placeholder="Title"
-              value={editTitle}
+              placeholder="Title *"
+              value={title}
               onChange={(e) =>
-                setEditTitle(
+                setTitle(
                   e.target.value.replace(
                     /\b\w/g,
-                    (char) => char.toUpperCase()
+                    (char) =>
+                      char.toUpperCase()
                   )
                 )
               }
@@ -72,10 +130,10 @@ export default function ReleaseEditForm({
 
           <Box mb={4}>
             <FormInput
-              placeholder="Artist"
-              value={editArtist}
+              placeholder="Artist *"
+              value={artist}
               onChange={(e) =>
-                setEditArtist(
+                setArtist(
                   e.target.value.toUpperCase()
                 )
               }
@@ -84,36 +142,43 @@ export default function ReleaseEditForm({
 
           <Box mb={4}>
             <FormInput
-              placeholder="Label"
-              value={editLabel}
+              placeholder="Label *"
+              value={label}
               onChange={(e) =>
-                setEditLabel(e.target.value)
+                setLabel(e.target.value)
               }
             />
           </Box>
 
           <Box mb={4}>
             <DateInput
-              date={editReleaseDate}
-              setDate={setEditReleaseDate}
+              date={releaseDate}
+              setDate={setReleaseDate}
             />
           </Box>
 
           <Input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             borderRadius="0"
             bg="transparent"
             borderColor="whiteAlpha.400"
-            onChange={(e) =>
-              setEditCoverImage(
+            onChange={(e) => {
+              const file =
                 e.target.files[0]
+
+              if (!file) return
+
+              setCoverImage(file)
+              setCoverPreview(
+                URL.createObjectURL(file)
               )
-            }
+            }}
           />
         </Box>
 
-        {/* RIGHT */}
+        {/* PLATFORMS */}
 
         <Box>
           <Flex
@@ -126,9 +191,9 @@ export default function ReleaseEditForm({
             <Box flex={1}>
               <FormInput
                 placeholder="Spotify"
-                value={editSpotify}
+                value={spotify}
                 onChange={(e) =>
-                  setEditSpotify(e.target.value)
+                  setSpotify(e.target.value)
                 }
               />
             </Box>
@@ -144,9 +209,9 @@ export default function ReleaseEditForm({
             <Box flex={1}>
               <FormInput
                 placeholder="Apple Music"
-                value={editAppleMusic}
+                value={appleMusic}
                 onChange={(e) =>
-                  setEditAppleMusic(e.target.value)
+                  setAppleMusic(e.target.value)
                 }
               />
             </Box>
@@ -162,9 +227,11 @@ export default function ReleaseEditForm({
             <Box flex={1}>
               <FormInput
                 placeholder="SoundCloud"
-                value={editSoundcloud}
+                value={soundcloud}
                 onChange={(e) =>
-                  setEditSoundcloud(e.target.value)
+                  setSoundcloud(
+                    e.target.value
+                  )
                 }
               />
             </Box>
@@ -180,9 +247,9 @@ export default function ReleaseEditForm({
             <Box flex={1}>
               <FormInput
                 placeholder="YouTube"
-                value={editYoutube}
+                value={youtube}
                 onChange={(e) =>
-                  setEditYoutube(e.target.value)
+                  setYoutube(e.target.value)
                 }
               />
             </Box>
@@ -196,10 +263,10 @@ export default function ReleaseEditForm({
 
             <Box flex={1}>
               <FormInput
-                placeholder="Beatport"
-                value={editBeatport}
+                placeholder="Beatport *"
+                value={beatport}
                 onChange={(e) =>
-                  setEditBeatport(e.target.value)
+                  setBeatport(e.target.value)
                 }
               />
             </Box>
@@ -208,8 +275,8 @@ export default function ReleaseEditForm({
       </SimpleGrid>
 
       <EventFormActions
-        onSave={handleSave}
-        onCancel={handleCancel}
+        onSave={handleSaveRelease}
+        onCancel={onCancel}
       />
     </Box>
   )
