@@ -91,10 +91,6 @@ if (missingFields.length === 1) {
 }
 
     try {
-
-      console.log(date)
-console.log(defaultDate)
-
       const createdEvent = await createEvent(eventData)
 
       if (!createdEvent) {
