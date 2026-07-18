@@ -6,8 +6,6 @@ import {
   Text,
 } from "@chakra-ui/react"
 
-import { API_URL } from "../../services/api"
-
 export default function ReleaseCard({
   release,
   onClick,
@@ -22,7 +20,7 @@ export default function ReleaseCard({
 
       <Box overflow="visible">
         <Image
-          src={`${API_URL}${release.coverImage}`}
+          src={release.coverImage}
           alt={release.title}
           w="100%"
           aspectRatio={1}

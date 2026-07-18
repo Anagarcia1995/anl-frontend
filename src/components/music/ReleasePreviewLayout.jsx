@@ -10,8 +10,6 @@ import {
 import { FaArrowLeft } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 
-import { API_URL } from "../../services/api"
-
 import ReleaseActions from "./ReleaseActions"
 import ReleaseEditForm from "./ReleaseEditForm"
 import ReleaseInfo from "./ReleaseInfo"
@@ -114,7 +112,7 @@ export default function ReleaseHero({
           />
 
           <Image
-            src={`${API_URL}${release.coverImage}`}
+            src={release.coverImage}
             alt={release.title}
             w="100%"
             aspectRatio={1}
@@ -157,7 +155,7 @@ export default function ReleaseHero({
           }}
         >
           <Image
-            src={`${API_URL}${release.coverImage}`}
+            src={release.coverImage}
             alt={release.title}
             w="100%"
             aspectRatio={1}

@@ -8,8 +8,6 @@ import {
 
 import { useNavigate } from "react-router-dom"
 
-import { API_URL } from "../../services/api"
-
 export default function LatestReleaseCard({
   release,
 }) {
@@ -35,7 +33,7 @@ export default function LatestReleaseCard({
         overflow="hidden"
       >
         <Image
-          src={`${API_URL}${release.coverImage}`}
+          src={release.coverImage}
           alt={release.title}
           w="100%"
           aspectRatio={1}

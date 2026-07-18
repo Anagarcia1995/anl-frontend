@@ -19,8 +19,6 @@ import { useNavigate } from "react-router-dom"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 
-import { API_URL } from "../../services/api"
-
 export default function ReleaseCarousel({
   releases,
 }) {
@@ -108,7 +106,7 @@ export default function ReleaseCarousel({
                 }
               >
                 <Image
-                  src={`${API_URL}${release.coverImage}`}
+                  src={release.coverImage}
                   alt={release.title}
                   w="100%"
                   aspectRatio={1}
