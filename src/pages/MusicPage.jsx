@@ -160,8 +160,8 @@ setShowForm(false)
   return (
     <Box
   mt={0}
-  px={{ base: 6, lg: 10 }}
-  pt={{ base: 8, lg: 12 }}
+  px={{ base: 3, lg: 10 }}
+  pt={{ base: 5, lg: 12 }}
   pb={{ base: 5, lg: 10 }}
   
 >

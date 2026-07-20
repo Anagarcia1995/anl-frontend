@@ -27,7 +27,7 @@ export default function LatestReleaseCard({
 
       <Box
         flex={{
-          base: "0 0 30%",
+          base: "0 0 35%",
           lg: 1,
         }}
         overflow="hidden"
@@ -60,6 +60,7 @@ export default function LatestReleaseCard({
           }}
           fontWeight="600"
           lineHeight="1.2"
+          letterSpacing="0.5px"
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"
@@ -75,10 +76,8 @@ export default function LatestReleaseCard({
           }}
           color="gray.400"
           textTransform="uppercase"
-          letterSpacing={{
-            base: "0.95px",
-            lg: "2px",
-          }}
+          letterSpacing="2px"
+          fontWeight="500"
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"

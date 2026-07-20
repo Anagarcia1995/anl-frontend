@@ -118,6 +118,7 @@ export default function TourSection() {
               return (
                 <Box
                   key={event._id}
+                  pl={2}
                   minW={0}
                   pb={3}
                   borderBottom="1px solid"
@@ -177,7 +178,7 @@ export default function TourSection() {
                     overflow="hidden"
                     textOverflow="ellipsis"
                   >
-                    {formatEventDate(event.date)}{" "}
+                    {formatEventDate(event.date)} | {" "}
                     {event.eventName}
                   </Text>
 
@@ -185,6 +186,7 @@ export default function TourSection() {
 
                   <Text
                     mt={1}
+                    ml={2}
                     color="gray.300"
                     fontSize="md"
                     letterSpacing="1px"
@@ -211,6 +213,7 @@ export default function TourSection() {
             letterSpacing="4px"
             textTransform="uppercase"
             transition="all .4s ease"
+            fontWeight={500}
             _hover={{
               transform: "scale(1.1)",
               color: "gray.300",

@@ -56,12 +56,12 @@ export default function ReleaseCarousel({
   }, [emblaApi])
 
   return (
-    <Box mt={{ base: 6, lg: "70px" }}>
+    <Box mt={{ base: 3, lg: "70px" }}>
       {/* CAROUSEL */}
 
       <Box
         position="relative"
-        px={{ base: 6, lg: 12 }}
+        px={{ base: 5, lg: 12 }}
       >
         <Icon
           as={FaChevronLeft}
@@ -94,7 +94,7 @@ export default function ReleaseCarousel({
               <Box
                 key={release._id}
                 flex={{
-                  base: "0 0 28%",
+                  base: "0 0 33%",
                   lg: "0 0 25%",
                 }}
                 px={{ base: 1, lg: 2 }}
@@ -119,14 +119,14 @@ export default function ReleaseCarousel({
                 />
 
                 <Text
-                  mt={{ base: 2, lg: 3 }}
+                  mt={{ base: 1, lg: 3 }}
                   ml={{ base: 1, lg: "5px" }}
                   fontSize={{
                     base: "xs",
                     lg: "sm",
                   }}
                   color="white"
-                  letterSpacing="1px"
+                  letterSpacing="0.5px"
                   noOfLines={1}
                 >
                   {release.title}
@@ -160,17 +160,17 @@ export default function ReleaseCarousel({
       {/* INDICATORS */}
 
       <Box
-        mt={{ base: 7, lg: 10 }}
+        mt={{ base: 5, lg: 10 }}
         display="flex"
         justifyContent="center"
-        gap={4}
+        gap={2}
       >
         {releases.map((release, index) => (
           <Box
             key={release._id}
             w={
               index === selectedIndex
-                ? "48px"
+                ? "40px"
                 : "18px"
             }
             h="2px"

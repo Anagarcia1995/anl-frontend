@@ -15,14 +15,14 @@ export default function MusicHeader({
       <Heading
         fontFamily="'Bebas Neue', sans-serif"
         fontSize={{
-          base: "3xl",
+          base: "5xl",
           lg: "8xl",
         }}
         fontWeight="400"
         lineHeight="0.8"
         letterSpacing="2px"
         mb={{
-          base: 3,
+          base: 2,
           lg: 5,
         }}
       >
@@ -41,14 +41,14 @@ export default function MusicHeader({
           lg: "center",
         }}
         gap={{
-          base: 2,
+          base: 1,
           lg: 6,
         }}
       >
         <Text
           color="gray.400"
           fontSize={{
-            base: "12px",
+            base: "13px",
             lg: "sm",
           }}
           letterSpacing={{
@@ -78,7 +78,7 @@ export default function MusicHeader({
           <Text
             color="gray.400"
             fontSize={{
-              base: "12px",
+              base: "13px",
               lg: "sm",
             }}
             letterSpacing={{

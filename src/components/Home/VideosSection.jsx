@@ -107,7 +107,7 @@ export default function VideosSection() {
               letterSpacing="2px"
               textTransform="uppercase"
             >
-              Watch on YouTube →
+              Watch on YouTube 
             </Text>
           </Box>
         ))}

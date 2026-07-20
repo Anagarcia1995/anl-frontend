@@ -36,9 +36,9 @@ export default function ReleaseCard({
       {/* INFO */}
 
       <Box
-        mt={{ base: 2, lg: 4 }}
+        mt={{ base: 3, lg: 4 }}
         position="relative"
-        minH="54px"
+        minH="50px"
       >
         {/* TEXT */}
 
@@ -49,7 +49,7 @@ export default function ReleaseCard({
           }}
         >
           <Heading
-            fontSize={{ base: "sm", lg: "xl" }}
+            fontSize={{ base: "md", lg: "xl" }}
             fontWeight="600"
             lineHeight="1.2"
             whiteSpace="nowrap"
@@ -65,6 +65,7 @@ export default function ReleaseCard({
             textTransform="uppercase"
             color="gray.400"
             letterSpacing="1px"
+            fontWeight={500}
             noOfLines={2}
           >
             {release.artist}

@@ -29,12 +29,12 @@ export default function UnsavedChangesModal({
         border="1px solid"
         borderColor="black"
         p={6}
-        w="100%"
+        w="80%"
         maxW="420px"
       >
         <Text
-          fontSize="lg"
-          fontWeight="600"
+          fontSize="md"
+          fontWeight="500"
           mb={2}
         >
           {title}

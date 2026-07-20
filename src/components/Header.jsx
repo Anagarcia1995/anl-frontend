@@ -15,7 +15,7 @@ export default function Header() {
       position="sticky"
       top="0"
       zIndex="10"
-      py={4}
+      py={{ base: 2, lg: 4 }}
       borderBottom="3px solid"
       borderColor="white"
       bg="black"
@@ -59,7 +59,7 @@ export default function Header() {
               <Text
                 display={{ base: "block", lg: "none" }}
                 fontFamily="'Bebas Neue', sans-serif"
-                fontSize="5xl"
+                fontSize={{ base: "4xl", md: "5xl" }}
                 lineHeight="1"
               >
                 ART NO LOGIA

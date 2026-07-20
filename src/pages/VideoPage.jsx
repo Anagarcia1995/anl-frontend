@@ -27,19 +27,19 @@ export default function VideosSection() {
       maxW={{ base: "100%", md: "900px" }}
       mx={{ md: "auto" }}
       px={{ md: 6 }}
-      py={{ base: 4, md: 20 }}
+      py={{ base: 2, md: 16 }}
     >
       <Heading
         mb={{ base: 6, lg: 10 }}
         fontSize={{ base: "md", lg: "lg" }}
-        letterSpacing="3px"
+        letterSpacing="4px"
       >
         DJ SETS
       </Heading>
 
       <Flex
         direction={{ base: "column", xl: "row" }}
-        gap={{ base: 6, lg: 8 }}
+        gap={{ base: 10, lg: 10 }}
         align="center"
       >
         {videos.map((video) => (
@@ -47,7 +47,7 @@ export default function VideosSection() {
             key={video.id}
             flex="1"
             w="100%"
-            maxW={{ base: "720px", xl: "none" }}
+            maxW={{ base: "320px", xl: "none" }}
             mx="auto"
             cursor="pointer"
             role="group"
@@ -114,6 +114,7 @@ export default function VideosSection() {
               letterSpacing="1px"
               textTransform="uppercase"
               lineHeight="1.4"
+              ml={1}
             >
               {video.title}
             </Text>
@@ -124,8 +125,9 @@ export default function VideosSection() {
               fontSize="xs"
               letterSpacing="2px"
               textTransform="uppercase"
+              ml={1}
             >
-              Watch on YouTube →
+              Watch on YouTube 
             </Text>
           </Box>
         ))}

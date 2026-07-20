@@ -121,10 +121,10 @@ export default function ReleaseHero({
           />
         </Box>
 
-        <Box px={2}>
+        <Box px={3}>
           {releaseContent}
 
-          <Box mt={8}>
+          <Box mt={6}>
             <ReleaseActions
               release={release}
               isEditing={isEditing}

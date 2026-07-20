@@ -30,6 +30,7 @@ export default function ReleaseInfo({ release }) {
       <Heading
         fontSize={{ base: "2xl", lg: "3xl" }}
         fontWeight="500"
+        letterSpacing="0.5px"
         lineHeight="1.1"
       >
         {release.title}
@@ -38,40 +39,40 @@ export default function ReleaseInfo({ release }) {
       <Text
         color="gray.500"
         textTransform="uppercase"
-        letterSpacing="3px"
+        letterSpacing="2px"
         fontWeight="400"
-        fontSize={{ base: "md", lg: "lg" }}
+        fontSize={"lg"}
         mb={{ base: 4, md: 6, lg: 10 }}
       >
         {release.artist}
       </Text>
 
-      <Box mb={{ base: 2, lg: 6 }}>
+      <Box mb={{ base: 4, lg: 6 }}>
         <Text
           color="gray.500"
-          fontSize="sm"
+          fontSize="md"
           fontWeight="500"
-          mb={1}
+          mb={0}
         >
           Release Date
         </Text>
 
-        <Text fontSize="md">
+        <Text fontSize="lg">
           {formatDateForPreview(release.releaseDate)}
         </Text>
       </Box>
 
-      <Box mb={{ base: 3, md: 4, lg: 6 }}>
+      <Box mb={{ base: 4, md: 4, lg: 6 }}>
         <Text
           color="gray.500"
-          fontSize="sm"
+          fontSize="md"
           fontWeight="500"
-          mb={1}
+          mb={0}
         >
           Label
         </Text>
 
-        <Text fontSize="md">
+        <Text fontSize="lg">
           {release.label}
         </Text>
       </Box>
@@ -81,7 +82,7 @@ export default function ReleaseInfo({ release }) {
       {hasPlatforms && (
         <HStack
           spacing={4}
-          fontSize="2xl"
+          fontSize="3xl"
         >
           {release.spotify && (
             <Link

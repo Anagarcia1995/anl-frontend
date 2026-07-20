@@ -58,7 +58,7 @@ export default function HeroSection() {
             lg: "0.82",
           }}
           fontSize={{
-            base: "5xl",
+            base: "6xl",
             md: "5xl",
             lg: "9xl",
           }}
@@ -69,13 +69,13 @@ export default function HeroSection() {
               lg: "none",
             }}
           >
-            MUSIC
+            Music
             <br />
-            FROM
+            From
             <br />
-            THE
+            The
             <br />
-            FUTURE.
+            Future
           </Box>
 
           <Box

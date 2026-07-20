@@ -31,9 +31,14 @@ export default function MobileMenu() {
       <Box
         display={{ base: "block", lg: "none" }}
         position="fixed"
-        top="75px"
+        top="59px"
+        sx={{
+          "@media (min-width: 425px)": {
+            top: "75px",
+          },
+        }}
         left={isOpen ? 0 : "-180px"}
-        w="130px"
+        w="120px"
         bg="black"
         borderRight="2px solid"
         borderBottom="3px solid"
@@ -46,8 +51,8 @@ export default function MobileMenu() {
           spacing={0}
         >
           <Box
-            py={4}
-            px={6}
+            py={3}
+            px={4}
             borderBottom="2px solid"
             borderColor="white"
           >
@@ -60,8 +65,8 @@ export default function MobileMenu() {
           </Box>
 
           <Box
-            py={4}
-            px={6}
+            py={3}
+            px={4}
             borderBottom="2px solid"
             borderColor="white"
           >
@@ -74,8 +79,8 @@ export default function MobileMenu() {
           </Box>
 
           <Box
-            py={4}
-            px={6}
+            py={3}
+            px={4}
             borderBottom="2px solid"
             borderColor="white"
           >
@@ -88,8 +93,8 @@ export default function MobileMenu() {
           </Box>
 
           <Box
-            py={4}
-            px={6}
+            py={3}
+            px={4}
           >
             <NavItem
               to="/next-dates"

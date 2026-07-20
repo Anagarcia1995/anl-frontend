@@ -47,8 +47,8 @@ export default function LatestReleaseSection() {
           >
             <Heading
               mb={{ base: 2, lg: 8 }}
-              fontSize={{ base: "md", lg: "lg" }}
-              letterSpacing="3px"
+              fontSize={{ base: "sm", lg: "lg" }}
+              letterSpacing="2px"
             >
               LATEST RELEASE
             </Heading>
@@ -76,12 +76,13 @@ export default function LatestReleaseSection() {
 
             <Text
               mt={{ base: 4, lg: 8 }}
-              mr="55px"
-              mb="20px"
+              mr="5px"
+              mb="5px"
               alignSelf="flex-end"
               cursor="pointer"
               fontSize={{ base: "xs", lg: "md" }}
               letterSpacing="4px"
+              fontWeight={500}
               transition="all .5s ease"
               _hover={{
                 transform: "scale(1.12)",

@@ -8,16 +8,26 @@ export default function DateInput({
   date,
   setDate
 }) {
-  const handleDateMouseDown = (e) => {
-    if (date === defaultDate) {
-      e.preventDefault()
 
-      requestAnimationFrame(() => {
-        e.target.focus()
-        e.target.setSelectionRange(0, 0)
-      })
-    }
+  const handleDateMouseDown = (e) => {
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    ("ontouchstart" in window ||
+      navigator.maxTouchPoints > 0)
+
+  if (isTouchDevice) {
+    return
   }
+
+  if (date === defaultDate) {
+    e.preventDefault()
+
+    requestAnimationFrame(() => {
+      e.target.focus()
+      e.target.setSelectionRange(0, 0)
+    })
+  }
+}
 
   const handleDateKeyDown = (e) => {
     const cursor = e.target.selectionStart
