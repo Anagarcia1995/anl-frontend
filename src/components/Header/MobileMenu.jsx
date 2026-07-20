@@ -28,6 +28,22 @@ export default function MobileMenu() {
         _focusVisible={{ boxShadow: "none" }}
       />
 
+      {isOpen && (
+        <Box
+          display={{ base: "block", lg: "none" }}
+          position="fixed"
+          inset={0}
+          top="59px"
+          sx={{
+            "@media (min-width: 425px)": {
+              top: "75px",
+            },
+          }}
+          zIndex="19"
+          onClick={onClose}
+        />
+      )}
+
       <Box
         display={{ base: "block", lg: "none" }}
         position="fixed"

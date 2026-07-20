@@ -117,6 +117,8 @@ export default function ReleaseEditForm({
           <Input
             type="file"
             accept="image/*"
+            size="sm"
+            fontSize={"9px"}
             borderRadius="0"
             bg="transparent"
             borderColor="whiteAlpha.400"

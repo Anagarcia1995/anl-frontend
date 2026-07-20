@@ -138,12 +138,15 @@ export default function ReleaseHero({
 
       {/* TABLET + DESKTOP */}
 
-      <Flex
-        display={{ base: "none", md: "flex" }}
-        gap={16}
-        align="flex-end"
-        mb={16}
-      >
+<Flex
+  display={{ base: "none", md: "flex" }}
+  gap={12}
+  align="flex-end"
+  justify="center"
+  maxW="1280px"
+  mx="auto"
+  mb={16}
+>
         <Box
           w={{
             md: "330px",
@@ -164,11 +167,14 @@ export default function ReleaseHero({
           />
         </Box>
 
-        <Box flex="1">
+        <Box
+          flex="1"
+          maxW="420px"
+        >
           {releaseContent}
         </Box>
 
-        <Box flex="0 0 auto">
+        <Box flex="0 0 20px">
           <ReleaseActions
             release={release}
             isEditing={isEditing}

@@ -22,8 +22,8 @@ export default function ReleaseActions({
 
   return (
     <Flex
-      w={{ base: "100%", lg: "20%" }}
-      minH={{ base: "auto", lg: "450px" }}
+      w={{ base: "100%", lg: "100%" }}
+      minH={{ base: "auto", lg: "380px" }}
       direction="column"
       align={{ base: "stretch", lg: "flex-end" }}
       justify={{ base: "flex-start", lg: "space-between" }}

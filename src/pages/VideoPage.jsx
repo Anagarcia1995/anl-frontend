@@ -24,7 +24,7 @@ const videos = [
 export default function VideosSection() {
   return (
     <Box
-      maxW={{ base: "100%", md: "900px" }}
+      maxW={{ base: "100%", md: "1200px" }}
       mx={{ md: "auto" }}
       px={{ md: 6 }}
       py={{ base: 2, md: 16 }}

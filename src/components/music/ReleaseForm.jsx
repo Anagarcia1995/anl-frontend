@@ -160,6 +160,8 @@ export default function ReleaseForm({
           <Input
             ref={fileInputRef}
             type="file"
+            size="sm"
+            fontSize={"9px"}
             accept="image/*"
             borderRadius="0"
             bg="transparent"

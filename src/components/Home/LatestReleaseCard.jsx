@@ -17,7 +17,7 @@ export default function LatestReleaseCard({
     <Flex
       direction={{ base: "row", lg: "column" }}
       align={{ base: "center", lg: "stretch" }}
-      gap={{ base: 5, lg: 0 }}
+      gap={{ base: 2, lg: 0 }}
       cursor="pointer"
       onClick={() =>
         navigate(`/music/${release._id}`)
@@ -53,12 +53,12 @@ export default function LatestReleaseCard({
         minW={0}
       >
         <Heading
-          mt={0}
+          mt={3}
           fontSize={{
             base: "20px",
             lg: "2xl",
           }}
-          fontWeight="600"
+          fontWeight="500"
           lineHeight="1.2"
           letterSpacing="0.5px"
           whiteSpace="nowrap"
@@ -72,12 +72,12 @@ export default function LatestReleaseCard({
           mt={0}
           fontSize={{
             base: "md",
-            lg: "2xl",
+            lg: "xl",
           }}
           color="gray.400"
           textTransform="uppercase"
           letterSpacing="2px"
-          fontWeight="500"
+          fontWeight="400"
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"

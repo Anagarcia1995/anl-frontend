@@ -228,7 +228,6 @@ onCancel={() => {
 {showUnsavedModal && (
   <UnsavedChangesModal
     title="Unsaved changes"
-    description="You have unsaved changes. Do you want to discard them?"
     onCancel={() => setShowUnsavedModal(false)}
     onConfirm={() => {
       setShowUnsavedModal(false)

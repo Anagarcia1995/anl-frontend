@@ -60,7 +60,7 @@ export default function HeroSection() {
           fontSize={{
             base: "6xl",
             md: "5xl",
-            lg: "9xl",
+            lg: "9rem",
           }}
         >
           <Box
@@ -86,7 +86,7 @@ export default function HeroSection() {
           >
             MUSIC FROM
             <br />
-            THE FUTURE.
+            THE FUTURE
           </Box>
         </Heading>
       </Flex>

@@ -25,7 +25,7 @@ export default function LatestReleaseSection() {
   const otherReleases = releases.slice(1)
 
   return (
-    <Box py={{ base: 3, lg: 28 }}>
+    <Box py={{ base: 3, lg: 24 }}>
       <Box
         maxW="1450px"
         mx="auto"
@@ -34,7 +34,7 @@ export default function LatestReleaseSection() {
         <Flex
           direction={{ base: "column", lg: "row" }}
           align="stretch"
-          gap={{ base: 2, lg: 8 }}
+          gap={{ base: 2, lg: 6 }}
         >
           {/* ---------- LATEST ---------- */}
 
@@ -46,9 +46,10 @@ export default function LatestReleaseSection() {
             p={{ base: 2, lg: 7 }}
           >
             <Heading
-              mb={{ base: 2, lg: 8 }}
+              mb={{ base: 2, lg: 3 }}
               fontSize={{ base: "sm", lg: "lg" }}
               letterSpacing="2px"
+              fontWeight={500}
             >
               LATEST RELEASE
             </Heading>
@@ -75,7 +76,7 @@ export default function LatestReleaseSection() {
             />
 
             <Text
-              mt={{ base: 4, lg: 8 }}
+              mt={{ base: 4, lg: 5 }}
               mr="5px"
               mb="5px"
               alignSelf="flex-end"

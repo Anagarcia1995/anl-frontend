@@ -293,7 +293,6 @@ export default function ReleasePreview() {
       {showSwitchModal && (
         <UnsavedChangesModal
           title="Discard changes?"
-          description="You have unsaved changes. Do you want to discard them and open another release?"
           onCancel={() => {
             setShowSwitchModal(false)
             setSwitchTarget(null)
