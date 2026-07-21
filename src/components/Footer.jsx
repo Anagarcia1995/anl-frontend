@@ -57,7 +57,7 @@ export default function Footer() {
       borderTop="3px solid"
       borderColor="white"
       py={{ base: 2, lg: 1 }}
-      px={8}
+      px={4}
     >
       <VStack spacing={3}>
         {/* CONTACT */}
@@ -100,7 +100,7 @@ export default function Footer() {
       href="mailto:aldo@conceptoneagency.com"
       fontSize={{ base: "2xs", lg: "sm" }}
       transition="all .2s ease"
-      letterSpacing="0.7px"
+      letterSpacing="0.5px"
       _hover={{
         color: "gray.400",
       }}
@@ -126,7 +126,7 @@ export default function Footer() {
       href="mailto:hello@jassigonzalez.com"
       fontSize={{ base: "2xs", lg: "sm" }}
       transition="all .2s ease"
-      letterSpacing="0.7px"
+      letterSpacing="0.5px"
       _hover={{
         color: "gray.400",
       }}
@@ -155,7 +155,7 @@ export default function Footer() {
       href="mailto:demoscocoalabel@gmail.com"
       fontSize={{ base: "2xs", lg: "sm" }}
       transition="all .2s ease"
-      letterSpacing="0.7px"
+      letterSpacing="0.5px"
       _hover={{
         color: "gray.400",
       }}
