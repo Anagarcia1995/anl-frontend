@@ -25,7 +25,7 @@ export default function LatestReleaseSection() {
   const otherReleases = releases.slice(1)
 
   return (
-    <Box py={{ base: 3, lg: 24 }}>
+    <Box py={{ base: 6, lg: 24 }}>
       <Box
         maxW="1450px"
         mx="auto"

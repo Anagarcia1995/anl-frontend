@@ -56,7 +56,7 @@ export default function Footer() {
       bg="black"
       borderTop="3px solid"
       borderColor="white"
-      py={{ base: 2, lg: 2 }}
+      py={{ base: 2, lg: 1 }}
       px={8}
     >
       <VStack spacing={3}>
@@ -68,7 +68,7 @@ export default function Footer() {
         >
           <Heading
             display={{ base: "none", lg: "block" }}
-            mb={3}
+            mb={2}
             textAlign="center"
             fontSize="sm"
             fontWeight="500"
@@ -78,92 +78,102 @@ export default function Footer() {
             CONTACT
           </Heading>
 
-          <SimpleGrid
-            columns={{ base: 1, lg: 3 }}
-            spacing={{ base: 1, lg: 10 }}
-            textAlign="center"
-          >
-            <Box>
-              <Text
-                mb={{ base: "-6px", lg: 0 }}
-                fontSize="xs"
-                color="gray.500"
-                textTransform="uppercase"
-                letterSpacing="2px"
-              >
-                BOOKINGS
-              </Text>
+<SimpleGrid
+  columns={{ base: 2, lg: 3 }}
+  spacing={{ base: 3, lg: 10 }}
+  textAlign="center"
+>
+  {/* BOOKINGS */}
 
-              <Link
-                href="mailto:aldo@conceptoneagency.com"
-                fontSize="sm"
-                transition="all .2s ease"
-                letterSpacing="0.5px"
-                _hover={{
-                  color: "gray.400",
-                }}
-              >
-                aldo@conceptoneagency.com
-              </Link>
-            </Box>
+  <Box>
+    <Text
+      mb={{ base: "-8px", lg: -1 }}
+      fontSize={{ base: "2xs", lg: "xs" }}
+      color="gray.500"
+      textTransform="uppercase"
+      letterSpacing="2px"
+    >
+      BOOKINGS
+    </Text>
 
-            <Box>
-              <Text
-                mb={{ base: "-6px", lg: 0 }}
-                fontSize="xs"
-                color="gray.500"
-                textTransform="uppercase"
-                letterSpacing="2px"
-              >
-                MANAGEMENT
-              </Text>
+    <Link
+      href="mailto:aldo@conceptoneagency.com"
+      fontSize={{ base: "2xs", lg: "sm" }}
+      transition="all .2s ease"
+      letterSpacing="0.7px"
+      _hover={{
+        color: "gray.400",
+      }}
+    >
+      aldo@conceptoneagency.com
+    </Link>
+  </Box>
 
-              <Link
-                href="mailto:hello@jassigonzalez.com"
-                fontSize="sm"
-                transition="all .2s ease"
-                letterSpacing="0.5px"
-                _hover={{
-                  color: "gray.400",
-                }}
-              >
-                hello@jassigonzalez.com
-              </Link>
-            </Box>
+  {/* MANAGEMENT */}
 
-            <Box>
-              <Text
-                mb={{ base: "-6px", lg: 0 }}
-                fontSize="xs"
-                color="gray.500"
-                textTransform="uppercase"
-                letterSpacing="2px"
-              >
-                DEMOS
-              </Text>
+  <Box>
+    <Text
+      mb={{ base: "-8px", lg: -1 }}
+      fontSize={{ base: "2xs", lg: "xs" }}
+      color="gray.500"
+      textTransform="uppercase"
+      letterSpacing="2px"
+    >
+      MANAGEMENT
+    </Text>
 
-              <Link
-                href="mailto:demoscocoalabel@gmail.com"
-                fontSize="sm"
-                transition="all .2s ease"
-                letterSpacing="0.5px"
-                _hover={{
-                  color: "gray.400",
-                }}
-              >
-                demoscocoalabel@gmail.com
-              </Link>
-            </Box>
-          </SimpleGrid>
+    <Link
+      href="mailto:hello@jassigonzalez.com"
+      fontSize={{ base: "2xs", lg: "sm" }}
+      transition="all .2s ease"
+      letterSpacing="0.7px"
+      _hover={{
+        color: "gray.400",
+      }}
+    >
+      hello@jassigonzalez.com
+    </Link>
+  </Box>
+
+  {/* DEMOS */}
+
+  <Box
+    gridColumn={{ base: "span 2", lg: "span 1" }}
+  >
+    <Text
+      mb={{ base: "-8px", lg: -1 }}
+      mt={{ base: -3, lg: 0 }}
+      fontSize={{ base: "2xs", lg: "xs" }}
+      color="gray.500"
+      textTransform="uppercase"
+      letterSpacing="2px"
+    >
+      DEMOS
+    </Text>
+
+    <Link
+      href="mailto:demoscocoalabel@gmail.com"
+      fontSize={{ base: "2xs", lg: "sm" }}
+      transition="all .2s ease"
+      letterSpacing="0.7px"
+      _hover={{
+        color: "gray.400",
+      }}
+    >
+      demoscocoalabel@gmail.com
+    </Link>
+  </Box>
+</SimpleGrid>
         </Box>
 
         {/* SOCIALS */}
 
         <HStack
-          spacing={{ base: 4, lg: 8 }}
+          spacing={{ base: 6, lg: 8 }}
           justify="center"
           flexWrap="wrap"
-          fontSize="2xl"
+          fontSize="1xl"
+          fontSize={{ base: "sm", lg: "lg" }}
           color="white"
         >
           {socialLinks.map(({ href, icon }) => (
@@ -185,7 +195,8 @@ export default function Footer() {
 
       <Text
         mt={{ base: 2, lg: 2 }}
-        fontSize="9px"
+        fontSize="8px"
+        fontSize={{ base: "8px", lg: "2xs" }}
         color="gray.500"
         letterSpacing="1px"
         textAlign="center"

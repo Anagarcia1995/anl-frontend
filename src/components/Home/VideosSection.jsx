@@ -1,4 +1,5 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react"
+import { Box, Flex, Image, Text, Button, Link  } from "@chakra-ui/react"
+import { Link as RouterLink } from "react-router-dom"
 import { FaPlay } from "react-icons/fa"
 
 const featuredVideos = [
@@ -25,12 +26,12 @@ export default function VideosSection() {
     <Box
       maxW="1450px"
       mx="auto"
-      px={{ base: 4, lg: 30 }}
-      py={{ base: 3, lg: 24 }}
+      px={{ base: 6, lg: 30 }}
+      py={{ base: 6, lg: 24 }}
     >
       <Flex
         direction={{ base: "column", lg: "row" }}
-        gap={{ base: 4, lg: 8 }}
+        gap={{ base: 3, lg: 8 }}
       >
         {featuredVideos.map((video) => (
           <Box
@@ -48,7 +49,7 @@ export default function VideosSection() {
               border="1px solid"
               borderColor="white"
               aspectRatio={{
-                base: "20 / 6",
+                base: "18 / 6",
                 lg: "16 / 9",
               }}
             >
@@ -97,21 +98,83 @@ export default function VideosSection() {
                 </Flex>
               </Flex>
             </Box>
-
-            {/* LINK */}
-
-            <Text
-              mt={{ base: 2, lg: 3 }}
-              color="gray.500"
-              fontSize={{ base: "10px", lg: "xs" }}
-              letterSpacing="2px"
-              textTransform="uppercase"
-            >
-              Watch on YouTube 
-            </Text>
           </Box>
         ))}
       </Flex>
+
+
+<Box mt={{ base: 3, lg: 10 }}>
+  {/* MOBILE */}
+  <Box display={{ base: "block", lg: "none" }}>
+    <Text
+      textAlign="left"
+      mb={4}
+      fontSize="sm"
+      color="gray.400"
+      letterSpacing="1px"
+    >
+      Want to see more?
+    </Text>
+
+    <Flex justify="center">
+      <Button
+        as={RouterLink}
+        to="/video"
+        variant="outline"
+        borderRadius="none"
+        borderWidth="1px"
+        borderColor="white"
+        color="white"
+        px={8}
+        h="32px"
+        fontSize="xs"
+        fontWeight="500"
+        letterSpacing="3px"
+        textTransform="uppercase"
+        transition="all .25s ease"
+        _hover={{
+          bg: "white",
+          color: "black",
+        }}
+      >
+        Explore All Sets
+      </Button>
+    </Flex>
+  </Box>
+
+ {/* DESKTOP */}
+<Flex
+  display={{ base: "none", lg: "flex" }}
+  justify="flex-end"
+  mt={10}
+>
+  <Link
+    as={RouterLink}
+    to="/video"
+    display="inline-flex"
+    alignItems="center"
+    justifyContent="center"
+    px={8}
+    h="36px"
+    border="1px solid"
+    borderColor="white"
+    textTransform="uppercase"
+    letterSpacing="3px"
+    fontSize="md"
+    fontWeight="500"
+    color="white"
+    textDecoration="none"
+    transition="all .25s ease"
+    _hover={{
+      bg: "white",
+      color: "black",
+      textDecoration: "none",
+    }}
+  >
+    Explore All Sets
+  </Link>
+</Flex>
+</Box>
     </Box>
   )
 }

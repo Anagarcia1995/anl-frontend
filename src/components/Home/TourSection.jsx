@@ -58,7 +58,7 @@ export default function TourSection() {
     <Box
       w="calc(100% + 32px)"
       ml="-16px"
-      py={{ base: 4, lg: 8 }}
+      py={{ base: 6, lg: 8 }}
     >
       <Box
         position="relative"
@@ -142,7 +142,7 @@ export default function TourSection() {
                   _hover={
                     event.ticketUrl
                       ? {
-                          pl: 2,
+                          transform: "translateX(10px)",
                           borderColor: "white",
                         }
                       : undefined
@@ -204,7 +204,7 @@ export default function TourSection() {
           {/* VIEW ALL */}
 
           <Text
-            mt={{ base: 8, lg: 10 }}
+            mt={{ base: 8, lg: 14 }}
             cursor="pointer"
             fontSize={{
               base: "xs",
