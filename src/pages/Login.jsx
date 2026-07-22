@@ -51,7 +51,7 @@ function Login() {
 
 
       setTimeout(() => {
-        navigate("/next-dates");
+        navigate("/");
       }, 2500);
 
 } catch (error) {

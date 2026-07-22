@@ -97,8 +97,8 @@ return (
             <Box
               key={release._id}
               flex={{
-                base: "0 0 33%",
-                lg: "0 0 25%",
+                base: "0 0 33.1%",
+                lg: "0 0 25.5%",
               }}
               px={{ base: 1, lg: 2 }}
               cursor="pointer"
