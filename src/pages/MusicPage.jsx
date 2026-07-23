@@ -35,6 +35,7 @@ export default function MusicPage() {
 
   const {
     releases,
+    setReleases,
     loadReleases,
   } = useReleasesData()
 
@@ -277,6 +278,7 @@ onCancel={() => {
 
 <ReleasesSection
   releases={releases}
+  setReleases={setReleases}
   loadReleases={loadReleases}
   onReleaseClick={handleReleaseClick}
   onTogglePin={handleTogglePin}

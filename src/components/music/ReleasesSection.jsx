@@ -22,6 +22,7 @@ import SortableReleaseCard from "./SortableReleaseCard"
 
 export default function ReleasesSection({
   releases: releasesProp,
+  setReleases,
   loadReleases,
   excludeId,
   onReleaseClick,
@@ -100,6 +101,23 @@ const handleDragEnd = async ({
     oldIndex,
     newIndex
   )
+
+  const reorderedIds = reordered.map(
+  (release) => release._id
+)
+
+setReleases((prev) =>
+  prev.map((release) => {
+    const index = reorderedIds.indexOf(release._id)
+
+    if (index === -1) return release
+
+    return {
+      ...release,
+      pinOrder: index + 1,
+    }
+  })
+)
 
   const payload = reordered.map(
     (release, index) => ({
