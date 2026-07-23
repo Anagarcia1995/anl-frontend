@@ -103,33 +103,40 @@ const handleDragEnd = async ({
   )
 
   const reorderedIds = reordered.map(
-  (release) => release._id
-)
-
-setReleases((prev) =>
-  prev.map((release) => {
-    const index = reorderedIds.indexOf(release._id)
-
-    if (index === -1) return release
-
-    return {
-      ...release,
-      pinOrder: index + 1,
-    }
-  })
-)
-
-  const payload = reordered.map(
-    (release, index) => ({
-      _id: release._id,
-      pinOrder: index + 1,
-    })
+    (release) => release._id
   )
 
-  await updatePinOrder(payload)
+  const previousReleases = releasesProp
 
-  if (releasesProp) {
+  try {
+    setReleases((prev) =>
+      prev.map((release) => {
+        const index = reorderedIds.indexOf(
+          release._id
+        )
+
+        if (index === -1) return release
+
+        return {
+          ...release,
+          pinOrder: index + 1,
+        }
+      })
+    )
+
+    const payload = reordered.map(
+      (release, index) => ({
+        _id: release._id,
+        pinOrder: index + 1,
+      })
+    )
+
+    await updatePinOrder(payload)
     await loadReleases()
+  } catch (error) {
+    console.error(error)
+
+    setReleases(previousReleases)
   }
 }
 
