@@ -5,14 +5,16 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react"
 
-import { fetchReleases } from "../../services/releaseService"
 
-import ReleaseCard from "./ReleaseCard"
+import { fetchReleases } from "../../services/releaseService"
+import SortableReleaseCard from "./SortableReleaseCard"
 
 export default function ReleasesSection({
   releases: releasesProp,
   excludeId,
   onReleaseClick,
+  onTogglePin,
+  isAdmin,
 }) {
   const [localReleases, setLocalReleases] = useState([])
 
@@ -41,6 +43,30 @@ export default function ReleasesSection({
       new Date(a.releaseDate)
   )
 
+  const latestRelease = sortedReleases[0]
+
+  const featuredReleases = sortedReleases
+    .filter(
+      (release) =>
+        release.pinned &&
+        release._id !== latestRelease?._id
+    )
+    .sort(
+      (a, b) => a.pinOrder - b.pinOrder
+    )
+
+  const otherReleases = sortedReleases.filter(
+    (release) =>
+      !release.pinned &&
+      release._id !== latestRelease?._id
+  )
+
+  const releasesToRender = [
+    latestRelease,
+    ...featuredReleases,
+    ...otherReleases,
+  ].filter(Boolean)
+
   return (
     <Box
       maxW={{ base: "700px", xl: "100%" }}
@@ -54,16 +80,21 @@ export default function ReleasesSection({
         }}
         spacing={{ base: 4, lg: 10 }}
       >
-        {sortedReleases.map((release) => (
+        {releasesToRender.map((release) => (
           <Box
             key={release._id}
             w="100%"
             maxW={{ base: "320px", xl: "none" }}
             mx="auto"
           >
-            <ReleaseCard
+            <SortableReleaseCard
               release={release}
               onClick={onReleaseClick}
+              onTogglePin={onTogglePin}
+              isAdmin={isAdmin}
+              isLatest={
+                release._id === latestRelease?._id
+              }
             />
           </Box>
         ))}

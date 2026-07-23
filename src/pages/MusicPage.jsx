@@ -2,7 +2,7 @@ import ReleaseForm from "../components/music/ReleaseForm"
 import ReleasesSection from "../components/music/ReleasesSection"
 import { useState } from "react"
 import useReleasesData from "../hooks/useReleasesData"
-import { createRelease } from "../services/releaseService"
+import { createRelease, toggleReleasePin } from "../services/releaseService"
 import { formatDateForApi } from "../utils/date"
 import { validateRequiredFields } from "../utils/validateRequiredFields"
 import { FiPlus } from "react-icons/fi"
@@ -68,6 +68,44 @@ export default function MusicPage() {
   const handleReleaseClick = (release) => {
   navigate(`/music/${release._id}`)
   }
+
+const handleTogglePin = async (release) => {
+  try {
+    // Contamos los releases pineados
+    const pinnedReleases = releases.filter(
+      (item) => item.pinned
+    )
+
+    // Si intenta pinear un quinto, bloqueamos
+    if (
+      !release.pinned &&
+      pinnedReleases.length >= 4
+    ) {
+      showToast(
+        toast,
+        "You can only pin 4 releases."
+      )
+
+      return
+    }
+
+    // Calculamos el siguiente orden
+    const nextPinOrder =
+      pinnedReleases.length + 1
+
+    await toggleReleasePin(
+      release._id,
+      !release.pinned,
+      !release.pinned
+        ? nextPinOrder
+        : null
+    )
+
+    await loadReleases()
+  } catch (error) {
+    console.error(error)
+  }
+}
 
   const handleSaveRelease = async () => {
   try {
@@ -240,6 +278,8 @@ onCancel={() => {
 <ReleasesSection
   releases={releases}
   onReleaseClick={handleReleaseClick}
+  onTogglePin={handleTogglePin}
+  isAdmin={isAdmin}
 />
     </Box>
   )

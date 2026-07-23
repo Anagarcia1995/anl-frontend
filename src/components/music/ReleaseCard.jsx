@@ -6,9 +6,22 @@ import {
   Text,
 } from "@chakra-ui/react"
 
+import {
+  FiStar,
+} from "react-icons/fi"
+
+import {
+  FaStar,
+} from "react-icons/fa"
+
+import { BsGripVertical } from "react-icons/bs"
 export default function ReleaseCard({
   release,
   onClick,
+  onTogglePin,
+  isAdmin,
+  isLatest,
+  dragHandle,
 }) {
   return (
     <Box
@@ -18,7 +31,46 @@ export default function ReleaseCard({
     >
       {/* COVER */}
 
-      <Box overflow="visible">
+      <Box 
+      overflow="visible"
+      position="relative">
+
+{isAdmin &&
+  !isLatest &&
+  release.pinned && (
+    <Box
+      position="absolute"
+      top={3}
+      left={3}
+      zIndex={2}
+      color="white"
+      cursor="grab"
+      fontSize="22px"
+      {...dragHandle}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <BsGripVertical />
+    </Box>
+)}
+
+{isAdmin && !isLatest && (
+  <Box
+    position="absolute"
+    top={3}
+    right={3}
+    zIndex={2}
+    cursor="pointer"
+    color="white"
+    fontSize="22px"
+    onClick={(e) => {
+      e.stopPropagation()
+      onTogglePin(release)
+    }}
+  >
+    {release.pinned ? <FaStar /> : <FiStar />}
+  </Box>
+)}
+
         <Image
           src={release.coverImage}
           alt={release.title}
@@ -48,6 +100,7 @@ export default function ReleaseCard({
             opacity: 0,
           }}
         >
+          
           <Heading
             fontSize={{ base: "md", lg: "xl" }}
             fontWeight="600"
