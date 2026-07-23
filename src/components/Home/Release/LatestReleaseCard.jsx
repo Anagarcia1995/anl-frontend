@@ -25,9 +25,9 @@ export default function LatestReleaseCard({ release }) {
       border="1px solid"
       borderColor="whiteAlpha.400"
       pt={{ base: 5, lg: 7 }}
-      pb={{ base: 5, lg: 5 }}
+      pb={{ base: 4, lg: 5 }}
       px={{ base: 5, lg: 12 }}
-      maxW={{ base: "360px", lg: "100%" }}
+      maxW={{ base: "390px", lg: "100%" }}
       h={{ base: "auto", lg: "470px" }}
       mx="auto"
       display="flex"

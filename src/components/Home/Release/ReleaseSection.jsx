@@ -29,7 +29,7 @@ return (
     <Box
       maxW="1450px"
       mx="auto"
-      px={{ base: 4, lg: 8 }}
+      px={{ base: 2, lg: 8 }}
     >
       <Stack
         direction={{ base: "column", lg: "row" }}

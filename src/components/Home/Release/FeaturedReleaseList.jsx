@@ -18,7 +18,7 @@ export default function FeaturedReleaseList({ releases }) {
       bg="black"
       border="1px solid"
       borderColor="whiteAlpha.400"
-      maxW={{ base: "360px", lg: "100%" }}
+      maxW={{ base: "390px", lg: "100%" }}
       h={{ base: "auto", lg: "470px" }}
       mx="auto"
       pt={{ base: 3, lg: 7 }}

@@ -26,7 +26,7 @@ export default function VideosSection() {
     <Box
       maxW="1450px"
       mx="auto"
-      px={{ base: 6, lg: 30 }}
+      px={{ base: 2, lg: 30 }}
       py={{ base: 6, lg: 24 }}
     >
       <Flex
