@@ -72,6 +72,22 @@ export const toggleReleasePin = async (
   return await response.json()
 }
 
+export const updatePinOrder = async (releases) => {
+  const response = await fetch(
+    `${API_URL}/api/releases/pin-order`,
+    {
+      method: "PUT",
+      headers: {
+        ...getAuthHeaders(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(releases),
+    }
+  )
+
+  return await response.json()
+}
+
 export const deleteRelease = async (id) => {
   const response = await fetch(`${API_URL}/api/releases/${id}`, {
     method: "DELETE",

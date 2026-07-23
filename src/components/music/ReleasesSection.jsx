@@ -1,3 +1,13 @@
+import {
+  DndContext,
+  closestCenter,
+} from "@dnd-kit/core"
+
+import {
+  SortableContext,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable"
+
 import { useEffect, useState } from "react"
 
 import {
@@ -6,11 +16,13 @@ import {
 } from "@chakra-ui/react"
 
 
-import { fetchReleases } from "../../services/releaseService"
+import { fetchReleases, updatePinOrder } from "../../services/releaseService"
+import { arrayMove } from "@dnd-kit/sortable"
 import SortableReleaseCard from "./SortableReleaseCard"
 
 export default function ReleasesSection({
   releases: releasesProp,
+  loadReleases,
   excludeId,
   onReleaseClick,
   onTogglePin,
@@ -67,11 +79,58 @@ export default function ReleasesSection({
     ...otherReleases,
   ].filter(Boolean)
 
+const handleDragEnd = async ({
+  active,
+  over,
+}) => {
+  if (!over) return
+
+  if (active.id === over.id) return
+
+  const oldIndex = featuredReleases.findIndex(
+    (release) => release._id === active.id
+  )
+
+  const newIndex = featuredReleases.findIndex(
+    (release) => release._id === over.id
+  )
+
+  const reordered = arrayMove(
+    featuredReleases,
+    oldIndex,
+    newIndex
+  )
+
+  const payload = reordered.map(
+    (release, index) => ({
+      _id: release._id,
+      pinOrder: index + 1,
+    })
+  )
+
+  await updatePinOrder(payload)
+
+  if (releasesProp) {
+    await loadReleases()
+  }
+}
+
   return (
     <Box
       maxW={{ base: "700px", xl: "100%" }}
       mx="auto"
     >
+
+<DndContext
+  collisionDetection={closestCenter}
+  onDragEnd={handleDragEnd}
+>
+  <SortableContext
+    items={featuredReleases.map(
+      (release) => release._id
+    )}
+    strategy={rectSortingStrategy}
+  >
       <SimpleGrid
         columns={{
           base: 2,
@@ -99,6 +158,10 @@ export default function ReleasesSection({
           </Box>
         ))}
       </SimpleGrid>
+
+  </SortableContext>
+</DndContext>
+
     </Box>
   )
 }

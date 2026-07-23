@@ -277,6 +277,7 @@ onCancel={() => {
 
 <ReleasesSection
   releases={releases}
+  loadReleases={loadReleases}
   onReleaseClick={handleReleaseClick}
   onTogglePin={handleTogglePin}
   isAdmin={isAdmin}
