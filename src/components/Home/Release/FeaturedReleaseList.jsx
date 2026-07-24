@@ -26,6 +26,14 @@ export default function FeaturedReleaseList({ releases }) {
       px={{ base: 5, lg: 12 }}
       display="flex"
       flexDirection="column"
+sx={{
+  "@media screen and (min-width: 992px) and (max-width: 1279px)": {
+    height: "400px",
+    paddingInline: "2rem",
+    paddingTop: "1.5rem",
+    paddingBottom: "1.5rem",
+  },
+}}
     >
       {releases.map((release, index) => {
         const releaseDate = new Date(
@@ -50,12 +58,19 @@ export default function FeaturedReleaseList({ releases }) {
             <HStack
               align="stretch"
               spacing={{ base: 4,md: 2, lg: 5 }}
+              
             >
               <Image
                 src={release.coverImage}
                 alt={release.title}
                 boxSize={{ base: "60px", lg: "71px" }}
                 objectFit="cover"
+                  sx={{
+    "@media screen and (min-width: 992px) and (max-width: 1279px)": {
+      width: "56px",
+      height: "56px",
+    },
+  }}
               />
 
               <VStack
@@ -101,6 +116,12 @@ export default function FeaturedReleaseList({ releases }) {
               <Divider
                 my={{ base: 3,md: 2, lg: 4 }}
                 borderColor="whiteAlpha.200"
+                  sx={{
+    "@media screen and (min-width: 992px) and (max-width: 1279px)": {
+      marginTop: "0.75rem",
+      marginBottom: "0.75rem",
+    },
+  }}
               />
             )}
           </Box>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function LatestReleaseCard({ release }) {
   const navigate = useNavigate()
+  const proStyles = "@media screen and (min-width: 992px) and (max-width: 1279px)"
 
   const releaseDate = new Date(
     release.releaseDate
@@ -41,6 +42,15 @@ px={{
   md: 4,
   lg: 12,
 }}
+sx={{
+  [proStyles]: {
+    height: "400px",
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
+    paddingTop: "1.5rem",
+    paddingBottom: "1.5rem",
+  },
+}}
       maxW={{ base: "390px", lg: "100%" }}
       h={{ base: "auto", lg: "470px" }}
       mx="auto"
@@ -71,6 +81,8 @@ px={{
   }}
   mx="auto"
   objectFit="cover"
+  
+  
 />
 
   <Badge
@@ -97,36 +109,55 @@ px={{
     lg: 3,
   }}
   ml="5px"
->        <Heading
-            fontSize={{ base: "md",md: "md", lg: "md" }}          
-            color="white"
-          lineHeight="1.3"
-          noOfLines={1}
-          
-        >
-          {release.title}
+  sx={{
+    [proStyles]: {
+      marginTop: "15px",
+    },
+  }}
+>
+  <Heading
+    fontSize={{ base: "md", md: "md", lg: "md" }}
+    color="white"
+    lineHeight="1.3"
+    noOfLines={3}
+    sx={{
+      [proStyles]: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+      },
+    }}
+  >
+    {release.title}
 
-          <Text
-            as="span"
-            ml={2}
-            fontSize={{ base: "md",md: "sm", lg: "md" }}
-            fontWeight="500"
-            color="gray.300"
-            textTransform="uppercase"
-          >
-            {release.artist}
-          </Text>
-        </Heading>
+    <Text
+      as="span"
+      ml={2}
+      fontSize={{ base: "md", md: "sm", lg: "md" }}
+      fontWeight="500"
+      color="gray.300"
+      textTransform="uppercase"
+      sx={{
+        [proStyles]: {
+          display: "block",
+          marginLeft: 0,
+          marginTop: "4px",
+        },
+      }}
+    >
+      {release.artist}
+    </Text>
+  </Heading>
 
-        <Text
-          mt={0}
-          color="gray.400"
-          fontSize={{ base: "sm", lg: "sm" }}
-          noOfLines={1}
-        >
-          {releaseDate} · {release.label}
-        </Text>
-      </Box>
+  <Text
+    mt={0}
+    color="gray.400"
+    fontSize={{ base: "sm", lg: "sm" }}
+    noOfLines={1}
+  >
+    {releaseDate} · {release.label}
+  </Text>
+</Box>
     </Box>
   )
 }
