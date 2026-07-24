@@ -24,9 +24,23 @@ export default function LatestReleaseCard({ release }) {
       bg="#000000"
       border="1px solid"
       borderColor="whiteAlpha.400"
-      pt={{ base: 5, lg: 7 }}
-      pb={{ base: 4, lg: 5 }}
-      px={{ base: 5, lg: 12 }}
+pt={{
+  base: 5,
+  md: 4,
+  lg: 7,
+}}
+
+pb={{
+  base: 4,
+  md: 3,
+  lg: 5,
+}}
+
+px={{
+  base: 5,
+  md: 4,
+  lg: 12,
+}}
       maxW={{ base: "390px", lg: "100%" }}
       h={{ base: "auto", lg: "470px" }}
       mx="auto"
@@ -46,12 +60,18 @@ export default function LatestReleaseCard({ release }) {
     zIndex: 2,
   }}
 >
-  <Image
-    src={release.coverImage}
-    alt={release.title}
-    w="100%"
-    objectFit="cover"
-  />
+<Image
+  src={release.coverImage}
+  alt={release.title}
+  w="100%"
+  maxW={{
+    base: "100%",
+    md: "250px",
+    lg: "100%",
+  }}
+  mx="auto"
+  objectFit="cover"
+/>
 
   <Badge
     position="absolute"
@@ -70,10 +90,16 @@ export default function LatestReleaseCard({ release }) {
   </Badge>
 </Box>
 
-      <Box mt={3} ml="5px">
-        <Heading
-          size={{ base: "md", lg: "md" }}
-          color="white"
+<Box
+  mt={{
+    base: 3,
+    md: 4,
+    lg: 3,
+  }}
+  ml="5px"
+>        <Heading
+            fontSize={{ base: "md",md: "md", lg: "md" }}          
+            color="white"
           lineHeight="1.3"
           noOfLines={1}
           
@@ -82,8 +108,8 @@ export default function LatestReleaseCard({ release }) {
 
           <Text
             as="span"
-            ml={3}
-            fontSize={{ base: "md", lg: "md" }}
+            ml={2}
+            fontSize={{ base: "md",md: "sm", lg: "md" }}
             fontWeight="500"
             color="gray.300"
             textTransform="uppercase"

@@ -59,7 +59,7 @@ export default function HeroSection() {
           }}
           fontSize={{
             base: "6xl",
-            md: "5xl",
+            md: "6xl",
             lg: "9rem",
           }}
         >

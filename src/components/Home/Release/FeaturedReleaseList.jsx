@@ -49,7 +49,7 @@ export default function FeaturedReleaseList({ releases }) {
 >
             <HStack
               align="stretch"
-              spacing={{ base: 4, lg: 5 }}
+              spacing={{ base: 4,md: 2, lg: 5 }}
             >
               <Image
                 src={release.coverImage}
@@ -61,7 +61,11 @@ export default function FeaturedReleaseList({ releases }) {
               <VStack
                 align="start"
                 justify="center"
-                spacing={1}
+                spacing={{
+  base: 1,
+  md: 0,
+  lg: 1,
+}}
                 flex={1}
               >
                 <Heading
@@ -95,7 +99,7 @@ export default function FeaturedReleaseList({ releases }) {
 
             {index < releases.length - 1 && (
               <Divider
-                my={{ base: 3, lg: 4 }}
+                my={{ base: 3,md: 2, lg: 4 }}
                 borderColor="whiteAlpha.200"
               />
             )}
@@ -103,7 +107,15 @@ export default function FeaturedReleaseList({ releases }) {
         )
       })}
 
-<Box textAlign="right" mt={{ base: 2, lg: 5 }}>
+<Box textAlign="right"
+mt={{
+  base: 2,
+  md: -2,
+  lg: 5,
+}}
+pt={{
+  md: 2,
+}}>
   <Text
     as="span"
     display="inline-block"

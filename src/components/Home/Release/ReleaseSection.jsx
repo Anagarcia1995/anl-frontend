@@ -29,23 +29,40 @@ return (
     <Box
       maxW="1450px"
       mx="auto"
-      px={{ base: 2, lg: 8 }}
+      px={{ base: 2,lg: 8 }}
     >
-      <Stack
-        direction={{ base: "column", lg: "row" }}
-        spacing={{ base: 2, lg: 8 }}
-        align="stretch"
-      >
-        <Box flex={{ lg: 3.5 }}>
-          <LatestReleaseCard release={latestRelease} />
-        </Box>
+<Stack
+  direction={{
+    base: "column",
+    md: "row",
+  }}
+  spacing={{
+    base: 2,
+    md: 5,
+    lg: 8,
+  }}
+  align="stretch"
+>
+  <Box
+    flex={{
+      md: 4,
+      lg: 3.5,
+    }}
+  >
+    <LatestReleaseCard release={latestRelease} />
+  </Box>
 
-        <Box flex={{ lg: 6.5 }}>
-          <FeaturedReleaseList
-            releases={featuredReleases}
-          />
-        </Box>
-      </Stack>
+  <Box
+    flex={{
+      md: 6,
+      lg: 6.5,
+    }}
+  >
+    <FeaturedReleaseList
+      releases={featuredReleases}
+    />
+  </Box>
+</Stack>
     </Box>
   </Box>
 )
