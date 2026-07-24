@@ -34,7 +34,7 @@ export default function ReleaseActions({
         as={FaArrowLeft}
         boxSize={6}
         cursor="pointer"
-        alignSelf={{ base: "flex-start", lg: "flex-end" }}
+        alignSelf={{ base: "flex-end", lg: "flex-end" }}
         display={{ base: "none", lg: "block" }}
         transition="all .2s ease"
         _hover={{
@@ -80,9 +80,9 @@ export default function ReleaseActions({
               letterSpacing="2px"
               fontSize={{ base: "xs", lg: "sm" }}
               rightIcon={<SiBeatport />}
-              w={{ base: "170px", lg: "auto" }}
+              w={{ base: "140px", lg: "auto" }}
               px={{ base: 0, lg: 8 }}
-              h={{ base: "48px", lg: "45px" }}
+              h={{ base: "40px", lg: "45px" }}
               transition="all .2s ease"
               _hover={{
                 bg: "white",

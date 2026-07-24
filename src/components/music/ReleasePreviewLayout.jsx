@@ -102,14 +102,19 @@ export default function ReleaseHero({
           w="100%"
           mx="auto"
         >
-          <Icon
-            as={FaArrowLeft}
-            boxSize={6}
-            mb={6}
-            cursor="pointer"
-            display="block"
-            onClick={() => navigate("/music")}
-          />
+<Flex justify="flex-end" mb={6}>
+  <Icon
+    as={FaArrowLeft}
+    boxSize={6}
+    cursor="pointer"
+    transition="all .2s ease"
+    _hover={{
+      color: "gray.500",
+      transform: "scale(1.2)",
+    }}
+    onClick={() => navigate("/music")}
+  />
+</Flex>
 
           <Image
             src={release.coverImage}

@@ -70,14 +70,14 @@ export default function TourSection() {
         <Box
           position="absolute"
           inset="0"
-          bgImage="url('/images/tour-dates.png')"
+          bgImage="url('/images/tour-dates2.png')"
           bgSize="cover"
           bgPosition={{
             base: "center 65%",
-            lg: "center 60%",
+            lg: "center 48%",
           }}
-          filter="blur(1px) brightness(0.62)"
-          transform="scale(1.02)"
+          filter="blur(1px) brightness(0.42)"
+          transform="scale(1)"
         />
 
         {/* OVERLAY */}
@@ -85,7 +85,7 @@ export default function TourSection() {
         <Box
           position="absolute"
           inset="0"
-          bg="rgba(0,0,0,.25)"
+          bg="rgba(0, 0, 0, 0.36)"
         />
 
         {/* EVENTS */}

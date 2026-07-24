@@ -92,7 +92,7 @@ sx={{
                   {release.title}{" "}
                   <Text
                     as="span"
-                    ml={2}
+                    ml={0}
                     fontSize={{ base: "xs", lg: "sm" }}
                     fontWeight="500"
                     color="gray.300"

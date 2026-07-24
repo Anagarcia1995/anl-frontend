@@ -1,10 +1,10 @@
 import {
-  Box,
   Heading,
   HStack,
   Icon,
   Link,
   Text,
+  Flex
 } from "@chakra-ui/react"
 
 import {
@@ -28,7 +28,7 @@ export default function ReleaseInfo({ release }) {
   return (
     <>
       <Heading
-        fontSize={{ base: "2xl", lg: "3xl" }}
+        fontSize={{ base: "xl", lg: "3xl" }}
         fontWeight="500"
         letterSpacing="0.5px"
         lineHeight="1.1"
@@ -41,41 +41,49 @@ export default function ReleaseInfo({ release }) {
         textTransform="uppercase"
         letterSpacing="2px"
         fontWeight="400"
-        fontSize={"lg"}
+        fontSize={{ base: "md", lg: "lg" }}
         mb={{ base: 4, md: 6, lg: 10 }}
       >
         {release.artist}
       </Text>
 
-      <Box mb={{ base: 4, lg: 6 }}>
-        <Text
-          color="gray.500"
-          fontSize="md"
-          fontWeight="500"
-          mb={0}
-        >
-          Release Date
-        </Text>
+<Flex
+  direction={{ base: "row", lg: "column" }}
+  align={{ base: "center", lg: "flex-start" }}
+  mb={{ base: 2, lg: 6 }}
+>
+  <Text
+    color="gray.500"
+    fontSize="md"
+    fontWeight="500"
+    mr={2}
+  >
+    Release Date
+  </Text>
 
-        <Text fontSize="lg">
-          {formatDateForPreview(release.releaseDate)}
-        </Text>
-      </Box>
+  <Text fontSize="lg">
+    {formatDateForPreview(release.releaseDate)}
+  </Text>
+</Flex>
 
-      <Box mb={{ base: 4, md: 4, lg: 6 }}>
-        <Text
-          color="gray.500"
-          fontSize="md"
-          fontWeight="500"
-          mb={0}
-        >
-          Label
-        </Text>
+<Flex
+  direction={{ base: "row", lg: "column" }}
+  align={{ base: "center", lg: "flex-start" }}
+  mb={{ base: 4, lg: 6 }}
+>
+  <Text
+    color="gray.500"
+    fontSize="md"
+    fontWeight="500"
+    mr={2}
+  >
+    Label
+  </Text>
 
-        <Text fontSize="lg">
-          {release.label}
-        </Text>
-      </Box>
+  <Text fontSize="lg">
+    {release.label}
+  </Text>
+</Flex>
 
       {/* PLATFORMS */}
 

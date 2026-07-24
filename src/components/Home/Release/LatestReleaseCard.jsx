@@ -38,7 +38,7 @@ pb={{
 }}
 
 px={{
-  base: 5,
+  base: 7,
   md: 4,
   lg: 12,
 }}
@@ -116,7 +116,7 @@ sx={{
   }}
 >
   <Heading
-    fontSize={{ base: "md", md: "md", lg: "md" }}
+    fontSize={{ base: "md", md: "md", lg: "lg" }}
     color="white"
     lineHeight="1.3"
     noOfLines={3}
