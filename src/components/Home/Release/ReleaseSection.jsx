@@ -15,11 +15,13 @@ export default function ReleaseSection() {
 
   const latestRelease = sortedReleases[0]
 
-  const featuredReleases = sortedReleases.filter(
+  const featuredReleases = sortedReleases
+  .filter(
     release =>
       release.pinned &&
       release._id !== latestRelease?._id
   )
+  .sort((a, b) => a.pinOrder - b.pinOrder)
 
   if (!latestRelease) return null
 

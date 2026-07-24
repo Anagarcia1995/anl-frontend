@@ -33,7 +33,7 @@ export default function HeroSection() {
           objectFit="cover"
           objectPosition={{
             base: "center 25%",
-            lg: "center 25%",
+            lg: "center 55%",
           }}
         />
       </Box>
@@ -45,7 +45,7 @@ export default function HeroSection() {
         h={{ base: "230px", lg: "430px" }}
         align="center"
         justify="center"
-        px={{ base: 2, lg: 10 }}
+        px={{ base: 2, lg: 10}}
         bg="black"
       >
         <Heading
@@ -55,7 +55,7 @@ export default function HeroSection() {
           fontWeight="400"
           lineHeight={{
             base: "0.88",
-            lg: "0.82",
+            lg: "1",
           }}
           fontSize={{
             base: "6xl",
