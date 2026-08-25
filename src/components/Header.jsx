@@ -1,17 +1,30 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { FiLogOut } from "react-icons/fi"
+import { motion } from "framer-motion"
 
 import { useAuth } from "../context/AuthContext"
 
 import MobileMenu from "./Header/MobileMenu"
 import NavItem from "./Header/NavItem"
 
-export default function Header() {
+const MotionBox = motion.create(Box)
+
+export default function Header({
+  introStage,
+  introPlayed,
+}) {
+
   const { isAdmin, logout } = useAuth()
 
+  const showHeader =
+    introPlayed ||
+    introStage === "header" ||
+    introStage === "hero" ||
+    introStage === "content"
+
   return (
-    <Box
+    <MotionBox
       position="sticky"
       top="0"
       zIndex="10"
@@ -19,17 +32,39 @@ export default function Header() {
       borderBottom="3px solid"
       borderColor="white"
       bg="black"
+
+      initial={{
+        y: introPlayed ? 0 : "-100%",
+      }}
+
+      animate={{
+        y: showHeader ? 0 : "-100%",
+      }}
+
+      transition={{
+        duration: 1.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+
+      css={{
+        "@media (min-width: 62rem)": {
+          transform: "translateY(0) !important",
+        },
+      }}
     >
+
       <Box
         maxW="1860px"
         mx="auto"
         px={{ base: 4, lg: 8 }}
       >
+
         <Flex
           justify="space-between"
           align={{ base: "center", lg: "flex-end" }}
           position="relative"
         >
+
           {/* MOBILE MENU */}
 
           <Box display={{ base: "block", lg: "none" }}>
@@ -45,6 +80,7 @@ export default function Header() {
               display: "contents",
             }}
           >
+
             <Box
               position={{ base: "absolute", lg: "static" }}
               left={{ base: "50%", lg: "auto" }}
@@ -54,6 +90,7 @@ export default function Header() {
               }}
               cursor="pointer"
             >
+
               {/* MOBILE */}
 
               <Text
@@ -72,6 +109,7 @@ export default function Header() {
                 flexDirection="column"
                 lineHeight="0.74"
               >
+
                 <Text
                   fontFamily="'Bebas Neue', sans-serif"
                   fontSize="4xl"
@@ -92,8 +130,11 @@ export default function Header() {
                 >
                   LOGIA
                 </Text>
+
               </Box>
+
             </Box>
+
           </Link>
 
           {/* DESKTOP NAV */}
@@ -106,15 +147,29 @@ export default function Header() {
             gap={10}
             mr="15px"
           >
-            <NavItem to="/">Home</NavItem>
-            <NavItem to="/music">Music</NavItem>
-            <NavItem to="/video">Videos</NavItem>
-            <NavItem to="/next-dates">Tour</NavItem>
+
+            <NavItem to="/">
+              Home
+            </NavItem>
+
+            <NavItem to="/music">
+              Music
+            </NavItem>
+
+            <NavItem to="/video">
+              Videos
+            </NavItem>
+
+            <NavItem to="/next-dates">
+              Tour
+            </NavItem>
+
           </Flex>
 
           {/* LOGOUT */}
 
           {isAdmin && (
+
             <Box
               position={{ base: "static", lg: "absolute" }}
               right={{ lg: 12 }}
@@ -128,11 +183,17 @@ export default function Header() {
               }}
               onClick={logout}
             >
+
               <FiLogOut size={22} />
+
             </Box>
+
           )}
+
         </Flex>
+
       </Box>
-    </Box>
+
+    </MotionBox>
   )
 }

@@ -5,7 +5,21 @@ import {
   Image,
 } from "@chakra-ui/react"
 
-export default function HeroSection() {
+import { motion } from "framer-motion"
+
+const MotionBox = motion.create(Box)
+const MotionFlex = motion.create(Flex)
+
+export default function HeroSection({
+  introStage,
+  introPlayed,
+}) {
+
+  const showHero =
+    introPlayed ||
+    introStage === "hero" ||
+    introStage === "content"
+
   return (
     <Flex
       direction="row"
@@ -16,15 +30,37 @@ export default function HeroSection() {
       pt={{ base: 2, lg: 4 }}
       pb={{ base: 0, lg: 4 }}
       align="stretch"
+      overflow="hidden"
     >
+
       {/* IMAGE */}
 
-      <Box
+      <MotionBox
         w="50%"
         h={{ base: "220px", lg: "430px" }}
         overflow="hidden"
         flexShrink={0}
+
+        initial={{
+          x: introPlayed ? 0 : "-110%",
+        }}
+
+animate={{
+  x: showHero ? 0 : "-110%",
+}}
+
+transition={{
+  duration: 1.15,
+  ease: [0.22, 1, 0.36, 1],
+}}
+
+        css={{
+          "@media (min-width: 62rem)": {
+            transform: "translateX(0) !important",
+          },
+        }}
       >
+
         <Image
           src="/images/hero2.jpg"
           alt="Art No Logia"
@@ -36,18 +72,38 @@ export default function HeroSection() {
             lg: "center 55%",
           }}
         />
-      </Box>
+
+      </MotionBox>
 
       {/* TEXT */}
 
-      <Flex
+      <MotionFlex
         w="50%"
         h={{ base: "230px", lg: "430px" }}
         align="center"
         justify="center"
-        px={{ base: 2, lg: 10}}
+        px={{ base: 2, lg: 10 }}
         bg="black"
+
+        initial={{
+          x: introPlayed ? 0 : "110%",
+        }}
+
+animate={{
+  x: showHero ? 0 : "110%",
+}}
+
+transition={{
+  duration: 1.15,
+  ease: [0.22, 1, 0.36, 1],
+}}
+        css={{
+          "@media (min-width: 62rem)": {
+            transform: "translateX(0) !important",
+          },
+        }}
       >
+
         <Heading
           w="100%"
           textAlign="left"
@@ -63,6 +119,9 @@ export default function HeroSection() {
             lg: "9rem",
           }}
         >
+
+          {/* MOBILE */}
+
           <Box
             display={{
               base: "block",
@@ -78,6 +137,8 @@ export default function HeroSection() {
             Future
           </Box>
 
+          {/* DESKTOP */}
+
           <Box
             display={{
               base: "none",
@@ -88,8 +149,11 @@ export default function HeroSection() {
             <br />
             THE FUTURE
           </Box>
+
         </Heading>
-      </Flex>
+
+      </MotionFlex>
+
     </Flex>
   )
 }

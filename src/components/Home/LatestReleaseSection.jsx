@@ -6,13 +6,18 @@ import {
 } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 import useReleasesData from "../../hooks/useReleasesData"
-
 import LatestReleaseCard from "./LatestReleaseCard"
 import ReleaseCarousel from "./ReleaseCarousel"
 
-export default function LatestReleaseSection() {
+const MotionBox = motion.create(Box)
+
+export default function LatestReleaseSection({
+  introPlayed,
+}) {
+
   const navigate = useNavigate()
 
   const { releases, loading } = useReleasesData()
@@ -25,17 +30,44 @@ export default function LatestReleaseSection() {
   const otherReleases = releases.slice(1)
 
   return (
-    <Box py={{ base: 6, lg: 24 }}>
+    <MotionBox
+      py={{ base: 6, lg: 24 }}
+
+      initial={{
+        y: introPlayed ? 0 : 120,
+        opacity: introPlayed ? 1 : 0,
+      }}
+
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+
+      transition={{
+        duration: 2.2,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+
+      css={{
+        "@media (min-width: 62rem)": {
+          transform: "translateY(0) !important",
+          opacity: "1 !important",
+        },
+      }}
+    >
+
       <Box
         maxW="1450px"
         mx="auto"
         px={{ base: 0, lg: 8 }}
       >
+
         <Flex
           direction={{ base: "column", lg: "row" }}
           align="stretch"
           gap={{ base: 2, lg: 6 }}
         >
+
           {/* ---------- LATEST ---------- */}
 
           <Box
@@ -45,6 +77,7 @@ export default function LatestReleaseSection() {
             borderColor="whiteAlpha.400"
             p={{ base: 2, lg: 7 }}
           >
+
             <Heading
               mb={{ base: 2, lg: 3 }}
               fontSize={{ base: "sm", lg: "lg" }}
@@ -57,6 +90,7 @@ export default function LatestReleaseSection() {
             <LatestReleaseCard
               release={latestRelease}
             />
+
           </Box>
 
           {/* ---------- CAROUSEL ---------- */}
@@ -71,6 +105,7 @@ export default function LatestReleaseSection() {
             borderColor="whiteAlpha.400"
             p={{ base: 2, lg: 3 }}
           >
+
             <ReleaseCarousel
               releases={otherReleases}
             />
@@ -94,9 +129,13 @@ export default function LatestReleaseSection() {
             >
               VIEW ALL
             </Text>
+
           </Flex>
+
         </Flex>
+
       </Box>
-    </Box>
+
+    </MotionBox>
   )
 }
