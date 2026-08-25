@@ -43,8 +43,8 @@ export default function ReleaseSection({
       py={{ base: 5, lg: 20 }}
 
 initial={{
-  y: introPlayed ? 0 : 120,
-  opacity: introPlayed ? 1 : 0,
+  y: 120,
+  opacity: 0,
 }}
 
 animate={{
