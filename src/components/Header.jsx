@@ -1,30 +1,18 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { FiLogOut } from "react-icons/fi"
-import { motion } from "framer-motion"
 
 import { useAuth } from "../context/AuthContext"
 
 import MobileMenu from "./Header/MobileMenu"
 import NavItem from "./Header/NavItem"
 
-const MotionBox = motion.create(Box)
-
-export default function Header({
-  introStage,
-  introPlayed,
-}) {
+export default function Header() {
 
   const { isAdmin, logout } = useAuth()
 
-  const showHeader =
-    introPlayed ||
-    introStage === "header" ||
-    introStage === "hero" ||
-    introStage === "content"
-
   return (
-    <MotionBox
+    <Box
       position="sticky"
       top="0"
       zIndex="10"
@@ -32,25 +20,6 @@ export default function Header({
       borderBottom="3px solid"
       borderColor="white"
       bg="black"
-
-      initial={{
-        y: introPlayed ? 0 : "-100%",
-      }}
-
-      animate={{
-        y: showHeader ? 0 : "-100%",
-      }}
-
-      transition={{
-        duration: 1.5,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-
-      css={{
-        "@media (min-width: 62rem)": {
-          transform: "translateY(0) !important",
-        },
-      }}
     >
 
       <Box
@@ -169,7 +138,6 @@ export default function Header({
           {/* LOGOUT */}
 
           {isAdmin && (
-
             <Box
               position={{ base: "static", lg: "absolute" }}
               right={{ lg: 12 }}
@@ -183,17 +151,14 @@ export default function Header({
               }}
               onClick={logout}
             >
-
               <FiLogOut size={22} />
-
             </Box>
-
           )}
 
         </Flex>
 
       </Box>
 
-    </MotionBox>
+    </Box>
   )
 }

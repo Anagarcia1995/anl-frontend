@@ -1,17 +1,11 @@
 import { Box, Stack } from "@chakra-ui/react"
-import { motion } from "framer-motion"
 
 import useReleasesData from "../../../hooks/useReleasesData"
 
 import LatestReleaseCard from "./LatestReleaseCard"
 import FeaturedReleaseList from "./FeaturedReleaseList"
 
-const MotionBox = motion.create(Box)
-
-export default function ReleaseSection({
-  showRelease,
-  introPlayed,
-}) {
+export default function ReleaseSection() {
 
   const { releases } = useReleasesData()
 
@@ -35,34 +29,9 @@ export default function ReleaseSection({
 
   if (!latestRelease) return null
 
-  const shouldShow =
-    introPlayed || showRelease
-
   return (
-    <MotionBox
+    <Box
       py={{ base: 5, lg: 20 }}
-
-initial={{
-  y: 120,
-  opacity: 0,
-}}
-
-animate={{
-  y: shouldShow ? 0 : 120,
-  opacity: shouldShow ? 1 : 0,
-}}
-
-      transition={{
-        duration: 2.2,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-
-      css={{
-        "@media (min-width: 62rem)": {
-          transform: "translateY(0) !important",
-          opacity: "1 !important",
-        },
-      }}
     >
 
       <Box
@@ -84,6 +53,8 @@ animate={{
           align="stretch"
         >
 
+          {/* LATEST RELEASE */}
+
           <Box
             flex={{
               md: 4,
@@ -94,6 +65,8 @@ animate={{
               release={latestRelease}
             />
           </Box>
+
+          {/* FEATURED RELEASES */}
 
           <Box
             flex={{
@@ -110,6 +83,6 @@ animate={{
 
       </Box>
 
-    </MotionBox>
+    </Box>
   )
 }

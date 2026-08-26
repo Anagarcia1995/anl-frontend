@@ -5,20 +5,7 @@ import {
   Image,
 } from "@chakra-ui/react"
 
-import { motion } from "framer-motion"
-
-const MotionBox = motion.create(Box)
-const MotionFlex = motion.create(Flex)
-
-export default function HeroSection({
-  introStage,
-  introPlayed,
-}) {
-
-  const showHero =
-    introPlayed ||
-    introStage === "hero" ||
-    introStage === "content"
+export default function HeroSection() {
 
   return (
     <Flex
@@ -35,30 +22,11 @@ export default function HeroSection({
 
       {/* IMAGE */}
 
-      <MotionBox
+      <Box
         w="50%"
         h={{ base: "220px", lg: "430px" }}
         overflow="hidden"
         flexShrink={0}
-
-        initial={{
-          x: introPlayed ? 0 : "-110%",
-        }}
-
-animate={{
-  x: showHero ? 0 : "-110%",
-}}
-
-transition={{
-  duration: 1.15,
-  ease: [0.22, 1, 0.36, 1],
-}}
-
-        css={{
-          "@media (min-width: 62rem)": {
-            transform: "translateX(0) !important",
-          },
-        }}
       >
 
         <Image
@@ -73,35 +41,17 @@ transition={{
           }}
         />
 
-      </MotionBox>
+      </Box>
 
       {/* TEXT */}
 
-      <MotionFlex
+      <Flex
         w="50%"
         h={{ base: "230px", lg: "430px" }}
         align="center"
         justify="center"
         px={{ base: 2, lg: 10 }}
         bg="black"
-
-        initial={{
-          x: introPlayed ? 0 : "110%",
-        }}
-
-animate={{
-  x: showHero ? 0 : "110%",
-}}
-
-transition={{
-  duration: 1.15,
-  ease: [0.22, 1, 0.36, 1],
-}}
-        css={{
-          "@media (min-width: 62rem)": {
-            transform: "translateX(0) !important",
-          },
-        }}
       >
 
         <Heading
@@ -152,7 +102,7 @@ transition={{
 
         </Heading>
 
-      </MotionFlex>
+      </Flex>
 
     </Flex>
   )
