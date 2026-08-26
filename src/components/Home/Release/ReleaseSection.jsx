@@ -48,7 +48,7 @@ export default function ReleaseSection() {
           spacing={{
             base: 2,
             md: 5,
-            lg: 8,
+            lg: 10,
           }}
           align="stretch"
         >

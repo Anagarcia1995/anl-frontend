@@ -47,22 +47,27 @@ export default function VideosSection() {
 
         {videos.map((video) => (
 
-          <Box
-            key={video.id}
-            flex="1"
-            w="100%"
-            maxW={{ base: "320px", xl: "none" }}
-            mx="auto"
-            cursor="pointer"
-            role="group"
-            onClick={() =>
-              window.open(
-                video.url,
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
-          >
+<Box
+  key={video.id}
+  flex="1"
+  w="100%"
+  maxW={{
+    base: "320px",
+    md: "570px",
+    lg: "630px",
+    xl: "none",
+  }}
+  mx="auto"
+  cursor="pointer"
+  role="group"
+  onClick={() =>
+    window.open(
+      video.url,
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
+>
 
             {/* VIDEO PREVIEW */}
 

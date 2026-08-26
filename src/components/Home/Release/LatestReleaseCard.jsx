@@ -77,7 +77,7 @@ sx={{
   maxW={{
     base: "100%",
     md: "250px",
-    lg: "100%",
+    lg: "90%",
   }}
   mx="auto"
   objectFit="cover"
@@ -87,8 +87,11 @@ sx={{
 
   <Badge
     position="absolute"
-    top={2}
-    left={2}
+    top={3}
+left={{
+  base: 3,
+  md: 8,
+}}
     bg="white"
     color="black"
     px={3}
@@ -104,11 +107,14 @@ sx={{
 
 <Box
   mt={{
-    base: 3,
+    base: 2,
     md: 4,
-    lg: 3,
+    lg: 5,
   }}
-  ml="5px"
+ml={{
+  base: "5px",
+  md: "25px",
+}}
   sx={{
     [proStyles]: {
       marginTop: "15px",
@@ -119,7 +125,7 @@ sx={{
   fontSize={{
     base: "md",
     md: "md",
-    lg: "lg",
+    lg: "xl",
   }}
   color="white"
   fontWeight="500"
@@ -140,11 +146,11 @@ sx={{
 
   <Text
     as="span"
-    ml={2}
+    ml={3}
     fontSize={{
       base: "md",
       md: "sm",
-      lg: "md",
+      lg: "lg",
     }}
     fontWeight="500"
     color="gray.300"
@@ -163,7 +169,7 @@ sx={{
 </Heading>
 
   <Text
-    mt={0}
+    mt={1}
     color="gray.400"
     fontSize={{ base: "sm", lg: "sm" }}
     noOfLines={1}

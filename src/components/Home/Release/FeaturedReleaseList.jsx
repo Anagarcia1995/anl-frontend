@@ -22,9 +22,9 @@ export default function FeaturedReleaseList({ releases }) {
       maxW={{ base: "390px", lg: "100%" }}
       h={{ base: "auto", lg: "470px" }}
       mx="auto"
-      pt={{ base: 5, lg: 7 }}
+      pt={{ base: 5, lg: 6 }}
       pb={{ base: 5, lg: 5 }}
-      px={{ base: 5, lg: 12 }}
+      px={{ base: 5, lg: 16 }}
       display="flex"
       flexDirection="column"
       sx={{
@@ -95,7 +95,7 @@ export default function FeaturedReleaseList({ releases }) {
               <VStack
                 align="start"
                 justify="center"
-                spacing={1}
+                spacing={2}
                 flex={1}
                 minW={0}
               >
@@ -147,9 +147,9 @@ export default function FeaturedReleaseList({ releases }) {
   my={{
     base: 3,
     md: 3,
-    lg: 5,
+    lg: 3,
   }}
-                borderColor="whiteAlpha.200"
+                borderColor="whiteAlpha.300"
                 sx={{
                   "@media screen and (min-width: 992px) and (max-width: 1279px)": {
                     marginTop: "0.75rem",

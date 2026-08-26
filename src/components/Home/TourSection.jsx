@@ -105,7 +105,7 @@ export default function TourSection() {
               base: "100%",
               lg: "35%",
             }}
-            gap={{ base: 3, lg: 5 }}
+            gap={{ base: 3, lg: 7 }}
           >
             {events.map((event) => {
               const eventDetails = [
@@ -118,9 +118,9 @@ export default function TourSection() {
               return (
                 <Box
                   key={event._id}
-                  pl={2}
+                  pl={4}
                   minW={0}
-                  pb={3}
+                  pb={4}
                   borderBottom="1px solid"
                   borderColor="whiteAlpha.500"
                   cursor={
@@ -186,7 +186,7 @@ export default function TourSection() {
 
                   <Text
                     mt={1}
-                    ml={2}
+                    ml={4}
                     color="gray.300"
                     fontSize="md"
                     letterSpacing="1px"

@@ -50,7 +50,7 @@ export default function DateNavigation() {
               color: "gray.400",
             }}
           >
-            Past Dates
+            Old Dates
           </Text>
         )}
       </NavLink>
