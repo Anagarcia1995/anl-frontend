@@ -22,6 +22,7 @@ const videos = [
 ]
 
 export default function VideosSection() {
+
   return (
     <Box
       maxW={{ base: "100%", md: "1200px" }}
@@ -29,6 +30,7 @@ export default function VideosSection() {
       px={{ md: 6 }}
       py={{ base: 2, md: 16 }}
     >
+
       <Heading
         mb={{ base: 6, lg: 10 }}
         fontSize={{ base: "md", lg: "lg" }}
@@ -42,7 +44,9 @@ export default function VideosSection() {
         gap={{ base: 10, lg: 10 }}
         align="center"
       >
+
         {videos.map((video) => (
+
           <Box
             key={video.id}
             flex="1"
@@ -52,9 +56,14 @@ export default function VideosSection() {
             cursor="pointer"
             role="group"
             onClick={() =>
-              window.open(video.url, "_blank", "noopener,noreferrer")
+              window.open(
+                video.url,
+                "_blank",
+                "noopener,noreferrer"
+              )
             }
           >
+
             {/* VIDEO PREVIEW */}
 
             <Box
@@ -64,6 +73,7 @@ export default function VideosSection() {
               borderColor="white"
               aspectRatio={16 / 9}
             >
+
               <Image
                 src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
                 alt={video.title}
@@ -72,13 +82,21 @@ export default function VideosSection() {
                 objectFit="cover"
               />
 
+              {/* OVERLAY */}
+
               <Box
                 position="absolute"
                 inset="0"
                 bg="blackAlpha.300"
-                transition="background .3s ease"
-                _groupHover={{ bg: "blackAlpha.500" }}
+                transition={{ xl: "background .3s ease" }}
+                _groupHover={{
+                  xl: {
+                    bg: "blackAlpha.500",
+                  },
+                }}
               />
+
+              {/* PLAY */}
 
               <Flex
                 position="absolute"
@@ -86,6 +104,7 @@ export default function VideosSection() {
                 align="center"
                 justify="center"
               >
+
                 <Flex
                   w={{ base: "50px", lg: "64px" }}
                   h={{ base: "50px", lg: "64px" }}
@@ -93,16 +112,31 @@ export default function VideosSection() {
                   justify="center"
                   border="1px solid white"
                   borderRadius="full"
-                  transition="all .3s ease"
+
+                  transition={{
+                    base: "all .15s ease",
+                    xl: "all .3s ease",
+                  }}
+
                   _groupHover={{
+                    xl: {
+                      bg: "white",
+                      color: "black",
+                      transform: "scale(1.1)",
+                    },
+                  }}
+
+                  _active={{
                     bg: "white",
                     color: "black",
-                    transform: "scale(1.1)",
+                    transform: "scale(1.08)",
                   }}
                 >
                   <FaPlay />
                 </Flex>
+
               </Flex>
+
             </Box>
 
             {/* INFO */}
@@ -127,11 +161,15 @@ export default function VideosSection() {
               textTransform="uppercase"
               ml={1}
             >
-              Watch on YouTube 
+              Watch on YouTube
             </Text>
+
           </Box>
+
         ))}
+
       </Flex>
+
     </Box>
   )
 }

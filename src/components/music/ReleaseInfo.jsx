@@ -29,7 +29,7 @@ export default function ReleaseInfo({ release }) {
     <>
       <Heading
         fontSize={{ base: "xl", lg: "3xl" }}
-        fontWeight="500"
+        fontWeight="600"
         letterSpacing="0.5px"
         lineHeight="1.1"
       >
@@ -40,7 +40,7 @@ export default function ReleaseInfo({ release }) {
         color="gray.500"
         textTransform="uppercase"
         letterSpacing="2px"
-        fontWeight="400"
+        fontWeight="500"
         fontSize={{ base: "md", lg: "lg" }}
         mb={{ base: 4, md: 6, lg: 10 }}
       >
@@ -50,7 +50,7 @@ export default function ReleaseInfo({ release }) {
 <Flex
   direction={{ base: "row", lg: "column" }}
   align={{ base: "center", lg: "flex-start" }}
-  mb={{ base: 2, lg: 6 }}
+  mb={{ base: 0, lg: 6 }}
 >
   <Text
     color="gray.500"
@@ -69,7 +69,7 @@ export default function ReleaseInfo({ release }) {
 <Flex
   direction={{ base: "row", lg: "column" }}
   align={{ base: "center", lg: "flex-start" }}
-  mb={{ base: 4, lg: 6 }}
+  mb={{ base: 5, lg: 6 }}
 >
   <Text
     color="gray.500"
@@ -90,7 +90,7 @@ export default function ReleaseInfo({ release }) {
       {hasPlatforms && (
         <HStack
           spacing={4}
-          fontSize="3xl"
+          fontSize="2xl"
         >
           {release.spotify && (
             <Link

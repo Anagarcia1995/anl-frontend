@@ -28,7 +28,6 @@ export default function HeroSection() {
         overflow="hidden"
         flexShrink={0}
       >
-
         <Image
           src="/images/hero2.jpg"
           alt="Art No Logia"
@@ -40,7 +39,6 @@ export default function HeroSection() {
             lg: "center 55%",
           }}
         />
-
       </Box>
 
       {/* TEXT */}
@@ -54,53 +52,90 @@ export default function HeroSection() {
         bg="black"
       >
 
-        <Heading
-          w="100%"
-          textAlign="left"
-          fontFamily="'Bebas Neue', sans-serif"
-          fontWeight="400"
-          lineHeight={{
-            base: "0.88",
-            lg: "1",
-          }}
-          fontSize={{
-            base: "6xl",
-            md: "6xl",
-            lg: "9rem",
-          }}
-        >
+<Heading
+  w="100%"
+  textAlign="left"
+  fontFamily="'Bebas Neue', sans-serif"
+  fontWeight="400"
+  lineHeight={{
+    base: "0.88",
+    md: "1",
+    lg: "0.88",
+    xl: "1",
+  }}
+  fontSize={{
+    base: "6xl",
+    md: "7xl",
+    lg: "8xl",
+    xl: "9rem",
+  }}
+>
 
-          {/* MOBILE */}
+  {/* MOBILE */}
 
-          <Box
-            display={{
-              base: "block",
-              lg: "none",
-            }}
-          >
-            Music
-            <br />
-            From
-            <br />
-            The
-            <br />
-            Future
-          </Box>
+  <Box
+    display={{
+      base: "block",
+      md: "none",
+    }}
+  >
+    Music
+    <br />
+    From
+    <br />
+    The
+    <br />
+    Future
+  </Box>
 
-          {/* DESKTOP */}
+  {/* IPAD MINI / AIR */}
 
-          <Box
-            display={{
-              base: "none",
-              lg: "block",
-            }}
-          >
-            MUSIC FROM
-            <br />
-            THE FUTURE
-          </Box>
+  <Box
+    display={{
+      base: "none",
+      md: "block",
+      lg: "none",
+    }}
+    whiteSpace="nowrap"
+  >
+    MUSIC FROM
+    <br />
+    THE FUTURE
+  </Box>
 
-        </Heading>
+  {/* IPAD PRO */}
+
+  <Box
+    display={{
+      base: "none",
+      lg: "block",
+      xl: "none",
+    }}
+  >
+    MUSIC
+    <br />
+    FROM
+    <br />
+    THE
+    <br />
+    FUTURE
+  </Box>
+
+  {/* DESKTOP */}
+
+  <Box
+    display={{
+      base: "none",
+      xl: "block",
+    }}
+    whiteSpace="nowrap"
+  >
+    MUSIC FROM
+    <br />
+    THE FUTURE
+  </Box>
+
+</Heading>
 
       </Flex>
 

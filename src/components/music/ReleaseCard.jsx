@@ -6,15 +6,10 @@ import {
   Text,
 } from "@chakra-ui/react"
 
-import {
-  FiStar,
-} from "react-icons/fi"
-
-import {
-  FaStar,
-} from "react-icons/fa"
-
+import { FiStar } from "react-icons/fi"
+import { FaStar } from "react-icons/fa"
 import { BsGripVertical } from "react-icons/bs"
+
 export default function ReleaseCard({
   release,
   onClick,
@@ -23,53 +18,56 @@ export default function ReleaseCard({
   isLatest,
   dragHandle,
 }) {
+
   return (
     <Box
       cursor="pointer"
       role="group"
       onClick={() => onClick(release)}
     >
+
       {/* COVER */}
 
-      <Box 
-      overflow="visible"
-      position="relative">
+      <Box
+        overflow="visible"
+        position="relative"
+      >
 
-{isAdmin &&
-  !isLatest &&
-  release.pinned && (
-    <Box
-      position="absolute"
-      top={3}
-      left={3}
-      zIndex={2}
-      color="white"
-      cursor="grab"
-      fontSize="22px"
-      {...dragHandle}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <BsGripVertical />
-    </Box>
-)}
+        {isAdmin &&
+          !isLatest &&
+          release.pinned && (
+            <Box
+              position="absolute"
+              top={3}
+              left={3}
+              zIndex={2}
+              color="white"
+              cursor="grab"
+              fontSize="22px"
+              {...dragHandle}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <BsGripVertical />
+            </Box>
+          )}
 
-{isAdmin && !isLatest && (
-  <Box
-    position="absolute"
-    top={3}
-    right={3}
-    zIndex={2}
-    cursor="pointer"
-    color="white"
-    fontSize="22px"
-    onClick={(e) => {
-      e.stopPropagation()
-      onTogglePin(release)
-    }}
-  >
-    {release.pinned ? <FaStar /> : <FiStar />}
-  </Box>
-)}
+        {isAdmin && !isLatest && (
+          <Box
+            position="absolute"
+            top={3}
+            right={3}
+            zIndex={2}
+            cursor="pointer"
+            color="white"
+            fontSize="22px"
+            onClick={(e) => {
+              e.stopPropagation()
+              onTogglePin(release)
+            }}
+          >
+            {release.pinned ? <FaStar /> : <FiStar />}
+          </Box>
+        )}
 
         <Image
           src={release.coverImage}
@@ -78,11 +76,14 @@ export default function ReleaseCard({
           aspectRatio={1}
           objectFit="cover"
           boxShadow="2xl"
-          transition="transform .45s ease"
+          transition={{ xl: "transform .45s ease" }}
           _groupHover={{
-            transform: "scale(1.08)",
+            xl: {
+              transform: "scale(1.08)",
+            },
           }}
         />
+
       </Box>
 
       {/* INFO */}
@@ -92,15 +93,18 @@ export default function ReleaseCard({
         position="relative"
         minH="50px"
       >
+
         {/* TEXT */}
 
         <Box
-          transition="opacity .2s ease"
+          transition={{ xl: "opacity .2s ease" }}
           _groupHover={{
-            opacity: 0,
+            xl: {
+              opacity: 0,
+            },
           }}
         >
-          
+
           <Heading
             fontSize={{ base: "md", lg: "xl" }}
             fontWeight="600"
@@ -123,11 +127,13 @@ export default function ReleaseCard({
           >
             {release.artist}
           </Text>
+
         </Box>
 
-        {/* HOVER */}
+        {/* DESKTOP HOVER */}
 
         <Flex
+          display={{ base: "none", xl: "flex" }}
           position="absolute"
           inset="0"
           align="center"
@@ -137,6 +143,7 @@ export default function ReleaseCard({
             opacity: 1,
           }}
         >
+
           <Box
             w="70%"
             h="2px"
@@ -144,6 +151,7 @@ export default function ReleaseCard({
             display="flex"
             alignItems="center"
           >
+
             <Box
               w="100%"
               h="2px"
@@ -155,6 +163,7 @@ export default function ReleaseCard({
                 transform: "scaleX(1)",
               }}
             />
+
           </Box>
 
           <Text
@@ -176,8 +185,11 @@ export default function ReleaseCard({
           >
             ›
           </Text>
+
         </Flex>
+
       </Box>
+
     </Box>
   )
 }

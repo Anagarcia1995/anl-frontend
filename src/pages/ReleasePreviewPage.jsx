@@ -242,46 +242,46 @@ export default function ReleasePreview() {
         hasChanges={hasChanges}
       />
 
-      <Divider
-        borderColor="gray.700"
-        mb={5}
-      />
+<Divider
+  borderColor="gray.700"
+  mb={{ base: 3, lg: 5 }}
+/>
 
-      <Link
-        to="/music"
-        style={{
-          textDecoration: "none",
-          display: "inline-block",
-        }}
-      >
-        <Heading
-          fontSize={{
-            base: "15px",
-            lg: "md",
-          }}
-          fontWeight="500"
-          letterSpacing={{
-            base: "3px",
-            lg: "2px",
-          }}
-          mb={{
-            base: 4,
-            lg: 5,
-          }}
-          cursor="pointer"
-          transition="all .2s ease"
-          _hover={{
-            color: "gray.400",
-          }}
-        >
-          MORE RELEASES
-        </Heading>
-      </Link>
+<Link
+  to="/music"
+  style={{
+    textDecoration: "none",
+    display: "inline-block",
+  }}
+>
+  <Heading
+    fontSize={{
+      base: "13px",
+      lg: "md",
+    }}
+    fontWeight="500"
+    letterSpacing={{
+      base: "3px",
+      lg: "2px",
+    }}
+    mb={{
+      base: 4,
+      lg: 5,
+    }}
+    cursor="pointer"
+    transition="all .2s ease"
+    _hover={{
+      color: "gray.400",
+    }}
+  >
+    MORE RELEASES
+  </Heading>
+</Link>
 
-      <Divider
-        borderColor="gray.700"
-        mb={10}
-      />
+<Divider
+  borderColor="gray.700"
+  mb={10}
+/>
 
       <ReleasesSection
         excludeId={release._id}

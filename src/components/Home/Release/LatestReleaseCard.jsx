@@ -115,39 +115,52 @@ sx={{
     },
   }}
 >
-  <Heading
-    fontSize={{ base: "md", md: "md", lg: "lg" }}
-    color="white"
-    lineHeight="1.3"
-    noOfLines={3}
+<Heading
+  fontSize={{
+    base: "md",
+    md: "md",
+    lg: "lg",
+  }}
+  color="white"
+  fontWeight="500"
+  lineHeight="1.25"
+  letterSpacing="0.5px"
+  whiteSpace="nowrap"
+  overflow="hidden"
+  textOverflow="ellipsis"
+  sx={{
+    [proStyles]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
+  }}
+>
+  {release.title}
+
+  <Text
+    as="span"
+    ml={2}
+    fontSize={{
+      base: "md",
+      md: "sm",
+      lg: "md",
+    }}
+    fontWeight="500"
+    color="gray.300"
+    textTransform="uppercase"
+    letterSpacing="1px"
     sx={{
       [proStyles]: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
+        display: "block",
+        marginLeft: 0,
+        marginTop: "4px",
       },
     }}
   >
-    {release.title}
-
-    <Text
-      as="span"
-      ml={2}
-      fontSize={{ base: "md", md: "sm", lg: "md" }}
-      fontWeight="500"
-      color="gray.300"
-      textTransform="uppercase"
-      sx={{
-        [proStyles]: {
-          display: "block",
-          marginLeft: 0,
-          marginTop: "4px",
-        },
-      }}
-    >
-      {release.artist}
-    </Text>
-  </Heading>
+    {release.artist}
+  </Text>
+</Heading>
 
   <Text
     mt={0}

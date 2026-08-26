@@ -1,23 +1,29 @@
 export const getUpcomingEvents = (events) => {
-  const now = new Date()
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
 
   return events
-    .filter(e => new Date(e.date) >= now)
+    .filter(e => new Date(e.date) >= today)
     .sort((a, b) => new Date(a.date) - new Date(b.date))
 }
 
 export const getPastEvents = (events) => {
-  const now = new Date()
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
 
   return events
-    .filter(e => new Date(e.date) < now)
+    .filter(e => new Date(e.date) < today)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
 export const groupEventsByMonth = (events) => {
+
   const grouped = {}
 
   events.forEach((event) => {
+
     const date = new Date(event.date)
 
     const month = date

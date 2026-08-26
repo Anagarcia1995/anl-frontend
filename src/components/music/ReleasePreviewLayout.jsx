@@ -102,7 +102,7 @@ export default function ReleaseHero({
           w="100%"
           mx="auto"
         >
-<Flex justify="flex-end" mb={6}>
+<Flex justify="flex-end" mb={8}>
   <Icon
     as={FaArrowLeft}
     boxSize={6}
@@ -113,6 +113,7 @@ export default function ReleaseHero({
       transform: "scale(1.2)",
     }}
     onClick={() => navigate("/music")}
+
   />
 </Flex>
 
