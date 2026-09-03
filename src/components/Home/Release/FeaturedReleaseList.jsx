@@ -20,7 +20,7 @@ export default function FeaturedReleaseList({ releases }) {
       border="1px solid"
       borderColor="whiteAlpha.400"
       maxW={{ base: "390px", lg: "100%" }}
-      h={{ base: "auto", lg: "470px" }}
+      h={{ base: "auto",md: "340px", lg: "470px" }}
       mx="auto"
       pt={{ base: 5, lg: 6 }}
       pb={{ base: 5, lg: 5 }}

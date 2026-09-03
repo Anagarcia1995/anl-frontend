@@ -21,13 +21,22 @@ export default function ReleaseActions({
   const navigate = useNavigate()
 
   return (
-    <Flex
-      w={{ base: "100%", lg: "100%" }}
-      minH={{ base: "auto", lg: "380px" }}
-      direction="column"
-      align={{ base: "stretch", lg: "flex-end" }}
-      justify={{ base: "flex-start", lg: "space-between" }}
-    >
+<Flex
+  w="100%"
+  minH={{
+    base: "auto",
+    xl: "380px",
+  }}
+  direction="column"
+  align={{
+    base: "stretch",
+    md: "flex-end",
+  }}
+  justify={{
+    base: "flex-start",
+    xl: "space-between",
+  }}
+>
       {/* BACK */}
 
       <Icon
@@ -35,7 +44,7 @@ export default function ReleaseActions({
         boxSize={6}
         cursor="pointer"
         alignSelf={{ base: "flex-end", lg: "flex-end" }}
-        display={{ base: "none", lg: "block" }}
+        display={{ base: "none", xl: "block" }}
         transition="all .2s ease"
         _hover={{
           color: "gray.500",

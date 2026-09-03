@@ -142,7 +142,7 @@ const handleDragEnd = async ({
 
   return (
     <Box
-      maxW={{ base: "700px", xl: "100%" }}
+      maxW={{ base: "700px", md: "100%" }}
       mx="auto"
     >
 
@@ -159,7 +159,7 @@ const handleDragEnd = async ({
       <SimpleGrid
         columns={{
           base: 2,
-          md: 2,
+          md: 3,
           xl: 4,
         }}
         spacing={{ base: 4, lg: 10 }}

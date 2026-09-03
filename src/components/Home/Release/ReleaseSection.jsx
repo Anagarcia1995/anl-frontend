@@ -40,44 +40,45 @@ export default function ReleaseSection() {
         px={{ base: 2, lg: 8 }}
       >
 
-        <Stack
-          direction={{
-            base: "column",
-            md: "row",
-          }}
-          spacing={{
-            base: 2,
-            md: 5,
-            lg: 10,
-          }}
-          align="stretch"
-        >
+<Stack
+  direction={{
+    base: "column",
+    md: "row",
+  }}
+  spacing={{
+    base: 2,
+    md: 0,
+    lg: 10,
+  }}
+  align="stretch"
+  css={{
+    "@media (min-width: 700px) and (max-width: 767px)": {
+      flexDirection: "row",
+    },
+  }}
+>
 
           {/* LATEST RELEASE */}
 
-          <Box
-            flex={{
-              md: 4,
-              lg: 3.5,
-            }}
-          >
-            <LatestReleaseCard
-              release={latestRelease}
-            />
-          </Box>
+{/* LATEST RELEASE */}
+<Box
+  flex={{
+    md: 4,
+    lg: 3.5,
+  }}
+>
+  <LatestReleaseCard release={latestRelease} />
+</Box>
 
-          {/* FEATURED RELEASES */}
-
-          <Box
-            flex={{
-              md: 6,
-              lg: 6.5,
-            }}
-          >
-            <FeaturedReleaseList
-              releases={featuredReleases}
-            />
-          </Box>
+{/* FEATURED RELEASES */}
+<Box
+  flex={{
+    md: 6,
+    lg: 6.5,
+  }}
+>
+  <FeaturedReleaseList releases={featuredReleases} />
+</Box>
 
         </Stack>
 

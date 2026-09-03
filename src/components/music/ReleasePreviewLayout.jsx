@@ -49,6 +49,12 @@ export default function ReleaseHero({
   const [showUnsavedModal, setShowUnsavedModal] =
     useState(false)
 
+  const tabletStyles =
+    "@media screen and (min-width: 700px) and (max-width: 1279px)"
+
+  const galaxyStyles =
+    "@media screen and (min-width: 700px) and (max-width: 767px)"
+
   const handleCancelEdit = () => {
     if (hasChanges) {
       setShowUnsavedModal(true)
@@ -90,9 +96,13 @@ export default function ReleaseHero({
   return (
     <>
       {/* MOBILE */}
-
       <Flex
-        display={{ base: "flex", md: "none" }}
+        display="flex"
+        css={{
+          "@media (min-width: 700px)": {
+            display: "none",
+          },
+        }}
         direction="column"
         gap={6}
         mb={10}
@@ -102,20 +112,22 @@ export default function ReleaseHero({
           w="100%"
           mx="auto"
         >
-<Flex justify="flex-end" mb={8}>
-  <Icon
-    as={FaArrowLeft}
-    boxSize={6}
-    cursor="pointer"
-    transition="all .2s ease"
-    _hover={{
-      color: "gray.500",
-      transform: "scale(1.2)",
-    }}
-    onClick={() => navigate("/music")}
-
-  />
-</Flex>
+          <Flex
+            justify="flex-end"
+            mb={8}
+          >
+            <Icon
+              as={FaArrowLeft}
+              boxSize={6}
+              cursor="pointer"
+              transition="all .2s ease"
+              _hover={{
+                color: "gray.500",
+                transform: "scale(1.2)",
+              }}
+              onClick={() => navigate("/music")}
+            />
+          </Flex>
 
           <Image
             src={release.coverImage}
@@ -142,26 +154,141 @@ export default function ReleaseHero({
         </Box>
       </Flex>
 
-      {/* TABLET + DESKTOP */}
+      {/* TABLET / IPAD — 700px a 1279px */}
+      <Box
+        display="none"
+        sx={{
+          [tabletStyles]: {
+            display: "block",
+          },
+        }}
+        mb={16}
+        maxW="1100px"
+        mx="auto"
+      >
+        {/* BACK */}
+        <Flex
+          justify="flex-end"
+          mb={6}
+          px={{
+            md: 6,
+            lg: 10,
+          }}
+          sx={{
+            [galaxyStyles]: {
+              paddingLeft: "20px",
+              paddingRight: "20px",
+            },
+          }}
+        >
+          <Icon
+            as={FaArrowLeft}
+            boxSize={6}
+            cursor="pointer"
+            transition="all .2s ease"
+            _hover={{
+              color: "gray.500",
+              transform: "scale(1.2)",
+            }}
+            onClick={() => navigate("/music")}
+          />
+        </Flex>
 
-<Flex
-  display={{ base: "none", md: "flex" }}
-  gap={12}
-  align="flex-end"
-  justify="center"
-  maxW="1280px"
-  mx="auto"
-  mb={16}
+        {/* IMAGEN + INFO */}
+        <Flex
+          align="stretch"
+          justify="center"
+          gap={12}
+          sx={{
+            [galaxyStyles]: {
+              gap: "36px",
+            },
+          }}
+        >
+          {/* COVER */}
+          <Box
+            w={{
+              md: "330px",
+              lg: "360px",
+            }}
+            minW={{
+              md: "260px",
+              lg: "320px",
+            }}
+            sx={{
+              [galaxyStyles]: {
+                width: "250px",
+                minWidth: "250px",
+              },
+            }}
+          >
+            <Image
+              src={release.coverImage}
+              alt={release.title}
+              w="100%"
+              aspectRatio={1}
+              objectFit="cover"
+              boxShadow="2xl"
+            />
+          </Box>
+
+          {/* INFO + BUY */}
+          <Box
+            flex="1"
+            maxW="420px"
+            minW={0}
+            display="flex"
+            flexDirection="column"
+            sx={{
+              [galaxyStyles]: {
+                maxWidth: "250px",
+              },
+            }}
+          >
+            {/* INFO */}
+<Box
+  mt={{
+    md: 10,
+    lg: 0,
+  }}
 >
+  {releaseContent}
+</Box>
+
+            {/* BUY ON SE EMPUJA HASTA ABAJO */}
+            <Box
+              mt="auto"
+              w="100%"
+            >
+              <ReleaseActions
+                release={release}
+                isEditing={isEditing}
+                loadRelease={loadRelease}
+                setIsEditing={setIsEditing}
+                onDelete={onDelete}
+              />
+            </Box>
+          </Box>
+        </Flex>
+      </Box>
+
+      {/* DESKTOP — XL + */}
+      <Flex
+        display={{
+          base: "none",
+          xl: "flex",
+        }}
+        gap={12}
+        align="flex-end"
+        justify="center"
+        maxW="1280px"
+        mx="auto"
+        mb={16}
+      >
+        {/* COVER */}
         <Box
-          w={{
-            md: "330px",
-            xl: "30%",
-          }}
-          minW={{
-            md: "260px",
-            xl: "390px",
-          }}
+          w="30%"
+          minW="390px"
         >
           <Image
             src={release.coverImage}
@@ -173,6 +300,7 @@ export default function ReleaseHero({
           />
         </Box>
 
+        {/* INFO */}
         <Box
           flex="1"
           maxW="420px"
@@ -180,6 +308,7 @@ export default function ReleaseHero({
           {releaseContent}
         </Box>
 
+        {/* ACTIONS */}
         <Box flex="0 0 20px">
           <ReleaseActions
             release={release}
@@ -194,7 +323,9 @@ export default function ReleaseHero({
       {showUnsavedModal && (
         <UnsavedChangesModal
           title="Discard changes?"
-          onCancel={() => setShowUnsavedModal(false)}
+          onCancel={() =>
+            setShowUnsavedModal(false)
+          }
           onConfirm={() => {
             setShowUnsavedModal(false)
             resetEditor()
