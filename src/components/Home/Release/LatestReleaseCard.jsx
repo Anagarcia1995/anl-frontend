@@ -35,15 +35,18 @@ export default function LatestReleaseCard({ release }) {
           goToRelease();
         }
       }}
-      transition="background .25s ease"
-      _hover={{ bg: "#151515" }}
+      transition={{ base: "none", md: "background .25s ease" }}
+      _hover={{
+        bg: { base: "#080808", md: "#151515" },
+      }}
     >
-      {/* LEFT: INFORMATION */}
+      {/* INFORMATION */}
       <Flex
+        order={{ base: 2, md: 1 }}
         direction="column"
         justify="space-between"
         w={{
-          base: "45%",
+          base: "55%",
           md: "30%",
         }}
         flexShrink={0}
@@ -78,6 +81,7 @@ export default function LatestReleaseCard({ release }) {
 
           <Heading
             as="h3"
+            mt={{ base: 2, md: 0 }}
             fontFamily="'Bebas Neue', Impact, sans-serif"
             fontWeight="400"
             fontSize={{
@@ -93,7 +97,7 @@ export default function LatestReleaseCard({ release }) {
           </Heading>
 
           <Text
-            mt={2}
+            mt={{ base: 1, md: 2 }}
             fontFamily="'Space Grotesk', Arial, sans-serif"
             fontSize={{
               base: "12px",
@@ -154,18 +158,24 @@ export default function LatestReleaseCard({ release }) {
             textTransform="uppercase"
             borderBottom="1px solid white"
             pb={1}
-            transition="opacity .2s ease"
-            _hover={{ opacity: 0.6 }}
+            transition={{
+              base: "none",
+              md: "opacity .2s ease",
+            }}
+            _hover={{
+              opacity: { base: 1, md: 0.6 },
+            }}
           >
             EXPLORE
           </Text>
         </Box>
       </Flex>
 
-      {/* RIGHT: COVER */}
+      {/* COVER */}
       <Flex
+        order={{ base: 1, md: 2 }}
         w={{
-          base: "55%",
+          base: "45%",
           md: "70%",
         }}
         flexShrink={0}

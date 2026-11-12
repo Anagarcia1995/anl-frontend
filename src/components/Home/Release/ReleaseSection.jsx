@@ -31,8 +31,8 @@ export default function ReleaseSection() {
     <Box
       as="section"
       w="100%"
-      pt={{ base: 12, md: 14, lg: 24 }}
-      pb={{ base: 8, md: 10, lg: 16 }}
+      pt={{ base: 20, md: 14, lg: 24 }}
+      pb={{ base: 14, md: 10, lg: 16 }}
     >
       <Box
         maxW="1450px"

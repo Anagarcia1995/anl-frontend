@@ -16,6 +16,14 @@ export default function FeaturedReleaseList({ releases }) {
     navigate(`/music/${id}`);
   };
 
+const formatLabel = (label) => {
+  if (!label) return "";
+
+  return label
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
   const handleKeyDown = (event, id) => {
     if (event.key === "Enter") {
       goToRelease(id);
@@ -32,15 +40,15 @@ export default function FeaturedReleaseList({ releases }) {
       minW={0}
       bg="#080808"
     >
-      {/* MOBILE: HORIZONTAL LIST */}
+      {/* MOBILE: TEXT-ONLY LIST */}
       <Box display={{ base: "block", md: "none" }}>
         {selectedReleases.map((release, index) => (
           <Box key={release._id}>
             {index > 0 && (
               <Box
-                mx={5}
+                mx={4}
                 h="1px"
-                bg="rgba(255, 255, 255, 0.12)"
+                bg="rgba(255,255,255,0.15)"
               />
             )}
 
@@ -49,8 +57,8 @@ export default function FeaturedReleaseList({ releases }) {
               align="center"
               justify="space-between"
               gap={3}
-              px={3}
-              py={3}
+              px={4}
+              py={4}
               minW={0}
               cursor="pointer"
               role="link"
@@ -59,59 +67,89 @@ export default function FeaturedReleaseList({ releases }) {
               onKeyDown={(event) =>
                 handleKeyDown(event, release._id)
               }
-              transition="background .25s ease"
-              _hover={{ bg: "#191919" }}
+              _focusVisible={{
+                outline: "1px solid white",
+                outlineOffset: "-3px",
+              }}
             >
-              {/* COVER — LEFT */}
-              <Image
-                src={release.coverImage}
-                alt={release.title}
-                w="50px"
-                h="50px"
-                flexShrink={0}
-                objectFit="cover"
-                transition="transform .3s ease"
-              />
-
-              {/* TITLE + ARTIST — RIGHT */}
+              {/* TRACK INFORMATION */}
               <Flex
                 direction="column"
                 justify="center"
                 flex="1"
                 minW={0}
-                gap={1}
+                gap="5px"
               >
                 <Heading
                   as="h3"
                   fontFamily="'Bebas Neue', Impact, sans-serif"
                   fontWeight="400"
-                  fontSize="clamp(19px, 5vw, 25px)"
-                  lineHeight="0.98"
+                  fontSize="clamp(20px, 5.2vw, 27px)"
+                  lineHeight="1"
                   textTransform="uppercase"
-                  overflowWrap="anywhere"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
                 >
                   {release.title}
                 </Heading>
 
-                <Text
-                  fontFamily="'Space Grotesk', Arial, sans-serif"
-                  fontSize="10px"
-                  fontWeight="500"
-                  letterSpacing="0.04em"
-                  lineHeight="1.3"
-                  textTransform="uppercase"
-                  color="gray.300"
-                  overflowWrap="anywhere"
+                <Flex
+                  align="center"
+                  gap={2}
+                  minW={0}
+                  overflow="hidden"
                 >
-                  {release.artist}
-                </Text>
+                  <Text
+                    fontFamily="'Space Grotesk', Arial, sans-serif"
+                    fontSize="11px"
+                    fontWeight="500"
+                    letterSpacing="0.03em"
+                    lineHeight="1.4"
+                    textTransform="uppercase"
+                    color="gray.300"
+                    whiteSpace="nowrap"
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                    flexShrink={1}
+                    minW={0}
+                  >
+                    {release.artist}
+                  </Text>
+
+                  {release.label && (
+                    <>
+                      <Box
+                        h="1px"
+                        w="16px"
+                        bg="gray.500"
+                        flexShrink={0}
+                      />
+
+                      <Text
+                        fontFamily="'Space Grotesk', Arial, sans-serif"
+                        fontSize="11px"
+                        fontWeight="400"
+                        letterSpacing="0.02em"
+                        lineHeight="1.4"
+                        color="gray.400"
+                        whiteSpace="nowrap"
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                        minW={0}
+                      >
+                        {formatLabel(release.label)}
+                      </Text>
+                    </>
+                  )}
+                </Flex>
               </Flex>
             </Flex>
           </Box>
         ))}
       </Box>
 
-      {/* TABLET + DESKTOP: GRID */}
+      {/* TABLET + DESKTOP: ORIGINAL GRID */}
       <Box
         display={{ base: "none", md: "grid" }}
         gridTemplateColumns="repeat(2, minmax(0, 1fr))"

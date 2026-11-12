@@ -1,4 +1,3 @@
-
 import {
   Box,
   Flex,
@@ -6,23 +5,20 @@ import {
   Icon,
   Link,
   Text,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 import {
   FaApple,
   FaSoundcloud,
   FaSpotify,
   FaYoutube,
-} from "react-icons/fa"
+} from "react-icons/fa";
 
-import { SiBeatport } from "react-icons/si"
+import { SiBeatport } from "react-icons/si";
 
-import { formatDateForPreview } from "../../utils/date"
+import { formatDateForPreview } from "../../utils/date";
 
-export default function ReleaseInfo({
-  release,
-  actions,
-}) {
+export default function ReleaseInfo({ release, actions }) {
   const platforms = [
     {
       url: release.spotify,
@@ -49,10 +45,9 @@ export default function ReleaseInfo({
       icon: SiBeatport,
       label: "Beatport",
     },
-  ].filter(({ url }) => url)
+  ].filter(({ url }) => url);
 
-  const divider =
-    "1px solid var(--chakra-colors-gray-700)"
+  const divider = "1px solid var(--chakra-colors-gray-700)";
 
   const labelStyles = {
     color: "gray.400",
@@ -60,7 +55,7 @@ export default function ReleaseInfo({
     fontWeight: "700",
     letterSpacing: "2px",
     textTransform: "uppercase",
-  }
+  };
 
   const valueStyles = {
     color: "white",
@@ -68,7 +63,7 @@ export default function ReleaseInfo({
     fontWeight: "500",
     lineHeight: "1.3",
     overflowWrap: "anywhere",
-  }
+  };
 
   return (
     <Box
@@ -104,9 +99,7 @@ export default function ReleaseInfo({
         py={{ base: 3, md: 2 }}
         gap={{ base: 3, md: 2 }}
       >
-        <Text {...labelStyles}>
-          RELEASE DATE
-        </Text>
+        <Text {...labelStyles}>RELEASE DATE</Text>
 
         <Text
           {...valueStyles}
@@ -138,9 +131,7 @@ export default function ReleaseInfo({
         py={{ base: 2, md: 2 }}
         gap={{ base: 3, md: 2 }}
       >
-        <Text {...labelStyles}>
-          LABEL
-        </Text>
+        <Text {...labelStyles}>LABEL</Text>
 
         <Text
           {...valueStyles}
@@ -155,18 +146,35 @@ export default function ReleaseInfo({
 
       {/* PLATFORMS + BUY ON */}
       <Flex
-        align="center"
+        direction={{
+          base: "column",
+          md: "row",
+        }}
+        align={{
+          base: "stretch",
+          md: "center",
+        }}
         justify="space-between"
-        gap={{ base: 2, md: 3 }}
+        gap={{
+          base: 4,
+          md: 3,
+        }}
         minW={0}
         borderBottom={{
           base: "none",
           md: divider,
         }}
-        py={{ base: 3, md: 2 }}
+        py={{
+          base: 3,
+          md: 2,
+        }}
       >
+        {/* PLATFORMS */}
         <HStack
-          spacing={{ base: 4, md: 5 }}
+          spacing={{
+            base: 4,
+            md: 5,
+          }}
           minW={0}
           flexShrink={1}
           flexWrap="nowrap"
@@ -196,7 +204,12 @@ export default function ReleaseInfo({
           ))}
         </HStack>
 
+        {/* BUY ON - MOBILE BELOW, RIGHT ALIGNED */}
         <Flex
+          w={{
+            base: "100%",
+            md: "auto",
+          }}
           flexShrink={0}
           align="center"
           justify="flex-end"
@@ -205,5 +218,5 @@ export default function ReleaseInfo({
         </Flex>
       </Flex>
     </Box>
-  )
+  );
 }

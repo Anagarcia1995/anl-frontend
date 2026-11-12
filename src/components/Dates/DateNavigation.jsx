@@ -16,7 +16,7 @@ export default function DateNavigation({
       justify="flex-start"
       align="center"
       mb={{
-        base: 3,
+        base: 4,
         md: 5,
       }}
     >

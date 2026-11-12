@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-
 import {
   Text,
   Box,
@@ -35,11 +34,8 @@ export default function NextDates() {
   const [showForm, setShowForm] = useState(false);
   const [activeEditor, setActiveEditor] = useState(null);
 
-  const [showSwitchModal, setShowSwitchModal] =
-    useState(false);
-
-  const [switchTarget, setSwitchTarget] =
-    useState(null);
+  const [showSwitchModal, setShowSwitchModal] = useState(false);
+  const [switchTarget, setSwitchTarget] = useState(null);
 
   const [
     hasActiveEditorChanges,
@@ -170,9 +166,7 @@ export default function NextDates() {
       setActiveEditor(null);
       resetNewEventForm();
       setShowForm(true);
-    } else if (
-      switchTarget === "close-new"
-    ) {
+    } else if (switchTarget === "close-new") {
       resetNewEventForm();
     } else {
       setActiveEditor(switchTarget);
@@ -295,28 +289,37 @@ export default function NextDates() {
       bg="transparent"
       overflow="hidden"
     >
-      {/* FIXED BACKGROUND */}
-      <Box
-        position="fixed"
-        inset={0}
-        zIndex={0}
-        overflow="hidden"
-        pointerEvents="none"
-        bg="#080808"
-      >
-        <Box
-          position="absolute"
-          inset="-4px"
-          bgImage="url('/images/hero8.jpg')"
-          bgSize="cover"
-          bgPosition={{
-            base: "center 65%",
-            lg: "center 38%",
-          }}
-          bgRepeat="no-repeat"
-          transform="none"
-        />
-      </Box>
+{/* FIXED BACKGROUND */}
+<Box
+  position="fixed"
+  top={0}
+  left={0}
+  w="100vw"
+  h="100dvh"
+  zIndex={0}
+  overflow="hidden"
+  pointerEvents="none"
+  bg="#080808"
+>
+  <Box
+    position="absolute"
+    inset={0}
+    bgImage="url('/images/hero8.jpg')"
+    bgSize={{
+      base: "140% auto",
+      md: "cover",
+    }}
+    bgPosition={{
+      base: "center top",
+      md: "center center",
+      lg: "center 38%",
+    }}
+    bgRepeat={{
+      base: "repeat-y",
+      md: "no-repeat",
+    }}
+  />
+</Box>
 
       {/* FIXED LIGHT OVERLAY */}
       <Box
@@ -345,7 +348,7 @@ export default function NextDates() {
           md: 6,
         }}
         pt={{
-          base: "85px",
+          base: "95px",
           md: "150px",
           lg: "180px",
         }}
@@ -473,15 +476,6 @@ export default function NextDates() {
                 : "No upcoming events"}
             </Text>
           ) : (
-            /*
-             * TRANSPARENT WRAPPER
-             *
-             * Each month now has its own card
-             * in EventMonthList.
-             *
-             * No outer border, background,
-             * blur or padding.
-             */
             <Box
               w="100%"
               border="none"

@@ -86,7 +86,7 @@ export default function TourSection() {
       bg="black"
       color="white"
       py={{
-        base: 10,
+        base: 8,
         md: 14,
         lg: 16,
       }}
@@ -103,7 +103,7 @@ export default function TourSection() {
           justify="flex-start"
           align="center"
           mb={{
-            base: 5,
+            base: 2,
             md: 7,
           }}
         >
@@ -122,7 +122,9 @@ export default function TourSection() {
             color="white"
             transition="color 0.2s ease"
             _hover={{
-              color: "gray.400",
+              "@media (hover: hover) and (pointer: fine)": {
+                color: "gray.400",
+              },
             }}
             _focusVisible={{
               outline: "1px solid white",
@@ -136,12 +138,9 @@ export default function TourSection() {
         {/* EVENTS LIST */}
         <Flex direction="column" w="100%">
           {events.map((event) => {
-            const { day, month } = getEventDateParts(
-              event.date
-            );
+            const { day, month } = getEventDateParts(event.date);
 
-            const ticketUrl =
-              event.ticketUrl || event.ticket;
+            const ticketUrl = event.ticketUrl || event.ticket;
 
             const cityCountry = event.city
               ? `${event.city}${
@@ -178,15 +177,13 @@ export default function TourSection() {
                 borderBottom="1px solid"
                 borderColor="rgba(255,255,255,0.22)"
                 _hover={{
-                  "& .event-hover-text": {
-                    fontStyle: ticketUrl
-                      ? "italic"
-                      : "normal",
-                  },
-                  "& .ticket-text": {
-                    fontStyle: ticketUrl
-                      ? "italic"
-                      : "normal",
+                  "@media (hover: hover) and (pointer: fine)": {
+                    "& .event-hover-text": {
+                      fontStyle: ticketUrl ? "italic" : "normal",
+                    },
+                    "& .ticket-text": {
+                      fontStyle: ticketUrl ? "italic" : "normal",
+                    },
                   },
                 }}
               >
@@ -211,12 +208,17 @@ export default function TourSection() {
                   cursor={ticketUrl ? "pointer" : "default"}
                   textDecoration="none"
                   color="inherit"
-                  transition="transform 0.3s ease"
+                  transition={{
+                    base: "none",
+                    md: "transform 0.3s ease",
+                  }}
                   _hover={{
-                    transform: ticketUrl
-                      ? "translateX(8px)"
-                      : "none",
-                    textDecoration: "none",
+                    "@media (hover: hover) and (pointer: fine)": {
+                      transform: ticketUrl
+                        ? "translateX(8px)"
+                        : "none",
+                      textDecoration: "none",
+                    },
                   }}
                   _focusVisible={{
                     outline: ticketUrl
@@ -280,21 +282,19 @@ export default function TourSection() {
                   </Flex>
 
                   {/* EVENT INFORMATION */}
-                  <Box
-                    flex="1"
-                    minW={0}
-                    title={fullDetails}
-                  >
-                    {/* MOBILE: TWO LINES */}
+                  <Box flex="1" minW={0} title={fullDetails}>
+                    {/* MOBILE: TITLE + DETAILS AND TICKETS */}
                     <Box
                       display={{
                         base: "block",
                         md: "none",
                       }}
+                      minW={0}
                     >
+                      {/* EVENT TITLE */}
                       <Text
                         className="event-hover-text"
-                        fontSize="13px"
+                        fontSize="14px"
                         fontWeight="600"
                         lineHeight="1.35"
                         color="white"
@@ -305,39 +305,65 @@ export default function TourSection() {
                         {event.eventName}
                       </Text>
 
-                      <Box
-                        mt="3px"
-                        overflow="hidden"
-                        whiteSpace="nowrap"
-                        textOverflow="ellipsis"
-                        lineHeight="1.35"
-                      >
-                        {event.venueName && (
-                          <Text
-                            as="span"
-                            className="event-hover-text"
-                            fontSize="11px"
-                            fontWeight="500"
-                            color="gray.200"
-                          >
-                            {event.venueName}
-                          </Text>
-                        )}
+                      {/* SECOND LINE */}
+ <Flex
+  mt="5px"
+  w="100%"
+  align="baseline"
+  gap={3}
+  minW={0}
+>
+                        {/* VENUE + CITY */}
+                        <Box
+                          flex="1"
+                          minW={0}
+                          overflow="hidden"
+                          whiteSpace="nowrap"
+                          textOverflow="ellipsis"
+                          lineHeight="1.35"
+                        >
+                          {event.venueName && (
+                            <Text
+                              as="span"
+                              className="event-hover-text"
+                              fontSize="13px"
+                              fontWeight="500"
+                              color="gray.200"
+                            >
+                              {event.venueName}
+                            </Text>
+                          )}
 
-                        {cityCountry && (
-                          <Text
-                            as="span"
-                            className="event-hover-text"
-                            ml={event.venueName ? 2 : 0}
-                            fontSize="10px"
-                            fontWeight="400"
-                            color="gray.500"
-                          >
-                            {event.venueName ? "· " : ""}
-                            {cityCountry}
-                          </Text>
-                        )}
-                      </Box>
+                          {cityCountry && (
+                            <Text
+                              as="span"
+                              className="event-hover-text"
+                              ml={event.venueName ? 2 : 0}
+                              fontSize="12px"
+                              fontWeight="400"
+                              color="gray.500"
+                            >
+                              {event.venueName ? "· " : ""}
+                              {cityCountry}
+                            </Text>
+                          )}
+                        </Box>
+
+                        {/* MOBILE TICKETS */}
+                        <Text
+                          as="span"
+                          className="ticket-text"
+                          flexShrink={0}
+                          fontSize="10px"
+                          fontWeight="600"
+                          letterSpacing="1px"
+                          textTransform="uppercase"
+                          color={ticketUrl ? "white" : "gray.500"}
+                          whiteSpace="nowrap"
+                        >
+                          {ticketUrl ? "TICKETS" : "SOON"}
+                        </Text>
+                      </Flex>
                     </Box>
 
                     {/* DESKTOP: SINGLE LINE */}
@@ -405,7 +431,7 @@ export default function TourSection() {
                   </Box>
                 </Flex>
 
-                {/* TICKETS - TEXT LINK */}
+                {/* DESKTOP TICKETS - TEXT LINK */}
                 <Text
                   as={ticketUrl ? "a" : "span"}
                   href={ticketUrl || undefined}
@@ -415,6 +441,10 @@ export default function TourSection() {
                       ? "noopener noreferrer"
                       : undefined
                   }
+                  display={{
+                    base: "none",
+                    md: "inline",
+                  }}
                   className="ticket-text"
                   flexShrink={0}
                   color={ticketUrl ? "white" : "gray.500"}
@@ -432,8 +462,10 @@ export default function TourSection() {
                   cursor={ticketUrl ? "pointer" : "default"}
                   transition="color 0.2s ease"
                   _hover={{
-                    color: "gray.400",
-                    textDecoration: "none",
+                    "@media (hover: hover) and (pointer: fine)": {
+                      color: "gray.400",
+                      textDecoration: "none",
+                    },
                   }}
                   _focusVisible={{
                     outline: "1px solid white",

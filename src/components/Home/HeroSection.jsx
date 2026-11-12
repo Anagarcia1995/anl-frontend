@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 
 const mobileDescription =
-  "ART NO LOGIA is a DJ and production duo from Málaga, blending grooves, hypnotic rhythms and forward-thinking electronic sounds to create their identity on the dancefloor.";
+  "ART NO LOGIA is a DJ and producer duo from Málaga, blending grooves, hypnotic rhythms and forward-thinking electronic sounds to create their identity on the dancefloor.";
 
 const desktopDescription =
   "ART NO LOGIA is a DJ and production duo from Málaga, driven by a shared passion for electronic music. Blending groove, energy and forward-thinking sounds, they create experiences that go beyond the booth and connect directly with the dancefloor.";
@@ -69,11 +69,16 @@ export default function HeroSection() {
           xl: "78%",
         }}
         maxW="1120px"
-        my={{
-          base: 16,
-          md: 10,
-          lg: 12,
-        }}
+mt={{
+  base: 14,
+  md: 10,
+  lg: 12,
+}}
+mb={{
+  base: 8,
+  md: 10,
+  lg: 12,
+}}
       >
         {/* MAIN CARD */}
         <Flex
@@ -109,6 +114,11 @@ export default function HeroSection() {
               w="100%"
               h="100%"
               objectFit="cover"
+transform={{
+  base: "scale(1.35) translateY(-10%)",
+  md: "scale(1)",
+}}
+transformOrigin="center center"
               objectPosition={{
                 base: "center 30%",
                 md: "center 50%",

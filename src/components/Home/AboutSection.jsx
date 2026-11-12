@@ -20,8 +20,8 @@ export default function AboutSection() {
         as="section"
         display={{ base: "block", md: "none" }}
         w="100%"
-        mt={6}
-        mb={6}
+        mt={0}
+        mb={4}
         color="#FFFFFF"
         overflow="hidden"
       >
@@ -35,7 +35,7 @@ export default function AboutSection() {
           <Heading
             as="h2"
             fontFamily="'Roboto Condensed', 'Arial Narrow', sans-serif"
-            fontSize="clamp(42px, 14vw, 68px)"
+            fontSize="clamp(42px, 10vw, 64px)"
             fontWeight="900"
             lineHeight="0.81"
             letterSpacing="-0.055em"
@@ -94,7 +94,7 @@ export default function AboutSection() {
         <Box
           position="relative"
           w="100%"
-          mt="-25px"
+          mt="-27px"
           pt={0}
           pb={0}
           overflow="hidden"
@@ -104,7 +104,7 @@ export default function AboutSection() {
             as="div"
             fontFamily="'Roboto Condensed', 'Arial Narrow', sans-serif"
             fontWeight="700"
-            fontSize="clamp(52px, 17.5vw, 110px)"
+            fontSize="clamp(52px, 15vw, 110px)"
             lineHeight="0.88"
             letterSpacing="-0.065em"
             wordSpacing="0.16em"
@@ -130,7 +130,7 @@ export default function AboutSection() {
 {/* LEFT TEXT */}
 <Text
   fontFamily="'Space Grotesk', Arial, sans-serif"
-  fontSize="11px"
+  fontSize="13px"
   lineHeight="1.6"
   color="rgba(255,255,255,0.88)"
 >
@@ -143,15 +143,15 @@ and pushing their musical boundaries.
 {/* RIGHT TEXT */}
 <Text
   fontFamily="'Space Grotesk', Arial, sans-serif"
-  fontSize="11px"
+  fontSize="13px"
   lineHeight="1.6"
   color="rgba(255,255,255,0.88)"
 >
-  From <Text as="span" fontWeight="700">Cova Santa Ibiza</Text>
-  {" "}and <Text as="span" fontWeight="700">INPUT Barcelona</Text>
-  {" "}to <Text as="span" fontWeight="700">Fabrik Madrid</Text>
-  {" "}and <Text as="span" fontWeight="700">Lost Beach Ecuador</Text>,
-  their sound travels worldwide.
+From <Text as="span" fontWeight="700">Cova Santa Ibiza</Text>
+{" "}and <Text as="span" fontWeight="700">INPUT Barcelona</Text>
+{" "}to <Text as="span" fontWeight="700">Fabrik Madrid</Text>
+{" "}and <Text as="span" fontWeight="700">Lost Beach Ecuador</Text>,
+their sound travels worldwide, reaching audiences across the globe.
 </Text>
         </SimpleGrid>
       </Box>

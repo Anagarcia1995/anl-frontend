@@ -33,7 +33,7 @@ export default function VideosSection() {
         lg: 8,
       }}
       pt={{
-        base: 8,
+        base: 16,
         md: 12,
         lg: 16,
       }}

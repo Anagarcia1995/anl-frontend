@@ -11,8 +11,8 @@ export default function HomePage() {
     <Box>
       <HeroSection />
       <ReleaseSection />
-      <TourSection />
       <AboutSection />
+      <TourSection />
       <VideosSection />
     </Box>
   )
