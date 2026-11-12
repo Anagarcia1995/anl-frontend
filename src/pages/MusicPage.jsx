@@ -1,43 +1,51 @@
-import ReleaseForm from "../components/music/ReleaseForm"
-import ReleasesSection from "../components/music/ReleasesSection"
-import { useState } from "react"
-import useReleasesData from "../hooks/useReleasesData"
-import { createRelease, toggleReleasePin } from "../services/releaseService"
-import { formatDateForApi } from "../utils/date"
-import { validateRequiredFields } from "../utils/validateRequiredFields"
-import { FiPlus } from "react-icons/fi"
-import { useAuth } from "../context/AuthContext"
-import { useToast } from "@chakra-ui/react"
-import { showToast } from "../utils/showToast"
-import useNewReleaseForm from "../hooks/useNewReleaseForm"
-import UnsavedChangesModal from "../components/UnsavedChangesModal"
-import MusicHeader from "../components/music/MusicHeader"
-import { useNavigate } from "react-router-dom"
+
+import { useState } from "react";
+import {
+  Box,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
+
+import { useNavigate } from "react-router-dom";
+import { FiPlus } from "react-icons/fi";
+
+import ReleaseForm from "../components/music/ReleaseForm";
+import ReleasesSection from "../components/music/ReleasesSection";
+import UnsavedChangesModal from "../components/UnsavedChangesModal";
+import MusicHeader from "../components/music/MusicHeader";
+
+import useReleasesData from "../hooks/useReleasesData";
+import useNewReleaseForm from "../hooks/useNewReleaseForm";
+
+import {
+  createRelease,
+  toggleReleasePin,
+} from "../services/releaseService";
+
+import { formatDateForApi } from "../utils/date";
+import { validateRequiredFields } from "../utils/validateRequiredFields";
+import { useAuth } from "../context/AuthContext";
+import { showToast } from "../utils/showToast";
 
 import {
   getActionMessage,
   getRequiredFieldsMessage,
-  getRequiredMessage
-} from "../utils/messages"
-
-import {
-  Box,
-  Button,
-} from "@chakra-ui/react"
+  getRequiredMessage,
+} from "../utils/messages";
 
 export default function MusicPage() {
+  const { isAdmin } = useAuth();
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const { isAdmin } = useAuth()
-  const toast = useToast()
-  const navigate = useNavigate()
-  const [showForm, setShowForm] = useState(false)
-  const [showUnsavedModal, setShowUnsavedModal] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false);
 
   const {
     releases,
     setReleases,
     loadReleases,
-  } = useReleasesData()
+  } = useReleasesData();
 
   const {
     title,
@@ -63,230 +71,234 @@ export default function MusicPage() {
     setCoverImage,
     resetNewReleaseForm,
     hasNewReleaseChanges,
-  } = useNewReleaseForm()
-
+  } = useNewReleaseForm();
 
   const handleReleaseClick = (release) => {
-  navigate(`/music/${release._id}`)
-  }
+    navigate(`/music/${release._id}`);
+  };
 
-const handleTogglePin = async (release) => {
-  try {
-    // Contamos los releases pineados
-    const pinnedReleases = releases.filter(
-      (item) => item.pinned
-    )
+  const handleTogglePin = async (release) => {
+    try {
+      // Contamos los releases pineados
+      const pinnedReleases = releases.filter(
+        (item) => item.pinned
+      );
 
-    // Si intenta pinear un quinto, bloqueamos
-    if (
-      !release.pinned &&
-      pinnedReleases.length >= 4
-    ) {
-      showToast(
-        toast,
-        "You can only pin 4 releases."
-      )
+      // Si intenta pinear un quinto, bloqueamos
+      if (
+        !release.pinned &&
+        pinnedReleases.length >= 4
+      ) {
+        showToast(
+          toast,
+          "You can only pin 4 releases."
+        );
 
-      return
+        return;
+      }
+
+      // Calculamos el siguiente orden
+      const nextPinOrder =
+        pinnedReleases.length + 1;
+
+      await toggleReleasePin(
+        release._id,
+        !release.pinned,
+        !release.pinned
+          ? nextPinOrder
+          : null
+      );
+
+      await loadReleases();
+    } catch (error) {
+      console.error(error);
     }
-
-    // Calculamos el siguiente orden
-    const nextPinOrder =
-      pinnedReleases.length + 1
-
-    await toggleReleasePin(
-      release._id,
-      !release.pinned,
-      !release.pinned
-        ? nextPinOrder
-        : null
-    )
-
-    await loadReleases()
-  } catch (error) {
-    console.error(error)
-  }
-}
+  };
 
   const handleSaveRelease = async () => {
-  try {
+    try {
+      const missingFields = validateRequiredFields([
+        {
+          label: "Title",
+          value: title,
+        },
+        {
+          label: "Artist",
+          value: artist,
+        },
+        {
+          label: "Label",
+          value: label,
+        },
+        {
+          label: "Release date",
+          value: releaseDate !== defaultDate,
+        },
+        {
+          label: "Beatport link",
+          value: beatport,
+        },
+        {
+          label: "Cover image",
+          value: coverImage,
+        },
+      ]);
 
-    
-const missingFields = validateRequiredFields([
-  {
-    label: "Title",
-    value: title,
-  },
-  {
-    label: "Artist",
-    value: artist,
-  },
-  {
-    label: "Label",
-    value: label,
-  },
-  {
-    label: "Release date",
-    value: releaseDate !== defaultDate,
-  },
-  {
-    label: "Beatport link",
-    value: beatport,
-  },
-  {
-    label: "Cover image",
-    value: coverImage,
-  },
-])
+      if (missingFields.length > 1) {
+        showToast(
+          toast,
+          getRequiredFieldsMessage()
+        );
+        return;
+      }
 
-if (missingFields.length > 1) {
-  showToast(
-    toast,
-    getRequiredFieldsMessage()
-  )
-  return
-}
+      if (missingFields.length === 1) {
+        showToast(
+          toast,
+          getRequiredMessage(missingFields[0])
+        );
+        return;
+      }
 
-if (missingFields.length === 1) {
-  showToast(
-    toast,
-    getRequiredMessage(missingFields[0])
-  )
+      const formData = new FormData();
 
+      formData.append("title", title);
+      formData.append("artist", artist);
+      formData.append("label", label);
+      formData.append(
+        "releaseDate",
+        formatDateForApi(releaseDate)
+      );
+      formData.append("spotify", spotify);
+      formData.append("appleMusic", appleMusic);
+      formData.append("soundcloud", soundcloud);
+      formData.append("youtube", youtube);
+      formData.append("beatport", beatport);
 
+      if (coverImage) {
+        formData.append("coverImage", coverImage);
+      }
 
-  return
-}
+      await createRelease(formData);
+      await loadReleases();
 
-    const formData = new FormData()
+      showToast(
+        toast,
+        getActionMessage(
+          "Release",
+          "created"
+        )
+      );
 
-    formData.append("title", title)
-    formData.append("artist", artist)
-    formData.append("label", label)
-formData.append(
-  "releaseDate",
-  formatDateForApi(releaseDate)
-)
-    formData.append("spotify", spotify)
-    formData.append("appleMusic", appleMusic)
-    formData.append("soundcloud", soundcloud)
-    formData.append("youtube", youtube)
-    formData.append("beatport", beatport)
-
-    if (coverImage) {
-      formData.append("coverImage", coverImage)
+      resetNewReleaseForm();
+      setShowForm(false);
+    } catch (error) {
+      console.error(error);
     }
-
-await createRelease(formData)
-
-await loadReleases()
-
-showToast(
-  toast,
-  getActionMessage(
-    "Release",
-    "created"
-  )
-)
-
-resetNewReleaseForm()
-setShowForm(false)
-  } catch (error) {
-    console.error(error)
-  }
-}
+  };
 
   return (
     <Box
-  mt={0}
-  px={{ base: 3, lg: 10 }}
-  pt={{ base: 5, lg: 12 }}
-  pb={{ base: 5, lg: 10 }}
-  
->
+      mt={0}
+      px={{
+        base: 3,
+        lg: 10,
+      }}
+      pt={{
+        base: "85px",
+        md: "140px",
+        lg: "155px",
+      }}
+      pb={{
+        base: 5,
+        lg: 10,
+      }}
+    >
+      {/* MUSIC HEADER */}
+      <MusicHeader
+        releaseCount={releases.length}
+      />
 
-{/* MUSIC HEADER */}
-<MusicHeader
-  releaseCount={releases.length}
-/>
+      {/* ADMIN: ADD RELEASE */}
+      {isAdmin && !showForm && (
+        <Button
+          w="100%"
+          h="32px"
+          mb={6}
+          variant="outline"
+          borderColor="gray.400"
+          color="white"
+          borderRadius="0"
+          transition="all .2s ease"
+          _hover={{
+            bg: "white",
+            color: "black",
+          }}
+          onClick={() => setShowForm(true)}
+        >
+          <FiPlus size={23} />
+        </Button>
+      )}
 
-{isAdmin && !showForm && (
-  <Button
-  w="100%"
-  h="32px"
-  mb={6}
-  variant="outline"
-  borderColor="gray.400"
-  color="white"
-  borderRadius="0"
-  transition="all .2s ease"
-  _hover={{
-    bg: "white",
-    color: "black",
-  }}
-    onClick={() => setShowForm(true)}
-  >
-    <FiPlus size={23} />
-  </Button>
-)}
+      {/* ADMIN: RELEASE FORM */}
+      {isAdmin && showForm && (
+        <ReleaseForm
+          title={title}
+          setTitle={setTitle}
+          artist={artist}
+          setArtist={setArtist}
+          label={label}
+          setLabel={setLabel}
+          releaseDate={releaseDate}
+          setReleaseDate={setReleaseDate}
+          spotify={spotify}
+          setSpotify={setSpotify}
+          appleMusic={appleMusic}
+          setAppleMusic={setAppleMusic}
+          soundcloud={soundcloud}
+          setSoundcloud={setSoundcloud}
+          youtube={youtube}
+          setYoutube={setYoutube}
+          beatport={beatport}
+          setBeatport={setBeatport}
+          setCoverImage={setCoverImage}
+          handleSaveRelease={handleSaveRelease}
+          onCancel={() => {
+            if (hasNewReleaseChanges) {
+              setShowUnsavedModal(true);
+              return;
+            }
 
-{isAdmin && showForm && (
-  <ReleaseForm
-    title={title}
-    setTitle={setTitle}
-    artist={artist}
-    setArtist={setArtist}
-    label={label}
-    setLabel={setLabel}
-    releaseDate={releaseDate}
-    setReleaseDate={setReleaseDate}
-    spotify={spotify}
-    setSpotify={setSpotify}
-    appleMusic={appleMusic}
-    setAppleMusic={setAppleMusic}
-    soundcloud={soundcloud}
-    setSoundcloud={setSoundcloud}
-    youtube={youtube}
-    setYoutube={setYoutube}
-    beatport={beatport}
-    setBeatport={setBeatport}
-    setCoverImage={setCoverImage}
-    handleSaveRelease={handleSaveRelease}
-onCancel={() => {
-  if (hasNewReleaseChanges) {
-    setShowUnsavedModal(true)
-    return
-  }
+            resetNewReleaseForm();
+            setShowForm(false);
+          }}
+        />
+      )}
 
-  resetNewReleaseForm()
-  setShowForm(false)
-}}
-  />
-)}
+      {/* UNSAVED CHANGES MODAL */}
+      {showUnsavedModal && (
+        <UnsavedChangesModal
+          title="Unsaved changes"
+          onCancel={() =>
+            setShowUnsavedModal(false)
+          }
+          onConfirm={() => {
+            setShowUnsavedModal(false);
+            resetNewReleaseForm();
+            setShowForm(false);
+          }}
+        />
+      )}
 
-{showUnsavedModal && (
-  <UnsavedChangesModal
-    title="Unsaved changes"
-    onCancel={() => setShowUnsavedModal(false)}
-    onConfirm={() => {
-      setShowUnsavedModal(false)
-      resetNewReleaseForm()
-      setShowForm(false)
-    }}
-  />
-)}
-
-<ReleasesSection
-  releases={releases}
-  setReleases={setReleases}
-  loadReleases={loadReleases}
-  onReleaseClick={handleReleaseClick}
-  onTogglePin={handleTogglePin}
-  isAdmin={isAdmin}
-/>
+      {/* RELEASES LIST */}
+      <ReleasesSection
+        releases={releases}
+        setReleases={setReleases}
+        loadReleases={loadReleases}
+        onReleaseClick={handleReleaseClick}
+        onTogglePin={handleTogglePin}
+        isAdmin={isAdmin}
+      />
     </Box>
-  )
-
-  
+  );
 }
-

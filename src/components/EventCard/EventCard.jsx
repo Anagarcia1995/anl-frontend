@@ -1,15 +1,13 @@
-import { Box } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 
-import EventEditForm from "../EventEditForm"
-import EventCardContent from "./EventCardContent"
-import { formatDateForApi } from "../../utils/date"
-import { formatDateForInput } from "../../utils/date"
+import { Box } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
-import {
-  hasUnsavedChanges
-} from "../../utils/hasUnsavedChanges"
+import EventEditForm from "../EventEditForm";
+import EventCardContent from "./EventCardContent";
+import { formatDateForApi } from "../../utils/date";
+import { formatDateForInput } from "../../utils/date";
 
+import { hasUnsavedChanges } from "../../utils/hasUnsavedChanges";
 
 export default function EventCard({
   event,
@@ -19,28 +17,31 @@ export default function EventCard({
   isEditing,
   onRequestEdit,
   onCancelEdit,
-  onDirtyChange
+  onDirtyChange,
 }) {
+  const [editEventName, setEditEventName] = useState(
+    event.eventName || ""
+  );
 
-  const [editEventName, setEditEventName] =
-    useState(event.eventName || "")
+  const [editVenueName, setEditVenueName] = useState(
+    event.venueName || ""
+  );
 
-  const [editVenueName, setEditVenueName] =
-    useState(event.venueName || "")
+  const [editCity, setEditCity] = useState(
+    event.city || ""
+  );
 
-  const [editCity, setEditCity] =
-    useState(event.city || "")
+  const [editCountryCode, setEditCountryCode] = useState(
+    event.countryCode || ""
+  );
 
-  const [editCountryCode, setEditCountryCode] =
-    useState(event.countryCode || "")
+  const [editTicketUrl, setEditTicketUrl] = useState(
+    event.ticketUrl || ""
+  );
 
-  const [editTicketUrl, setEditTicketUrl] =
-    useState(event.ticketUrl || "")
-
-  const [editDate, setEditDate] =
-    useState(
-      formatDateForInput(event.date)
-    )
+  const [editDate, setEditDate] = useState(
+    formatDateForInput(event.date)
+  );
 
   const initialData = {
     eventName: event.eventName || "",
@@ -48,10 +49,8 @@ export default function EventCard({
     city: event.city || "",
     countryCode: event.countryCode || "",
     ticketUrl: event.ticketUrl || "",
-    date: formatDateForInput(
-      event.date
-    )
-  }
+    date: formatDateForInput(event.date),
+  };
 
   const currentData = {
     eventName: editEventName,
@@ -59,101 +58,53 @@ export default function EventCard({
     city: editCity,
     countryCode: editCountryCode,
     ticketUrl: editTicketUrl,
-    date: editDate
-  }
+    date: editDate,
+  };
 
-  const hasChanges =
-    hasUnsavedChanges(
-      initialData,
-      currentData
-    )
+  const hasChanges = hasUnsavedChanges(
+    initialData,
+    currentData
+  );
 
   useEffect(() => {
-
     if (!isEditing) {
-
       queueMicrotask(() => {
-
-        setEditEventName(
-          event.eventName || ""
-        )
-
-        setEditVenueName(
-          event.venueName || ""
-        )
-
-        setEditCity(
-          event.city || ""
-        )
-
-        setEditCountryCode(
-          event.countryCode || ""
-        )
-
-        setEditTicketUrl(
-          event.ticketUrl || ""
-        )
-
-        setEditDate(
-          formatDateForInput(
-            event.date
-          )
-        )
-
-      })
-
+        setEditEventName(event.eventName || "");
+        setEditVenueName(event.venueName || "");
+        setEditCity(event.city || "");
+        setEditCountryCode(event.countryCode || "");
+        setEditTicketUrl(event.ticketUrl || "");
+        setEditDate(formatDateForInput(event.date));
+      });
     }
-
-  }, [isEditing, event])
+  }, [isEditing, event]);
 
   useEffect(() => {
-
-    if (
-      isEditing &&
-      onDirtyChange
-    ) {
-
-      onDirtyChange(
-        hasChanges
-      )
-
+    if (isEditing && onDirtyChange) {
+      onDirtyChange(hasChanges);
     }
-
-  }, [
-    hasChanges,
-    isEditing,
-    onDirtyChange
-  ])
+  }, [hasChanges, isEditing, onDirtyChange]);
 
   const handleSave = async () => {
-
     const updatedData = {
       eventName: editEventName,
       venueName: editVenueName,
       city: editCity,
       countryCode: editCountryCode,
       ticketUrl: editTicketUrl,
-      date: formatDateForApi(editDate)
-    }
+      date: formatDateForApi(editDate),
+    };
 
-    await onUpdate(
-      event._id,
-      updatedData
-    )
-
-    onCancelEdit()
-
-  }
+    await onUpdate(event._id, updatedData);
+    onCancelEdit();
+  };
 
   return (
-
     <Box
-      py={4}
+      py={{ base: 3, md: 3 }}
       borderColor="gray.600"
     >
-
       {isEditing ? (
-
         <EventEditForm
           editEventName={editEventName}
           setEditEventName={setEditEventName}
@@ -170,32 +121,22 @@ export default function EventCard({
           handleSave={handleSave}
           handleCancel={() => {
             if (hasChanges) {
-              onDirtyChange(true)
-              onRequestEdit(null)
-              return
+              onDirtyChange(true);
+              onRequestEdit(null);
+              return;
             }
 
-            onCancelEdit()
+            onCancelEdit();
           }}
         />
-
       ) : (
-
         <EventCardContent
           event={event}
           showButton={showButton}
-          onEdit={() =>
-            onRequestEdit(
-              event._id
-            )
-          }
+          onEdit={() => onRequestEdit(event._id)}
           onDelete={onDelete}
         />
-
       )}
-
     </Box>
-
-  )
-
+  );
 }

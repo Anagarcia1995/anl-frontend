@@ -76,12 +76,6 @@ export default function ReleaseCard({
           aspectRatio={1}
           objectFit="cover"
           boxShadow="2xl"
-          transition={{ xl: "transform .45s ease" }}
-          _groupHover={{
-            xl: {
-              transform: "scale(1.08)",
-            },
-          }}
         />
 
       </Box>
@@ -89,7 +83,7 @@ export default function ReleaseCard({
       {/* INFO */}
 
       <Box
-        mt={{ base: 3, lg: 4 }}
+        mt={{ base: 3, lg: 2 }}
         position="relative"
         minH="50px"
       >
@@ -106,9 +100,9 @@ export default function ReleaseCard({
         >
 
           <Heading
-            fontSize={{ base: "md", lg: "xl" }}
+            fontSize={{ base: "sm", lg: "md" }}
             fontWeight="600"
-            lineHeight="1.2"
+            lineHeight="1"
             whiteSpace="nowrap"
             overflow="hidden"
             textOverflow="ellipsis"
@@ -117,11 +111,11 @@ export default function ReleaseCard({
           </Heading>
 
           <Text
-            mt={{ base: 0, lg: 1 }}
-            fontSize={{ base: "xs", lg: "xl" }}
+            mt={{ base: 0, lg: 0 }}
+            fontSize={{ base: "2xs", lg: "md" }}
             textTransform="uppercase"
             color="gray.400"
-            letterSpacing="1px"
+            letterSpacing="0.8px"
             fontWeight={500}
             noOfLines={2}
           >

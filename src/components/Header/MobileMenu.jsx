@@ -1,126 +1,196 @@
+
 import {
   Box,
+  Flex,
   IconButton,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react"
+  Text,
+} from "@chakra-ui/react";
 
-import { FiMenu } from "react-icons/fi"
+import { NavLink, useLocation } from "react-router-dom";
 
-import NavItem from "./NavItem"
+const links = [
+  { label: "HOME", to: "/" },
+  { label: "MUSIC", to: "/music" },
+  { label: "TOUR", to: "/next-dates" },
+  { label: "VIDEOS", to: "/video" },
+];
 
-export default function MobileMenu() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export default function MobileMenu({
+  isOpen,
+  onToggle,
+  onClose,
+}) {
+  const location = useLocation();
 
   return (
-    <>
+    <Flex
+      display={{ base: "flex", lg: "none" }}
+      w="100%"
+      minW={0}
+      align="center"
+      position="relative"
+    >
+      {/* HAMBURGER / X */}
       <IconButton
-        display={{ base: "flex", lg: "none" }}
-        icon={<FiMenu />}
-        aria-label="Open menu"
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
+        icon={
+          <Box
+            position="relative"
+            w="23px"
+            h="20px"
+          >
+            {/* TOP LINE */}
+            <Box
+              position="absolute"
+              top={isOpen ? "9px" : "3px"}
+              left="1px"
+              w="21px"
+              h="2px"
+              bg="white"
+              borderRadius="full"
+              transform={
+                isOpen ? "rotate(45deg)" : "rotate(0deg)"
+              }
+              transition="top .25s ease, transform .25s ease"
+            />
+
+            {/* MIDDLE LINE */}
+            <Box
+              position="absolute"
+              top="9px"
+              left="1px"
+              w="21px"
+              h="2px"
+              bg="white"
+              borderRadius="full"
+              opacity={isOpen ? 0 : 1}
+              transition="opacity .15s ease"
+            />
+
+            {/* BOTTOM LINE */}
+            <Box
+              position="absolute"
+              top={isOpen ? "9px" : "15px"}
+              left="1px"
+              w="21px"
+              h="2px"
+              bg="white"
+              borderRadius="full"
+              transform={
+                isOpen ? "rotate(-45deg)" : "rotate(0deg)"
+              }
+              transition="top .25s ease, transform .25s ease"
+            />
+          </Box>
+        }
         variant="ghost"
         color="white"
-        fontSize="28px"
-        onClick={isOpen ? onClose : onOpen}
+        bg="transparent"
+        flexShrink={0}
+        minW="36px"
+        w="36px"
+        h="40px"
+        p={0}
+        onClick={onToggle}
         _hover={{ bg: "transparent" }}
         _active={{ bg: "transparent" }}
         _focus={{ boxShadow: "none" }}
         _focusVisible={{ boxShadow: "none" }}
       />
 
-      {isOpen && (
-        <Box
-          display={{ base: "block", lg: "none" }}
-          position="fixed"
-          inset={0}
-          top="59px"
-          sx={{
-            "@media (min-width: 425px)": {
-              top: "75px",
-            },
-          }}
-          zIndex="19"
-          onClick={onClose}
-        />
-      )}
-
-      <Box
-        display={{ base: "block", lg: "none" }}
-        position="fixed"
-        top="59px"
-        sx={{
-          "@media (min-width: 425px)": {
-            top: "75px",
-          },
-        }}
-        left={isOpen ? 0 : "-180px"}
-        w="120px"
-        bg="black"
-        borderRight="2px solid"
-        borderBottom="3px solid"
-        borderColor="white"
-        transition="left .25s ease"
-        zIndex="20"
+      {/* MOBILE NAVIGATION */}
+      <Flex
+        id="mobile-navigation"
+        as="nav"
+        aria-label="Mobile navigation"
+        aria-hidden={!isOpen}
+        flex="1"
+        minW={0}
+        align="center"
+        justify="center"
+        gap={0}
+        pl="2px"
+        opacity={isOpen ? 1 : 0}
+        visibility={isOpen ? "visible" : "hidden"}
+        pointerEvents={isOpen ? "auto" : "none"}
+        transform={
+          isOpen
+            ? "translateX(0)"
+            : "translateX(8px)"
+        }
+        transition="
+          opacity .25s ease,
+          transform .25s ease,
+          visibility .25s ease
+        "
+        whiteSpace="nowrap"
       >
-        <VStack
-          align="stretch"
-          spacing={0}
-        >
-          <Box
-            py={3}
-            px={4}
-            borderBottom="2px solid"
-            borderColor="white"
-          >
-            <NavItem
-              to="/"
-              onClick={onClose}
-            >
-              Home
-            </NavItem>
-          </Box>
+        {links.map((link, index) => {
+          const active =
+            link.to === "/"
+              ? location.pathname === "/"
+              : location.pathname === link.to ||
+                location.pathname.startsWith(`${link.to}/`);
 
-          <Box
-            py={3}
-            px={4}
-            borderBottom="2px solid"
-            borderColor="white"
-          >
-            <NavItem
-              to="/music"
-              onClick={onClose}
+          return (
+            <Flex
+              key={link.to}
+              align="center"
+              flexShrink={0}
+              gap={0}
             >
-              Music
-            </NavItem>
-          </Box>
+              {/* CENTERED SEPARATOR */}
+              {index > 0 && (
+                <Text
+                  color="rgba(255,255,255,0.6)"
+                  fontSize="13px"
+                  fontWeight="400"
+                  lineHeight="1"
+                  mx={{
+                    base: "15px",
+                    sm: "7px",
+                    md: "9px",
+                  }}
+                  textAlign="center"
+                >
+                  |
+                </Text>
+              )}
 
-          <Box
-            py={3}
-            px={4}
-            borderBottom="2px solid"
-            borderColor="white"
-          >
-            <NavItem
-              to="/video"
-              onClick={onClose}
-            >
-              Videos
-            </NavItem>
-          </Box>
-
-          <Box
-            py={3}
-            px={4}
-          >
-            <NavItem
-              to="/next-dates"
-              onClick={onClose}
-            >
-              Tour
-            </NavItem>
-          </Box>
-        </VStack>
-      </Box>
-    </>
-  )
+              {/* LINK */}
+              <NavLink
+                to={link.to}
+                onClick={onClose}
+                tabIndex={isOpen ? 0 : -1}
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Text
+                  color="white"
+                  fontFamily="'Space Grotesk', Arial, sans-serif"
+                  fontSize={{
+                    base: "clamp(11px, 3.5vw, 14px)",
+                    sm: "14px",
+                    md: "15px",
+                  }}
+                  fontWeight={active ? "700" : "500"}
+                  letterSpacing="-0.035em"
+                  lineHeight="1.2"
+                  transition="opacity .2s ease"
+                  _hover={{
+                    opacity: 0.7,
+                  }}
+                >
+                  {link.label}
+                </Text>
+              </NavLink>
+            </Flex>
+          );
+        })}
+      </Flex>
+    </Flex>
+  );
 }

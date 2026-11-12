@@ -1,231 +1,452 @@
-import { useEffect, useState } from "react"
 
-import {
-  Box,
-  Flex,
-  Text,
-} from "@chakra-ui/react"
+import { useEffect, useState } from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom"
+import { fetchEvents } from "../../services/eventsService";
+import { getUpcomingEvents } from "../../utils/events";
 
-import { fetchEvents } from "../../services/eventsService"
-import { getUpcomingEvents } from "../../utils/events"
-
-import { formatEventDate } from "../../utils/date"
-
-export default function TourSection() {
-  const navigate = useNavigate()
-
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const loadEvents = async () => {
-      try {
-        const data = await fetchEvents()
-
-        setEvents(
-          getUpcomingEvents(data).slice(0, 4)
-        )
-      } catch (error) {
-        console.error(
-          "Error loading home events",
-          error
-        )
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadEvents()
-  }, [])
-
-  if (loading || !events.length) {
-    return null
+const getEventDateParts = (dateString) => {
+  if (!dateString) {
+    return { day: "--", month: "---" };
   }
 
-  const handleEventClick = (ticketUrl) => {
-    if (!ticketUrl) return
+  const date = new Date(dateString);
 
-    window.open(
-      ticketUrl,
-      "_blank",
-      "noopener,noreferrer"
-    )
+  if (Number.isNaN(date.getTime())) {
+    return { day: "--", month: "---" };
+  }
+
+  return {
+    day: String(date.getDate()).padStart(2, "0"),
+    month: date
+      .toLocaleDateString("en-GB", {
+        month: "short",
+      })
+      .toUpperCase(),
+  };
+};
+
+export default function TourSection() {
+  const navigate = useNavigate();
+
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadEvents = async () => {
+      try {
+        const data = await fetchEvents();
+
+        if (mounted) {
+          setEvents(getUpcomingEvents(data).slice(0, 4));
+        }
+      } catch (error) {
+        console.error("Error loading home events", error);
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadEvents();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (loading || !events.length) {
+    return null;
   }
 
   return (
     <Box
-      w="calc(100% + 32px)"
-      ml="-16px"
-      py={{ base: 10, lg: 8 }}
+      w={{
+        base: "100vw",
+        lg: "calc(100% + 32px)",
+      }}
+      maxW="100vw"
+      position="relative"
+      left={{
+        base: "50%",
+        lg: "auto",
+      }}
+      transform={{
+        base: "translateX(-50%)",
+        lg: "none",
+      }}
+      ml={{
+        base: 0,
+        lg: "-16px",
+      }}
+      bg="black"
+      color="white"
+      py={{
+        base: 10,
+        md: 14,
+        lg: 16,
+      }}
+      px={{
+        base: 5,
+        sm: 7,
+        md: 10,
+        lg: 16,
+      }}
     >
-      <Box
-        position="relative"
-        minH={{ base: "410px", lg: "550px" }}
-        overflow="hidden"
-      >
-        {/* BACKGROUND */}
-
-        <Box
-          position="absolute"
-          inset="0"
-          bgImage="url('/images/tour-dates2.png')"
-          bgSize="cover"
-          bgPosition={{
-            base: "center 65%",
-            lg: "center 48%",
-          }}
-          filter="blur(1px) brightness(0.42)"
-          transform="scale(1)"
-        />
-
-        {/* OVERLAY */}
-
-        <Box
-          position="absolute"
-          inset="0"
-          bg="rgba(0, 0, 0, 0.36)"
-        />
-
-        {/* EVENTS */}
-
+      <Box w="100%" maxW="950px" mx="auto">
+        {/* SECTION HEADING - LINK TO TOUR */}
         <Flex
-          position="relative"
-          zIndex={1}
-          minH={{ base: "410px", lg: "550px" }}
-          direction="column"
-          justify="center"
+          justify="flex-start"
           align="center"
-          px={{ base: 14, lg: 16 }}
+          mb={{
+            base: 5,
+            md: 7,
+          }}
         >
-          <Flex
-            direction="column"
-            w={{
-              base: "100%",
-              lg: "35%",
-            }}
-            gap={{ base: 3, lg: 7 }}
-          >
-            {events.map((event) => {
-              const eventDetails = [
-                event.venueName,
-                event.city,
-              ]
-                .filter(Boolean)
-                .join(" - ")
-
-              return (
-                <Box
-                  key={event._id}
-                  pl={4}
-                  minW={0}
-                  pb={4}
-                  borderBottom="1px solid"
-                  borderColor="whiteAlpha.500"
-                  cursor={
-                    event.ticketUrl
-                      ? "pointer"
-                      : "default"
-                  }
-                  role={
-                    event.ticketUrl
-                      ? "link"
-                      : undefined
-                  }
-                  tabIndex={
-                    event.ticketUrl
-                      ? 0
-                      : undefined
-                  }
-                  transition="all .25s ease"
-                  _hover={
-                    event.ticketUrl
-                      ? {
-                          transform: "translateX(10px)",
-                          borderColor: "white",
-                        }
-                      : undefined
-                  }
-                  onClick={() =>
-                    handleEventClick(
-                      event.ticketUrl
-                    )
-                  }
-                  onKeyDown={(e) => {
-                    if (
-                      event.ticketUrl &&
-                      (e.key === "Enter" ||
-                        e.key === " ")
-                    ) {
-                      handleEventClick(
-                        event.ticketUrl
-                      )
-                    }
-                  }}
-                >
-                  {/* EVENT NAME */}
-
-                  <Text
-                    fontSize={{
-                      base: "sm",
-                      lg: "xl",
-                    }}
-                    fontWeight="600"
-                    letterSpacing="1.2px"
-                    textTransform="uppercase"
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {formatEventDate(event.date)} | {" "}
-                    {event.eventName}
-                  </Text>
-
-                  {/* DATE + CITY + VENUE */}
-
-                  <Text
-                    mt={1}
-                    ml={4}
-                    color="gray.300"
-                    fontSize="md"
-                    letterSpacing="1px"
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {eventDetails}
-                  </Text>
-                </Box>
-              )
-            })}
-          </Flex>
-
-          {/* VIEW ALL */}
-
           <Text
-            mt={{ base: 8, lg: 14 }}
+            as="button"
+            type="button"
+            onClick={() => navigate("/next-dates")}
             cursor="pointer"
             fontSize={{
-              base: "xs",
-              lg: "md",
+              base: "10px",
+              md: "13px",
             }}
-            letterSpacing="4px"
+            fontWeight="600"
+            letterSpacing="2px"
             textTransform="uppercase"
-            transition="all .4s ease"
-            fontWeight={500}
+            color="white"
+            transition="color 0.2s ease"
             _hover={{
-              transform: "scale(1.1)",
-              color: "gray.300",
+              color: "gray.400",
             }}
-            onClick={() =>
-              navigate("/next-dates")
-            }
+            _focusVisible={{
+              outline: "1px solid white",
+              outlineOffset: "5px",
+            }}
           >
-            TOUR & TICKETS
+            NEXT DATES
           </Text>
+        </Flex>
+
+        {/* EVENTS LIST */}
+        <Flex direction="column" w="100%">
+          {events.map((event) => {
+            const { day, month } = getEventDateParts(
+              event.date
+            );
+
+            const ticketUrl =
+              event.ticketUrl || event.ticket;
+
+            const cityCountry = event.city
+              ? `${event.city}${
+                  event.countryCode
+                    ? ` (${event.countryCode})`
+                    : ""
+                }`
+              : "";
+
+            const fullDetails = [
+              event.eventName,
+              event.venueName,
+              cityCountry,
+            ]
+              .filter(Boolean)
+              .join(" · ");
+
+            return (
+              <Flex
+                key={event._id}
+                role="group"
+                direction="row"
+                align="center"
+                w="100%"
+                gap={{
+                  base: 2,
+                  md: 5,
+                  lg: 7,
+                }}
+                py={{
+                  base: 4,
+                  md: 5,
+                }}
+                borderBottom="1px solid"
+                borderColor="rgba(255,255,255,0.22)"
+                _hover={{
+                  "& .event-hover-text": {
+                    fontStyle: ticketUrl
+                      ? "italic"
+                      : "normal",
+                  },
+                  "& .ticket-text": {
+                    fontStyle: ticketUrl
+                      ? "italic"
+                      : "normal",
+                  },
+                }}
+              >
+                {/* CLICKABLE DATE + EVENT INFORMATION */}
+                <Flex
+                  as={ticketUrl ? "a" : "div"}
+                  href={ticketUrl || undefined}
+                  target={ticketUrl ? "_blank" : undefined}
+                  rel={
+                    ticketUrl
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  flex="1"
+                  minW={0}
+                  align="center"
+                  gap={{
+                    base: 2,
+                    md: 5,
+                    lg: 7,
+                  }}
+                  cursor={ticketUrl ? "pointer" : "default"}
+                  textDecoration="none"
+                  color="inherit"
+                  transition="transform 0.3s ease"
+                  _hover={{
+                    transform: ticketUrl
+                      ? "translateX(8px)"
+                      : "none",
+                    textDecoration: "none",
+                  }}
+                  _focusVisible={{
+                    outline: ticketUrl
+                      ? "1px solid white"
+                      : "none",
+                    outlineOffset: "4px",
+                  }}
+                  _motionReduce={{
+                    transition: "none",
+                    _hover: {
+                      transform: "none",
+                    },
+                  }}
+                  aria-label={
+                    ticketUrl
+                      ? `Comprar entradas para ${fullDetails}`
+                      : undefined
+                  }
+                >
+                  {/* DATE */}
+                  <Flex
+                    direction="column"
+                    align="center"
+                    justify="center"
+                    flexShrink={0}
+                    w={{
+                      base: "38px",
+                      md: "48px",
+                      lg: "54px",
+                    }}
+                  >
+                    <Text
+                      className="event-hover-text"
+                      fontFamily="'Arial Narrow', 'Roboto Condensed', sans-serif"
+                      fontSize={{
+                        base: "25px",
+                        md: "30px",
+                        lg: "34px",
+                      }}
+                      fontWeight="400"
+                      lineHeight="1"
+                      letterSpacing="-1px"
+                      color="white"
+                    >
+                      {day}
+                    </Text>
+
+                    <Text
+                      className="event-hover-text"
+                      mt="3px"
+                      fontSize={{
+                        base: "9px",
+                        md: "10px",
+                      }}
+                      fontWeight="500"
+                      letterSpacing="1.5px"
+                      color="gray.400"
+                    >
+                      {month}
+                    </Text>
+                  </Flex>
+
+                  {/* EVENT INFORMATION */}
+                  <Box
+                    flex="1"
+                    minW={0}
+                    title={fullDetails}
+                  >
+                    {/* MOBILE: TWO LINES */}
+                    <Box
+                      display={{
+                        base: "block",
+                        md: "none",
+                      }}
+                    >
+                      <Text
+                        className="event-hover-text"
+                        fontSize="13px"
+                        fontWeight="600"
+                        lineHeight="1.35"
+                        color="white"
+                        whiteSpace="nowrap"
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                      >
+                        {event.eventName}
+                      </Text>
+
+                      <Box
+                        mt="3px"
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis"
+                        lineHeight="1.35"
+                      >
+                        {event.venueName && (
+                          <Text
+                            as="span"
+                            className="event-hover-text"
+                            fontSize="11px"
+                            fontWeight="500"
+                            color="gray.200"
+                          >
+                            {event.venueName}
+                          </Text>
+                        )}
+
+                        {cityCountry && (
+                          <Text
+                            as="span"
+                            className="event-hover-text"
+                            ml={event.venueName ? 2 : 0}
+                            fontSize="10px"
+                            fontWeight="400"
+                            color="gray.500"
+                          >
+                            {event.venueName ? "· " : ""}
+                            {cityCountry}
+                          </Text>
+                        )}
+                      </Box>
+                    </Box>
+
+                    {/* DESKTOP: SINGLE LINE */}
+                    <Box
+                      display={{
+                        base: "none",
+                        md: "block",
+                      }}
+                      overflow="hidden"
+                      whiteSpace="nowrap"
+                      textOverflow="ellipsis"
+                    >
+                      {/* EVENT NAME */}
+                      <Text
+                        as="span"
+                        className="event-hover-text"
+                        fontSize={{
+                          md: "16px",
+                          lg: "18px",
+                        }}
+                        fontWeight="600"
+                        lineHeight="1.4"
+                        letterSpacing="0.1px"
+                        color="white"
+                      >
+                        {event.eventName}
+                      </Text>
+
+                      {/* VENUE */}
+                      {event.venueName && (
+                        <Text
+                          as="span"
+                          className="event-hover-text"
+                          ml={3}
+                          fontSize={{
+                            md: "13px",
+                            lg: "14px",
+                          }}
+                          fontWeight="500"
+                          letterSpacing="0.2px"
+                          color="gray.200"
+                        >
+                          · {event.venueName}
+                        </Text>
+                      )}
+
+                      {/* CITY + COUNTRY */}
+                      {cityCountry && (
+                        <Text
+                          as="span"
+                          className="event-hover-text"
+                          ml={3}
+                          fontSize={{
+                            md: "12px",
+                            lg: "13px",
+                          }}
+                          fontWeight="400"
+                          letterSpacing="0.2px"
+                          color="gray.500"
+                        >
+                          · {cityCountry}
+                        </Text>
+                      )}
+                    </Box>
+                  </Box>
+                </Flex>
+
+                {/* TICKETS - TEXT LINK */}
+                <Text
+                  as={ticketUrl ? "a" : "span"}
+                  href={ticketUrl || undefined}
+                  target={ticketUrl ? "_blank" : undefined}
+                  rel={
+                    ticketUrl
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="ticket-text"
+                  flexShrink={0}
+                  color={ticketUrl ? "white" : "gray.500"}
+                  fontSize={{
+                    base: "10px",
+                    md: "12px",
+                  }}
+                  fontWeight="600"
+                  letterSpacing={{
+                    base: "1px",
+                    md: "2px",
+                  }}
+                  textTransform="uppercase"
+                  textDecoration="none"
+                  cursor={ticketUrl ? "pointer" : "default"}
+                  transition="color 0.2s ease"
+                  _hover={{
+                    color: "gray.400",
+                    textDecoration: "none",
+                  }}
+                  _focusVisible={{
+                    outline: "1px solid white",
+                    outlineOffset: "4px",
+                  }}
+                >
+                  {ticketUrl ? "TICKETS" : "SOON"}
+                </Text>
+              </Flex>
+            );
+          })}
         </Flex>
       </Box>
     </Box>
-  )
+  );
 }

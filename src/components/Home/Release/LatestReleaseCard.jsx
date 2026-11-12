@@ -1,261 +1,251 @@
+
 import {
-  Badge,
   Box,
+  Flex,
   Heading,
   Image,
   Text,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export default function LatestReleaseCard({ release }) {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  // Ajuste exclusivo para tablets de ~700–767px (Galaxy Tab S4)
-  const galaxyStyles =
-    "@media screen and (min-width: 700px) and (max-width: 767px)"
-
-  // Ajustes específicos para lg
-  const proStyles =
-    "@media screen and (min-width: 992px) and (max-width: 1279px)"
-
-  const releaseDate = new Date(
-    release.releaseDate
-  ).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  })
+  const goToRelease = () => {
+    navigate(`/music/${release._id}`);
+  };
 
   return (
-    <Box
-      bg="#000000"
-      border="1px solid"
-      borderColor="whiteAlpha.400"
-
-      pt={{
-        base: 5,
-        md: 4,
-        lg: 7,
-      }}
-
-      pb={{
-        base: 4,
-        md: 3,
-        lg: 5,
-      }}
-
-      px={{
-        base: 7,
-        md: 4,
-        lg: 12,
-      }}
-
-      sx={{
-        // GALAXY TAB S4 / TABLET < MD
-        [galaxyStyles]: {
-          height: "317px",
-          padding: "12px",
-        },
-
-        // LG
-        [proStyles]: {
-          height: "400px",
-          paddingLeft: "2rem",
-          paddingRight: "2rem",
-          paddingTop: "1.5rem",
-          paddingBottom: "1.5rem",
-          justifyContent: "center",
-        },
-      }}
-
-      maxW={{
-        base: "390px",
-        lg: "100%",
-      }}
-
-      h={{
-        base: "auto",
-        lg: "470px",
-      }}
-
-      mx="auto"
-      display="flex"
-      flexDirection="column"
+    <Flex
+      direction="row"
+      w="100%"
+      h={{ base: "100%", md: "100%" }}
+      minH={0}
+      minW={0}
+      bg="#080808"
+      color="white"
+      overflow="hidden"
       cursor="pointer"
-
-      onClick={() =>
-        navigate(`/music/${release._id}`)
-      }
+      role="link"
+      tabIndex={0}
+      onClick={goToRelease}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") {
+          goToRelease();
+        }
+      }}
+      transition="background .25s ease"
+      _hover={{ bg: "#151515" }}
     >
-
-      {/* COVER */}
-      <Box
-        position="relative"
-        display="inline-block"
-        alignSelf="center"
-        transition="transform .35s ease"
-        transformOrigin="center"
-        _hover={{
-          transform: "scale(1.04)",
-          zIndex: 2,
+      {/* LEFT: INFORMATION */}
+      <Flex
+        direction="column"
+        justify="space-between"
+        w={{
+          base: "45%",
+          md: "30%",
         }}
-      >
-        <Image
-          src={release.coverImage}
-          alt={release.title}
-
-          w="100%"
-
-          maxW={{
-            base: "100%",
-            md: "250px",
-            lg: "100%",
-            xl: "90%",
-          }}
-  sx={{
-    [galaxyStyles]: {
-      width: "80%",
-    },
-  }}
-
-          mx="auto"
-          objectFit="cover"
-        />
-
-        <Badge
-          position="absolute"
-          top={3}
-
-          left={{
-            base: 3,
-            md: 3,
-            xl:8
-          }}
-
-          bg="white"
-          color="black"
-          px={3}
-          py={1}
-          fontSize="sm"
-          fontWeight="700"
-          letterSpacing="0.08em"
-          pointerEvents="none"
-        >
-          LATEST RELEASE
-        </Badge>
-      </Box>
-
-      {/* RELEASE INFO */}
-      <Box
-        mt={{
-          base: 2,
+        flexShrink={0}
+        minW={0}
+        px={{
+          base: 3,
           md: 3,
-          lg: 5,
+          lg: 4,
         }}
-
-        ml={{
-          base: "5px",
-          md: "15px",
+        py={{
+          base: 5,
+          md: 3,
+          lg: 4,
         }}
-
-sx={{
-  [galaxyStyles]: {
-    marginTop: "10px",
-    marginLeft: "10%",
-    textAlign: "left",
-  },
-
-  [proStyles]: {
-    marginTop: "15px",
-  },
-}}
       >
-        <Heading
-          fontSize={{
-            base: "md",
-            md: "md",
-            lg: "xl",
-          }}
+        {/* TOP INFORMATION */}
+        <Box>
+          <Text
+            display={{ base: "none", md: "block" }}
+            fontFamily="'Space Grotesk', Arial, sans-serif"
+            fontSize={{ md: "9px", lg: "10px" }}
+            fontWeight="700"
+            letterSpacing="0.16em"
+            textTransform="uppercase"
+            mb={{
+              md: 3,
+              lg: 4,
+            }}
+          >
+            LATEST RELEASE
+          </Text>
 
-          color="white"
-          fontWeight="500"
-          lineHeight="1.25"
-          letterSpacing="0.5px"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-
-sx={{
-[galaxyStyles]: {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-},
-
-  [proStyles]: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  },
-}}
-        >
-          {release.title}
+          <Heading
+            as="h3"
+            fontFamily="'Bebas Neue', Impact, sans-serif"
+            fontWeight="400"
+            fontSize={{
+              base: "clamp(31px, 7vw, 46px)",
+              md: "clamp(30px, 3vw, 46px)",
+              lg: "clamp(42px, 3.8vw, 62px)",
+            }}
+            lineHeight="0.95"
+            textTransform="uppercase"
+            overflowWrap="anywhere"
+          >
+            {release.title}
+          </Heading>
 
           <Text
-            as="span"
-
-            ml={2}
-
+            mt={2}
+            fontFamily="'Space Grotesk', Arial, sans-serif"
             fontSize={{
-              base: "md",
-              md: "sm",
-              lg: "lg",
+              base: "12px",
+              md: "10px",
+              lg: "16px",
             }}
-
-            fontWeight="500"
-            color="gray.300"
+            fontWeight="600"
+            letterSpacing="0.1em"
             textTransform="uppercase"
-            letterSpacing="1px"
-
-sx={{
-  [galaxyStyles]: {
-    display: "block",
-    marginLeft: 0,
-    marginTop: "3px",
-  },
-
-  [proStyles]: {
-    display: "block",
-    marginLeft: 0,
-    marginTop: "4px",
-  },
-}}
+            color="gray.300"
+            overflowWrap="anywhere"
           >
             {release.artist}
           </Text>
-        </Heading>
 
-<Text
-  mt={2}
-  color="gray.400"
-  fontSize={{
-    base: "sm",
-    lg: "md",
-    xl: "sm",
-  }}
-  noOfLines={1}
-  sx={{
-    [galaxyStyles]: {
-      display: "none",
-    },
-  }}
->
-  {releaseDate} · {release.label}
-</Text>
-      </Box>
+          {/* MOBILE LABEL */}
+          {release.label && (
+            <Text
+              display={{ base: "block", md: "none" }}
+              mt={5}
+              fontFamily="'Space Grotesk', Arial, sans-serif"
+              fontSize="12px"
+              fontWeight="400"
+              letterSpacing="0.04em"
+              lineHeight="1.4"
+              color="gray.300"
+              overflowWrap="anywhere"
+            >
+              {release.label}
+            </Text>
+          )}
 
-    </Box>
-  )
+          {/* DESKTOP LABEL */}
+          {release.label && (
+            <Text
+              display={{ base: "none", md: "block" }}
+              mt={{ md: 4, lg: 5 }}
+              fontFamily="'Space Grotesk', Arial, sans-serif"
+              fontSize={{ md: "11px", lg: "13px" }}
+              color="gray.300"
+              letterSpacing="0.04em"
+              lineHeight="1.4"
+              overflowWrap="anywhere"
+            >
+              {release.label}
+            </Text>
+          )}
+        </Box>
+
+        {/* EXPLORE */}
+        <Box>
+          <Text
+            display="inline-block"
+            fontFamily="'Space Grotesk', Arial, sans-serif"
+            fontSize="12px"
+            fontWeight="700"
+            letterSpacing="0.13em"
+            textTransform="uppercase"
+            borderBottom="1px solid white"
+            pb={1}
+            transition="opacity .2s ease"
+            _hover={{ opacity: 0.6 }}
+          >
+            EXPLORE
+          </Text>
+        </Box>
+      </Flex>
+
+      {/* RIGHT: COVER */}
+      <Flex
+        w={{
+          base: "55%",
+          md: "70%",
+        }}
+        flexShrink={0}
+        minW={0}
+        minH={0}
+        align="center"
+        justify="center"
+        px={{
+          base: 2,
+          md: 3,
+          lg: 4,
+        }}
+        py={{
+          base: 4,
+          md: 3,
+          lg: 4,
+        }}
+      >
+        <Box
+          position="relative"
+          w={{
+            base: "100%",
+            md: "100%",
+          }}
+          maxW={{
+            base: "100%",
+            md: "360px",
+          }}
+          maxH={{
+            base: "none",
+            md: "calc(400px - 32px)",
+          }}
+          aspectRatio={1}
+          flexShrink={1}
+          sx={{
+            "@media (min-width: 48em)": {
+              width: "min(100%, 360px, calc(400px - 32px))",
+            },
+          }}
+        >
+          <Image
+            className="latest-cover"
+            src={release.coverImage}
+            alt={release.title}
+            display="block"
+            w="100%"
+            h="100%"
+            objectFit="contain"
+          />
+
+          {/* MOBILE BANNER */}
+          <Flex
+            display={{ base: "flex", md: "none" }}
+            position="absolute"
+            top={0}
+            right={0}
+            bg="white"
+            color="#080808"
+            px={{ base: 2, sm: 3 }}
+            py="5px"
+            align="center"
+            justify="center"
+            zIndex={2}
+          >
+            <Text
+              fontFamily="'Space Grotesk', Arial, sans-serif"
+              fontSize={{
+                base: "8px",
+                sm: "9px",
+              }}
+              fontWeight="700"
+              letterSpacing="0.08em"
+              lineHeight="1"
+              whiteSpace="nowrap"
+            >
+              LATEST RELEASE
+            </Text>
+          </Flex>
+        </Box>
+      </Flex>
+    </Flex>
+  );
 }

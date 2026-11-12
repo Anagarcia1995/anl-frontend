@@ -1,207 +1,219 @@
+
 import {
   Box,
-  Divider,
+  Flex,
   Heading,
-  HStack,
   Image,
   Text,
-  VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export default function FeaturedReleaseList({ releases }) {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const goToRelease = (id) => {
+    navigate(`/music/${id}`);
+  };
+
+  const handleKeyDown = (event, id) => {
+    if (event.key === "Enter") {
+      goToRelease(id);
+    }
+  };
+
+  const selectedReleases = releases.slice(0, 4);
 
   return (
     <Box
-      bg="black"
-      border="1px solid"
-      borderColor="whiteAlpha.400"
-      maxW={{ base: "390px", lg: "100%" }}
-      h={{ base: "auto",md: "340px", lg: "470px" }}
-      mx="auto"
-      pt={{ base: 5, lg: 6 }}
-      pb={{ base: 5, lg: 5 }}
-      px={{ base: 5, lg: 16 }}
-      display="flex"
-      flexDirection="column"
-      sx={{
-        "@media screen and (min-width: 992px) and (max-width: 1279px)": {
-          height: "400px",
-          paddingInline: "2rem",
-          paddingTop: "1.5rem",
-          paddingBottom: "1.5rem",
-        },
-      }}
+      w="100%"
+      h={{ base: "auto", md: "100%" }}
+      minH={0}
+      minW={0}
+      bg="#080808"
     >
+      {/* MOBILE: HORIZONTAL LIST */}
+      <Box display={{ base: "block", md: "none" }}>
+        {selectedReleases.map((release, index) => (
+          <Box key={release._id}>
+            {index > 0 && (
+              <Box
+                mx={5}
+                h="1px"
+                bg="rgba(255, 255, 255, 0.12)"
+              />
+            )}
 
-      {/* RELEASE LIST */}
-
-      <Box
-        flex="1"
-        display="flex"
-        flexDirection="column"
-        justifyContent={{
-          base: "flex-start",
-          md: "space-evenly",
-        }}
-      >
-
-        {releases.map((release, index) => (
-
-          <Box
-            key={release._id}
-            cursor="pointer"
-            transition="transform .25s ease"
-            transformOrigin="center left"
-            _hover={{
-              transform: "scale(1.03)",
-            }}
-            onClick={() => navigate(`/music/${release._id}`)}
-          >
-
-            <HStack
+            <Flex
+              direction="row"
               align="center"
-              spacing={{
-                base: 4,
-                md: 2,
-                lg: 5,
-              }}
+              justify="space-between"
+              gap={3}
+              px={3}
+              py={3}
+              minW={0}
+              cursor="pointer"
+              role="link"
+              tabIndex={0}
+              onClick={() => goToRelease(release._id)}
+              onKeyDown={(event) =>
+                handleKeyDown(event, release._id)
+              }
+              transition="background .25s ease"
+              _hover={{ bg: "#191919" }}
             >
-
-              {/* COVER */}
-
+              {/* COVER — LEFT */}
               <Image
                 src={release.coverImage}
                 alt={release.title}
-                boxSize={{
-                  base: "42px",
-                  lg: "71px",
-                }}
+                w="50px"
+                h="50px"
                 flexShrink={0}
                 objectFit="cover"
-                sx={{
-                  "@media screen and (min-width: 992px) and (max-width: 1279px)": {
-                    width: "56px",
-                    height: "56px",
-                  },
-                }}
+                transition="transform .3s ease"
               />
 
-              {/* INFO */}
-
-              <VStack
-                align="start"
+              {/* TITLE + ARTIST — RIGHT */}
+              <Flex
+                direction="column"
                 justify="center"
-                spacing={2}
-                flex={1}
+                flex="1"
                 minW={0}
+                gap={1}
               >
-
-                {/* RELEASE TITLE */}
-
                 <Heading
-                  width="100%"
-                  size={{
-                    base: "xs",
-                    lg: "sm",
-                  }}
-                  color="white"
-                  lineHeight="1.25"
-                  letterSpacing="0.5px"
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
+                  as="h3"
+                  fontFamily="'Bebas Neue', Impact, sans-serif"
+                  fontWeight="400"
+                  fontSize="clamp(19px, 5vw, 25px)"
+                  lineHeight="0.98"
+                  textTransform="uppercase"
+                  overflowWrap="anywhere"
                 >
                   {release.title}
                 </Heading>
 
-                {/* ARTIST */}
-
                 <Text
-                  width="100%"
-                  color="gray.300"
-                  fontSize={{
-                    base: "xs",
-                    lg: "sm",
-                  }}
+                  fontFamily="'Space Grotesk', Arial, sans-serif"
+                  fontSize="10px"
                   fontWeight="500"
+                  letterSpacing="0.04em"
+                  lineHeight="1.3"
                   textTransform="uppercase"
-                  letterSpacing="1px"
-                  lineHeight="1.2"
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
+                  color="gray.300"
+                  overflowWrap="anywhere"
                 >
                   {release.artist}
                 </Text>
-
-              </VStack>
-
-            </HStack>
-
-            {index < releases.length - 1 && (
-              <Divider
-  my={{
-    base: 3,
-    md: 3,
-    lg: 3,
-  }}
-                borderColor="whiteAlpha.300"
-                sx={{
-                  "@media screen and (min-width: 992px) and (max-width: 1279px)": {
-                    marginTop: "0.75rem",
-                    marginBottom: "0.75rem",
-                  },
-                }}
-              />
-            )}
-
+              </Flex>
+            </Flex>
           </Box>
-
         ))}
-
       </Box>
 
-      {/* VIEW ALL */}
-
+      {/* TABLET + DESKTOP: GRID */}
       <Box
-        textAlign="right"
-        mt={{
-          base: 2,
-          md: 4,
-          lg: 2,
-        }}
-        pt={{
-          md: 2,
-        }}
+        display={{ base: "none", md: "grid" }}
+        gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+        gridTemplateRows="repeat(2, minmax(0, 1fr))"
+        w="100%"
+        h="100%"
+        minH={0}
+        minW={0}
+        overflow="hidden"
       >
+        {selectedReleases.map((release, index) => (
+          <Flex
+            key={release._id}
+            direction="column"
+            minW={0}
+            minH={0}
+            h="100%"
+            overflow="hidden"
+            p={{
+              md: 2,
+              lg: 3,
+            }}
+            borderRight={
+              index % 2 === 0
+                ? "1px solid rgba(255,255,255,0.45)"
+                : "none"
+            }
+            borderBottom={
+              index < 2
+                ? "1px solid rgba(255,255,255,0.45)"
+                : "none"
+            }
+            cursor="pointer"
+            role="link"
+            tabIndex={0}
+            onClick={() => goToRelease(release._id)}
+            onKeyDown={(event) =>
+              handleKeyDown(event, release._id)
+            }
+            transition="background .25s ease"
+            _hover={{ bg: "#191919" }}
+          >
+            {/* TITLE + ARTIST */}
+            <Box minW={0} flexShrink={0}>
+              <Heading
+                as="h3"
+                fontFamily="'Bebas Neue', Impact, sans-serif"
+                fontWeight="400"
+                fontSize={{
+                  md: "clamp(17px, 1.8vw, 25px)",
+                  lg: "clamp(20px, 1.9vw, 29px)",
+                }}
+                lineHeight="0.96"
+                textTransform="uppercase"
+                overflowWrap="anywhere"
+              >
+                {release.title}
+              </Heading>
 
-        <Text
-          as="span"
-          display="inline-block"
-          cursor="pointer"
-          fontSize={{
-            base: "xs",
-            lg: "sm",
-          }}
-          letterSpacing="4px"
-          fontWeight={500}
-          color="white"
-          transition="transform .25s ease"
-          transformOrigin="center"
-          _hover={{
-            transform: "scale(1.08)",
-          }}
-          onClick={() => navigate("/music")}
-        >
-          VIEW ALL RELEASES
-        </Text>
+              <Text
+                mt={1}
+                fontFamily="'Space Grotesk', Arial, sans-serif"
+                fontSize={{
+                  md: "9px",
+                  lg: "10px",
+                }}
+                fontWeight="500"
+                letterSpacing="0.04em"
+                textTransform="uppercase"
+                color="gray.300"
+                lineHeight="1.25"
+                overflowWrap="anywhere"
+              >
+                {release.artist}
+              </Text>
+            </Box>
 
+            {/* COVER */}
+            <Flex
+              flex="1"
+              minH={0}
+              minW={0}
+              align="flex-end"
+              justify="flex-end"
+              pt={1}
+            >
+              <Image
+                className="featured-cover"
+                src={release.coverImage}
+                alt={release.title}
+                display="block"
+                w="auto"
+                h="auto"
+                maxW="62%"
+                maxH="78%"
+                aspectRatio={1}
+                objectFit="contain"
+              />
+            </Flex>
+          </Flex>
+        ))}
       </Box>
-
     </Box>
-  )
+  );
 }

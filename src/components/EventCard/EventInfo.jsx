@@ -1,96 +1,94 @@
-import {
-  Box,
-  Text
-} from "@chakra-ui/react"
+
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 const formatDay = (dateString) => {
-  const date = new Date(dateString)
+  if (!dateString) return "";
 
-  return String(date.getDate()).padStart(2, "0")
-}
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) return "";
+
+  return String(date.getDate()).padStart(2, "0");
+};
 
 export default function EventInfo({ event }) {
   return (
-    <Box flex="1">
-
-      <Text
-        fontSize="lg"
-        fontWeight="600"
-        display={{
-          base: "block",
-          md: "none"
+    <Flex
+      align="center"
+      gap={{
+        base: 3,
+        md: 5,
+      }}
+      w="100%"
+      minW={0}
+    >
+      {/* DAY */}
+      <Box
+        flexShrink={0}
+        w={{
+          base: "38px",
+          md: "52px",
         }}
-      >
-        {formatDay(event.date)}{" "}
-        {event.eventName}
-      </Text>
-
-      <Text
-        display={{
-          base: "none",
-          md: "block"
-        }}
-        fontSize="xl"
+        textAlign="right"
       >
         <Text
-          as="span"
-          fontWeight="600"
+          fontFamily="'Arial Narrow', 'Roboto Condensed', sans-serif"
+          fontSize={{
+            base: "28px",
+            md: "40px",
+          }}
+          fontWeight="400"
+          lineHeight="1"
+          letterSpacing="-1.5px"
           color="white"
         >
-          {formatDay(event.date)}{" "}
+          {formatDay(event.date)}
+        </Text>
+      </Box>
+
+      {/* EVENT DETAILS */}
+      <Box flex="1" minW={0}>
+        <Text
+          fontSize={{
+            base: "14px",
+            md: "17px",
+          }}
+          fontWeight="500"
+          lineHeight="1.35"
+          color="white"
+          letterSpacing="-0.2px"
+          overflowWrap="anywhere"
+        >
           {event.eventName}
         </Text>
 
         <Text
-          as="span"
-          color="gray.500"
+          mt={1}
+          fontSize={{
+            base: "12px",
+            md: "13px",
+          }}
           fontWeight="400"
-          fontSize="md"
-          ml={2}
-        >
-          <Text
-            as="span"
-            color="gray.300"
-          >
-            — {event.venueName}
-          </Text>
-
-          <Text
-            as="span"
-            color="gray.600"
-            ml={2}
-          >
-            {event.city} ({event.countryCode})
-          </Text>
-        </Text>
-
-      </Text>
-
-      <Text
-        fontSize="md"
-        letterSpacing="0.5px"
-        display={{
-          base: "block",
-          md: "none"
-        }}
-      >
-        <Text
-          as="span"
+          lineHeight="1.5"
+          letterSpacing="0.2px"
           color="gray.300"
         >
           {event.venueName}
+
+          {event.city && (
+            <Text
+              as="span"
+              color="gray.400"
+              ml={2}
+            >
+              · {event.city}
+              {event.countryCode
+                ? ` (${event.countryCode})`
+                : ""}
+            </Text>
+          )}
         </Text>
-
-        <Text
-          as="span"
-          color="gray.600"
-          ml={2}
-        >
-          {event.city} ({event.countryCode})
-        </Text>
-
-      </Text>
-
-    </Box>
-  )
+      </Box>
+    </Flex>
+  );
 }

@@ -1,43 +1,58 @@
-import {
-  Box,
-  Flex
-} from "@chakra-ui/react"
 
-import {
-  FiEdit3,
-  FiTrash2
-} from "react-icons/fi"
+import { Box, Flex } from "@chakra-ui/react";
+import { FiEdit3, FiTrash2 } from "react-icons/fi";
 
-import { useAuth } from "../../context/AuthContext"
-import EventInfo from "./EventInfo"
-import TicketButton from "./TicketButton"
+import { useAuth } from "../../context/AuthContext";
+import EventInfo from "./EventInfo";
+import TicketButton from "./TicketButton";
 
 export default function EventCardContent({
   event,
   showButton = true,
   onEdit,
-  onDelete
+  onDelete,
 }) {
-  const ticketUrl = event.ticketUrl || event.ticket
-  const { isAdmin } = useAuth()
+  const ticketUrl = event.ticketUrl || event.ticket;
+  const { isAdmin } = useAuth();
 
   return (
     <Flex
-      direction="row"
+      direction={{
+        base: "column",
+        md: "row",
+      }}
       justify="space-between"
       align={{
-        base: "flex-start",
-        md: "center"
+        base: "stretch",
+        md: "center",
       }}
       gap={{
-        base: 2,
-        md: 4
+        base: 1,
+        md: 4,
       }}
+      w="100%"
     >
-      <EventInfo event={event} />
+      <Box flex="1" minW={0}>
+        <EventInfo event={event} />
+      </Box>
 
       {showButton && (
-        <Flex align="center" gap={4}>
+        <Flex
+          justify={{
+            base: "center",
+            md: "flex-start",
+          }}
+          align="center"
+          gap={{
+            base: 3,
+            md: 4,
+          }}
+          flexShrink={0}
+          mt={{
+            base: 1,
+            md: 0,
+          }}
+        >
           <TicketButton ticketUrl={ticketUrl} />
 
           {isAdmin && (
@@ -53,7 +68,7 @@ export default function EventCardContent({
                 fontSize="17px"
                 _hover={{
                   color: "white",
-                  transform: "scale(1.05)"
+                  transform: "scale(1.05)",
                 }}
               >
                 <FiEdit3 />
@@ -66,7 +81,7 @@ export default function EventCardContent({
                 fontSize="17px"
                 _hover={{
                   color: "white",
-                  transform: "scale(1.05)"
+                  transform: "scale(1.05)",
                 }}
               >
                 <FiTrash2 />
@@ -76,5 +91,5 @@ export default function EventCardContent({
         </Flex>
       )}
     </Flex>
-  )
+  );
 }

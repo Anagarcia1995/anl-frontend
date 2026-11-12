@@ -1,10 +1,11 @@
+
 import {
-  Heading,
+  Box,
+  Flex,
   HStack,
   Icon,
   Link,
   Text,
-  Flex
 } from "@chakra-ui/react"
 
 import {
@@ -13,131 +14,196 @@ import {
   FaSpotify,
   FaYoutube,
 } from "react-icons/fa"
+
 import { SiBeatport } from "react-icons/si"
 
 import { formatDateForPreview } from "../../utils/date"
 
-export default function ReleaseInfo({ release }) {
-  const hasPlatforms =
-    release.spotify ||
-    release.appleMusic ||
-    release.soundcloud ||
-    release.youtube ||
-    release.beatport
+export default function ReleaseInfo({
+  release,
+  actions,
+}) {
+  const platforms = [
+    {
+      url: release.spotify,
+      icon: FaSpotify,
+      label: "Spotify",
+    },
+    {
+      url: release.appleMusic,
+      icon: FaApple,
+      label: "Apple Music",
+    },
+    {
+      url: release.soundcloud,
+      icon: FaSoundcloud,
+      label: "SoundCloud",
+    },
+    {
+      url: release.youtube,
+      icon: FaYoutube,
+      label: "YouTube",
+    },
+    {
+      url: release.beatport,
+      icon: SiBeatport,
+      label: "Beatport",
+    },
+  ].filter(({ url }) => url)
+
+  const divider =
+    "1px solid var(--chakra-colors-gray-700)"
+
+  const labelStyles = {
+    color: "gray.400",
+    fontSize: { base: "12px", md: "15px" },
+    fontWeight: "700",
+    letterSpacing: "2px",
+    textTransform: "uppercase",
+  }
+
+  const valueStyles = {
+    color: "white",
+    fontSize: { base: "15px", md: "22px" },
+    fontWeight: "500",
+    lineHeight: "1.3",
+    overflowWrap: "anywhere",
+  }
 
   return (
-    <>
-      <Heading
-        fontSize={{ base: "xl", lg: "3xl" }}
-        fontWeight="600"
-        letterSpacing="0.5px"
-        lineHeight="1.1"
+    <Box
+      w="100%"
+      h={{ base: "auto", md: "100%" }}
+      minW={0}
+      display="grid"
+      gridTemplateRows={{
+        base: "repeat(3, auto)",
+        md: "repeat(3, minmax(0, 1fr))",
+      }}
+      borderTop={{
+        base: "none",
+        md: divider,
+      }}
+    >
+      {/* RELEASE DATE */}
+      <Flex
+        direction={{ base: "row", md: "column" }}
+        justify={{
+          base: "space-between",
+          md: "center",
+        }}
+        align={{
+          base: "center",
+          md: "flex-start",
+        }}
+        minW={0}
+        borderBottom={{
+          base: "none",
+          md: divider,
+        }}
+        py={{ base: 3, md: 2 }}
+        gap={{ base: 3, md: 2 }}
       >
-        {release.title}
-      </Heading>
+        <Text {...labelStyles}>
+          RELEASE DATE
+        </Text>
 
-      <Text
-        color="gray.500"
-        textTransform="uppercase"
-        letterSpacing="2px"
-        fontWeight="500"
-        fontSize={{ base: "md", lg: "lg" }}
-        mb={{ base: 4, md: 6, lg: 10 }}
-      >
-        {release.artist}
-      </Text>
-
-<Flex
-  direction={{ base: "row", lg: "column" }}
-  align={{ base: "center", lg: "flex-start" }}
-  mb={{ base: 0, lg: 6 }}
->
-  <Text
-    color="gray.500"
-    fontSize="md"
-    fontWeight="500"
-    mr={2}
-  >
-    Release Date
-  </Text>
-
-  <Text fontSize="lg">
-    {formatDateForPreview(release.releaseDate)}
-  </Text>
-</Flex>
-
-<Flex
-  direction={{ base: "row", lg: "column" }}
-  align={{ base: "center", lg: "flex-start" }}
-  mb={{ base: 5, lg: 6 }}
->
-  <Text
-    color="gray.500"
-    fontSize="md"
-    fontWeight="500"
-    mr={2}
-  >
-    Label
-  </Text>
-
-  <Text fontSize="lg">
-    {release.label}
-  </Text>
-</Flex>
-
-      {/* PLATFORMS */}
-
-      {hasPlatforms && (
-        <HStack
-          spacing={4}
-          fontSize="2xl"
+        <Text
+          {...valueStyles}
+          textAlign={{
+            base: "right",
+            md: "left",
+          }}
         >
-          {release.spotify && (
-            <Link
-              href={release.spotify}
-              isExternal
-            >
-              <Icon as={FaSpotify} />
-            </Link>
-          )}
+          {formatDateForPreview(release.releaseDate)}
+        </Text>
+      </Flex>
 
-          {release.appleMusic && (
-            <Link
-              href={release.appleMusic}
-              isExternal
-            >
-              <Icon as={FaApple} />
-            </Link>
-          )}
+      {/* LABEL */}
+      <Flex
+        direction={{ base: "row", md: "column" }}
+        justify={{
+          base: "space-between",
+          md: "center",
+        }}
+        align={{
+          base: "center",
+          md: "flex-start",
+        }}
+        minW={0}
+        borderBottom={{
+          base: "none",
+          md: divider,
+        }}
+        py={{ base: 2, md: 2 }}
+        gap={{ base: 3, md: 2 }}
+      >
+        <Text {...labelStyles}>
+          LABEL
+        </Text>
 
-          {release.soundcloud && (
-            <Link
-              href={release.soundcloud}
-              isExternal
-            >
-              <Icon as={FaSoundcloud} />
-            </Link>
-          )}
+        <Text
+          {...valueStyles}
+          textAlign={{
+            base: "right",
+            md: "left",
+          }}
+        >
+          {release.label || "—"}
+        </Text>
+      </Flex>
 
-          {release.youtube && (
+      {/* PLATFORMS + BUY ON */}
+      <Flex
+        align="center"
+        justify="space-between"
+        gap={{ base: 2, md: 3 }}
+        minW={0}
+        borderBottom={{
+          base: "none",
+          md: divider,
+        }}
+        py={{ base: 3, md: 2 }}
+      >
+        <HStack
+          spacing={{ base: 4, md: 5 }}
+          minW={0}
+          flexShrink={1}
+          flexWrap="nowrap"
+        >
+          {platforms.map(({ url, icon, label }) => (
             <Link
-              href={release.youtube}
+              key={label}
+              href={url}
               isExternal
+              aria-label={label}
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
+              flexShrink={0}
+              fontSize={{
+                base: "22px",
+                md: "25px",
+              }}
+              transition="all .25s ease"
+              _hover={{
+                color: "gray.400",
+                transform: "translateY(-2px)",
+              }}
             >
-              <Icon as={FaYoutube} />
+              <Icon as={icon} />
             </Link>
-          )}
-
-          {release.beatport && (
-            <Link
-              href={release.beatport}
-              isExternal
-            >
-              <Icon as={SiBeatport} />
-            </Link>
-          )}
+          ))}
         </HStack>
-      )}
-    </>
+
+        <Flex
+          flexShrink={0}
+          align="center"
+          justify="flex-end"
+        >
+          {actions}
+        </Flex>
+      </Flex>
+    </Box>
   )
 }

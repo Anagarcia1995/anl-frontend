@@ -1,13 +1,11 @@
+
 import {
   Button,
   Flex,
-  Icon,
   Link,
 } from "@chakra-ui/react"
 
-import { FaArrowLeft } from "react-icons/fa"
 import { SiBeatport } from "react-icons/si"
-import { useNavigate } from "react-router-dom"
 
 import ReleaseAdminActions from "./ReleaseAdminActions"
 
@@ -18,92 +16,54 @@ export default function ReleaseActions({
   setIsEditing,
   onDelete,
 }) {
-  const navigate = useNavigate()
-
   return (
-<Flex
-  w="100%"
-  minH={{
-    base: "auto",
-    xl: "380px",
-  }}
-  direction="column"
-  align={{
-    base: "stretch",
-    md: "flex-end",
-  }}
-  justify={{
-    base: "flex-start",
-    xl: "space-between",
-  }}
->
-      {/* BACK */}
-
-      <Icon
-        as={FaArrowLeft}
-        boxSize={6}
-        cursor="pointer"
-        alignSelf={{ base: "flex-end", lg: "flex-end" }}
-        display={{ base: "none", xl: "block" }}
-        transition="all .2s ease"
-        _hover={{
-          color: "gray.500",
-          transform: "scale(1.25)",
+    <Flex
+      w="100%"
+      align="center"
+      justify="flex-end"
+      gap={3}
+      minW={0}
+    >
+      <ReleaseAdminActions
+        isEditing={isEditing}
+        onEdit={() => {
+          loadRelease(release)
+          setIsEditing(true)
         }}
-        onClick={() => navigate("/music")}
+        onDelete={onDelete}
       />
 
-      {/* ACTIONS */}
-
-      <Flex
-        direction={{
-          base: "column",
-          lg: "column",
-          xl: "row",
-        }}
-        align="flex-end"
-        gap={4}
-      >
-        <ReleaseAdminActions
-          isEditing={isEditing}
-          onEdit={() => {
-            loadRelease(release)
-            setIsEditing(true)
+      {!isEditing && release.beatport && (
+        <Link
+          href={release.beatport}
+          isExternal
+          flexShrink={0}
+          _hover={{
+            textDecoration: "none",
           }}
-          onDelete={onDelete}
-        />
-
-        {!isEditing && release.beatport && (
-          <Link
-            href={release.beatport}
-            isExternal
+        >
+          <Button
+            bg="transparent"
+            color="white"
+            borderRadius="0"
+            border="1px solid white"
+            letterSpacing="2px"
+            fontSize={{ base: "10px", md: "12px" }}
+            fontWeight="600"
+            rightIcon={<SiBeatport />}
+            w={{ base: "120px", md: "155px" }}
+            px={3}
+            h={{ base: "34px", md: "38px" }}
+            transition="all .25s ease"
             _hover={{
-              textDecoration: "none",
+              bg: "white",
+              color: "black",
             }}
           >
-            <Button
-              bg="black"
-              color="white"
-              borderRadius="0"
-              border="1px solid white"
-              letterSpacing="2px"
-              fontSize={{ base: "xs", lg: "sm" }}
-              rightIcon={<SiBeatport />}
-              w={{ base: "140px", lg: "auto" }}
-              px={{ base: 0, lg: 8 }}
-              h={{ base: "40px", lg: "45px" }}
-              transition="all .2s ease"
-              _hover={{
-                bg: "white",
-                color: "black",
-                transform: "scale(1.08)",
-              }}
-            >
-              BUY ON
-            </Button>
-          </Link>
-        )}
-      </Flex>
+            BUY ON
+          </Button>
+        </Link>
+      )}
     </Flex>
   )
 }

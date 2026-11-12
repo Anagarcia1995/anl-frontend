@@ -1,6 +1,7 @@
+
 import {
   Box,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react"
 
 import EventFormActions from "./EventFormActions"
@@ -25,10 +26,36 @@ export default function EventForm({
   date,
   setDate,
   handleSaveEvent,
-  onCancel
+  onCancel,
 }) {
   return (
-    <Box mb={8}>
+    <Box
+      mb={8}
+      w="100%"
+      border="1px solid rgba(255,255,255,0.65)"
+      borderRadius={{
+        base: "22px",
+        md: "22px",
+        lg: "26px",
+      }}
+      bg="rgba(0,0,0,0.35)"
+      backdropFilter="blur(5px)"
+      px={{
+        base: 4,
+        md: 5,
+        lg: 6,
+      }}
+      pt={{
+        base: 3,
+        md: 4,
+        lg: 5,
+      }}
+      pb={{
+        base: 2,
+        md: 3,
+        lg: 4,
+      }}
+    >
       <SimpleGrid
         columns={2}
         spacing={2}

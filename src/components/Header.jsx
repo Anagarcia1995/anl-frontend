@@ -1,47 +1,141 @@
-import { Box, Flex, Text } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
-import { FiLogOut } from "react-icons/fi"
 
-import { useAuth } from "../context/AuthContext"
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import MobileMenu from "./Header/MobileMenu"
-import NavItem from "./Header/NavItem"
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
+
+import { useAuth } from "../context/AuthContext";
+import MobileMenu from "./Header/MobileMenu";
+import NavItem from "./Header/NavItem";
 
 export default function Header() {
+  const { isAdmin, logout } = useAuth();
 
-  const { isAdmin, logout } = useAuth()
+  const [mobileMenuState, setMobileMenuState] = useState({
+    open: false,
+    route: "",
+  });
+
+  const headerRef = useRef(null);
+  const location = useLocation();
+
+  const isMobileMenuOpen =
+    mobileMenuState.open &&
+    mobileMenuState.route === location.pathname;
+
+  // CLOSE MOBILE MENU
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuState((prev) => ({
+      ...prev,
+      open: false,
+    }));
+  }, []);
+
+  // TOGGLE MOBILE MENU
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuState((prev) => {
+      const currentlyOpen =
+        prev.open && prev.route === location.pathname;
+
+      return {
+        open: !currentlyOpen,
+        route: location.pathname,
+      };
+    });
+  }, [location.pathname]);
+
+  // CLOSE ON OUTSIDE CLICK / ESCAPE
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handleOutsideClick = (event) => {
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target)
+      ) {
+        closeMobileMenu();
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        closeMobileMenu();
+      }
+    };
+
+    document.addEventListener(
+      "pointerdown",
+      handleOutsideClick
+    );
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      document.removeEventListener(
+        "pointerdown",
+        handleOutsideClick
+      );
+
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, [isMobileMenuOpen, closeMobileMenu]);
 
   return (
     <Box
-      position="sticky"
-      top="0"
-      zIndex="10"
+      ref={headerRef}
+      as="header"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      w="100%"
+      zIndex={1000}
       py={{ base: 2, lg: 4 }}
-      borderBottom="3px solid"
-      borderColor="white"
-      bg="black"
+      bg="rgba(0, 0, 0, 0.15)"
+      backdropFilter="blur(8px)"
+      WebkitBackdropFilter="blur(8px)"
+      transition="background-color .3s ease"
     >
-
       <Box
         maxW="1860px"
         mx="auto"
         px={{ base: 4, lg: 8 }}
       >
-
         <Flex
           justify="space-between"
           align={{ base: "center", lg: "flex-end" }}
           position="relative"
+          minH={{ base: "40px", lg: "auto" }}
         >
-
-          {/* MOBILE MENU */}
-
-          <Box display={{ base: "block", lg: "none" }}>
-            <MobileMenu />
+          {/* MOBILE MENU - FULL WIDTH */}
+          <Box
+            display={{ base: "block", lg: "none" }}
+            position="relative"
+            w="100%"
+            minW={0}
+            pr={isAdmin ? "32px" : 0}
+            zIndex={3}
+          >
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              onToggle={toggleMobileMenu}
+              onClose={closeMobileMenu}
+            />
           </Box>
 
           {/* LOGO */}
-
           <Link
             to="/"
             style={{
@@ -49,36 +143,45 @@ export default function Header() {
               display: "contents",
             }}
           >
-
             <Box
               position={{ base: "absolute", lg: "static" }}
               left={{ base: "50%", lg: "auto" }}
               transform={{
-                base: "translateX(-50%)",
+                base: `translateX(-50%) translateY(${
+                  isMobileMenuOpen ? "-5px" : "0"
+                })`,
                 lg: "none",
               }}
+              opacity={{
+                base: isMobileMenuOpen ? 0 : 1,
+                lg: 1,
+              }}
+              pointerEvents={{
+                base: isMobileMenuOpen ? "none" : "auto",
+                lg: "auto",
+              }}
+              transition="opacity .25s ease, transform .25s ease"
               cursor="pointer"
+              color="white"
+              zIndex={isMobileMenuOpen ? 0 : 4}
             >
-
-              {/* MOBILE */}
-
+              {/* MOBILE LOGO */}
               <Text
                 display={{ base: "block", lg: "none" }}
                 fontFamily="'Bebas Neue', sans-serif"
                 fontSize={{ base: "4xl", md: "5xl" }}
                 lineHeight="1"
+                whiteSpace="nowrap"
               >
                 ART NO LOGIA
               </Text>
 
-              {/* DESKTOP */}
-
+              {/* DESKTOP LOGO */}
               <Box
                 display={{ base: "none", lg: "flex" }}
                 flexDirection="column"
                 lineHeight="0.74"
               >
-
                 <Text
                   fontFamily="'Bebas Neue', sans-serif"
                   fontSize="4xl"
@@ -99,15 +202,11 @@ export default function Header() {
                 >
                   LOGIA
                 </Text>
-
               </Box>
-
             </Box>
-
           </Link>
 
           {/* DESKTOP NAV */}
-
           <Flex
             display={{ base: "none", lg: "flex" }}
             align="center"
@@ -116,49 +215,38 @@ export default function Header() {
             gap={10}
             mr="15px"
           >
-
-            <NavItem to="/">
-              Home
-            </NavItem>
-
-            <NavItem to="/music">
-              Music
-            </NavItem>
-
-            <NavItem to="/video">
-              Videos
-            </NavItem>
-
-            <NavItem to="/next-dates">
-              Tour
-            </NavItem>
-
+            <NavItem to="/">Home</NavItem>
+            <NavItem to="/music">Music</NavItem>
+            <NavItem to="/next-dates">Tour</NavItem>
+            <NavItem to="/video">Videos</NavItem>
           </Flex>
 
-          {/* LOGOUT */}
-
+          {/* ADMIN LOGOUT */}
           {isAdmin && (
             <Box
-              position={{ base: "static", lg: "absolute" }}
-              right={{ lg: 12 }}
-              top={{ lg: 0 }}
+              position={{
+                base: "absolute",
+                lg: "absolute",
+              }}
+              right={{ base: 0, lg: 12 }}
+              top={{ base: "50%", lg: 0 }}
+              transform={{
+                base: "translateY(-50%)",
+                lg: "none",
+              }}
               color="white"
               fontSize="25px"
               cursor="pointer"
-              transition="all .2s ease"
-              _hover={{
-                transform: "scale(1.1)",
-              }}
+              transition="opacity .2s ease"
+              _hover={{ opacity: 0.7 }}
               onClick={logout}
+              zIndex={5}
             >
               <FiLogOut size={22} />
             </Box>
           )}
-
         </Flex>
-
       </Box>
-
     </Box>
-  )
+  );
 }
