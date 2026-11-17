@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import {
@@ -135,6 +134,7 @@ export default function ReleasePreview() {
         "releaseDate",
         formatDateForApi(editReleaseDate)
       );
+
       formData.append("spotify", editSpotify);
       formData.append("appleMusic", editAppleMusic);
       formData.append("soundcloud", editSoundcloud);
@@ -178,9 +178,7 @@ export default function ReleasePreview() {
 
   const handleReleaseClick = (selectedRelease) => {
     if (!isEditing || !hasChanges) {
-      navigate(
-        `/music/${selectedRelease._id}`
-      );
+      navigate(`/music/${selectedRelease._id}`);
       return;
     }
 
@@ -205,120 +203,196 @@ export default function ReleasePreview() {
 
   return (
     <Box
-      maxW="1600px"
-      mx="auto"
-      px={{
-        base: 6,
-        lg: 8,
-      }}
-      pt={{
-        base: "65px",
-        md: "140px",
-        lg: "155px",
-      }}
-      pb={{
-        base: 5,
-        lg: 10,
-      }}
+      w="100%"
+      bg="black"
+      color="white"
+      overflow="hidden"
     >
-      <ReleasePreviewLayout
-        release={release}
-        isEditing={isEditing}
-        editTitle={editTitle}
-        setEditTitle={setEditTitle}
-        editArtist={editArtist}
-        setEditArtist={setEditArtist}
-        editLabel={editLabel}
-        setEditLabel={setEditLabel}
-        editReleaseDate={editReleaseDate}
-        setEditReleaseDate={setEditReleaseDate}
-        editSpotify={editSpotify}
-        setEditSpotify={setEditSpotify}
-        editAppleMusic={editAppleMusic}
-        setEditAppleMusic={setEditAppleMusic}
-        editSoundcloud={editSoundcloud}
-        setEditSoundcloud={setEditSoundcloud}
-        editYoutube={editYoutube}
-        setEditYoutube={setEditYoutube}
-        editBeatport={editBeatport}
-        setEditBeatport={setEditBeatport}
-        setEditCoverImage={setEditCoverImage}
-        handleUpdateRelease={handleUpdateRelease}
-        resetEditor={resetEditor}
-        setIsEditing={setIsEditing}
-        loadRelease={loadRelease}
-        onDelete={handleDeleteRelease}
-        hasChanges={hasChanges}
-      />
-
-      <Divider
-        display={{ base: "block", md: "none" }}
-        borderColor="gray.700"
-        mb={{
-          base: 3,
-          lg: 5,
+      {/* HERO — FULL WIDTH BACKGROUND */}
+      <Box
+        position="relative"
+        w="100%"
+        overflow="hidden"
+        isolation="isolate"
+        pt={{
+          base: "105px",
+          md: "140px",
+          lg: "155px",
         }}
-      />
-
-      <Link
-        to="/music"
-        style={{
-          textDecoration: "none",
-          display: "inline-block",
+        pb={{
+          base: 10,
+          md: 24,
+          lg: 28,
         }}
       >
-        <Heading
-          fontSize={{
-            base: "13px",
-            lg: "md",
+        {/* COVER COLORS — STRONG AT TOP */}
+        {!isEditing && (
+          <>
+            <Box
+              position="absolute"
+              inset={0}
+              zIndex={-2}
+              backgroundImage={`url("${release.coverImage}")`}
+              backgroundSize="cover"
+              backgroundPosition="center center"
+              backgroundRepeat="no-repeat"
+              filter="blur(3px)"
+              opacity={0.85}
+              pointerEvents="none"
+            />
+
+            {/* SMOOTH FADE TO BLACK */}
+            <Box
+              position="absolute"
+              inset={0}
+              zIndex={-1}
+              background="linear-gradient(
+                to bottom,
+                rgba(0,0,0,0) 0%,
+                rgba(0,0,0,0) 15%,
+                rgba(0,0,0,0.20) 25%,
+                rgba(0,0,0,0.50) 35%,
+                rgba(0,0,0,0.80) 45%,
+                rgba(0,0,0,0.95) 55%,
+                #000000 65%,
+                #000000 100%
+              )"
+              pointerEvents="none"
+            />
+          </>
+        )}
+
+        {/* CENTERED CARDS */}
+        <Box
+          w="100%"
+          maxW="770px"
+          mx="auto"
+          px={{
+            base: 5,
+            md: 6,
+            lg: 0,
           }}
-          fontWeight="500"
-          letterSpacing={{
-            base: "3px",
-            lg: "2px",
-          }}
-          mb={{
-            base: 4,
-            lg: 5,
-          }}
-          cursor="pointer"
-          transition="all .2s ease"
-          _hover={{
-            color: "gray.400",
-          }}
+          position="relative"
+          zIndex={1}
         >
-          MORE RELEASES
-        </Heading>
-      </Link>
+          <ReleasePreviewLayout
+            release={release}
+            isEditing={isEditing}
+            editTitle={editTitle}
+            setEditTitle={setEditTitle}
+            editArtist={editArtist}
+            setEditArtist={setEditArtist}
+            editLabel={editLabel}
+            setEditLabel={setEditLabel}
+            editReleaseDate={editReleaseDate}
+            setEditReleaseDate={setEditReleaseDate}
+            editSpotify={editSpotify}
+            setEditSpotify={setEditSpotify}
+            editAppleMusic={editAppleMusic}
+            setEditAppleMusic={setEditAppleMusic}
+            editSoundcloud={editSoundcloud}
+            setEditSoundcloud={setEditSoundcloud}
+            editYoutube={editYoutube}
+            setEditYoutube={setEditYoutube}
+            editBeatport={editBeatport}
+            setEditBeatport={setEditBeatport}
+            setEditCoverImage={setEditCoverImage}
+            handleUpdateRelease={handleUpdateRelease}
+            resetEditor={resetEditor}
+            setIsEditing={setIsEditing}
+            loadRelease={loadRelease}
+            onDelete={handleDeleteRelease}
+            hasChanges={hasChanges}
+          />
+        </Box>
+      </Box>
 
-      <Divider
-      display={{ base: "block", md: "none" }}
-        borderColor="gray.700"
-        mb={10}
-      />
+      {/* MORE RELEASES — BLACK BACKGROUND */}
+      <Box
+        w="100%"
+        maxW="1600px"
+        mx="auto"
+        px={{ base: 6, lg: 8 }}
+        pb={{ base: 12, md: 20, lg: 28 }}
+      >
+        {/* FULL-WIDTH EDITORIAL BANNER */}
+        <Box
+          w="100vw"
+          position="relative"
+          left="50%"
+          transform="translateX(-50%)"
+          mb={{ base: 7, md: 50 }}
+        >
+          <Divider
+            borderColor="rgba(255,255,255,0.35)"
+            opacity={1}
+          />
 
-      <ReleasesSection
-        excludeId={release._id}
-        onReleaseClick={handleReleaseClick}
-      />
+          <Link
+            to="/music"
+            style={{
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <Box
+              px={{ base: 4, md: 10, lg: 12 }}
+              pt={{ base: 4, md: 12, lg: 7 }}
+              pb={{ base: 4, md: 10, lg: 5 }}
+              transition="color .25s ease"
+              _hover={{ color: "gray.400" }}
+            >
+              <Heading
+                as="h2"
+                fontFamily="'Bebas Neue', Impact, sans-serif"
+                fontWeight="400"
+                fontSize={{
+                  base: "clamp(12px, 9vw, 31px)",
+                  sm: "clamp(14px, 4.15vw, 21px)",
+                  md: "clamp(48px, 5.5vw, 90px)",
+                  lg: "clamp(64px, 7vw, 110px)",
+                }}
+                lineHeight="0.9"
+                letterSpacing="-0.02em"
+                color="white"
+                textTransform="uppercase"
+                whiteSpace="nowrap"
+              >
+                TAKE A DEEPER LOOK INTO OUR SOUND
+              </Heading>
+            </Box>
+          </Link>
 
-      {showSwitchModal && (
-        <UnsavedChangesModal
-          title="Discard changes?"
-          onCancel={() => {
-            setShowSwitchModal(false);
-            setSwitchTarget(null);
-          }}
-          onConfirm={() => {
-            setShowSwitchModal(false);
-            resetEditor();
-            setIsEditing(false);
-            navigate(
-              `/music/${switchTarget._id}`
-            );
-          }}
+          <Divider
+            borderColor="rgba(255,255,255,0.35)"
+            opacity={1}
+          />
+        </Box>
+
+        <ReleasesSection
+          excludeId={release._id}
+          onReleaseClick={handleReleaseClick}
         />
-      )}
+
+        {showSwitchModal && (
+          <UnsavedChangesModal
+            title="Discard changes?"
+            onCancel={() => {
+              setShowSwitchModal(false);
+              setSwitchTarget(null);
+            }}
+            onConfirm={() => {
+              setShowSwitchModal(false);
+              resetEditor();
+              setIsEditing(false);
+              navigate(
+                `/music/${switchTarget._id}`
+              );
+            }}
+          />
+        )}
+      </Box>
     </Box>
   );
 }

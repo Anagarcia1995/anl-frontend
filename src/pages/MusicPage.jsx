@@ -12,7 +12,6 @@ import { FiPlus } from "react-icons/fi";
 import ReleaseForm from "../components/music/ReleaseForm";
 import ReleasesSection from "../components/music/ReleasesSection";
 import UnsavedChangesModal from "../components/UnsavedChangesModal";
-import MusicHeader from "../components/music/MusicHeader";
 
 import useReleasesData from "../hooks/useReleasesData";
 import useNewReleaseForm from "../hooks/useNewReleaseForm";
@@ -207,18 +206,13 @@ export default function MusicPage() {
       pt={{
         base: "85px",
         md: "140px",
-        lg: "155px",
+        lg: "165px",
       }}
       pb={{
         base: 5,
         lg: 10,
       }}
     >
-      {/* MUSIC HEADER */}
-      <MusicHeader
-        releaseCount={releases.length}
-      />
-
       {/* ADMIN: ADD RELEASE */}
       {isAdmin && !showForm && (
         <Button

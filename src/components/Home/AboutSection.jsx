@@ -103,7 +103,7 @@ export default function AboutSection() {
           <Text
             as="div"
             fontFamily="'Roboto Condensed', 'Arial Narrow', sans-serif"
-            fontWeight="700"
+            fontWeight="600"
             fontSize="clamp(52px, 15vw, 110px)"
             lineHeight="0.88"
             letterSpacing="-0.065em"
@@ -111,7 +111,7 @@ export default function AboutSection() {
             whiteSpace="nowrap"
             textAlign="center"
             color="white"
-            transform="scaleX(1.02)"
+            transform="scaleX(1)"
             transformOrigin="center bottom"
           >
             ART NO LOGIA
@@ -403,8 +403,7 @@ their sound travels worldwide, reaching audiences across the globe.
               lineHeight="1.7"
               color="rgba(255,255,255,0.8)"
             >
-              Just music, freedom and a dancefloor
-              to share it with.
+              Just music, freedom and a dancefloor to share it with, where everyone can truly belong.
             </Text>
           </Box>
         </Flex>

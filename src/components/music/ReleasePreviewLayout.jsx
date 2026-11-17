@@ -1,22 +1,19 @@
-
-import { useState } from "react"
+import { useState } from "react";
 
 import {
   Box,
   Flex,
-  Icon,
+  Grid,
   Image,
   Heading,
   Text,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
-import { FaArrowLeft } from "react-icons/fa"
-import { useNavigate } from "react-router-dom"
-
-import ReleaseActions from "./ReleaseActions"
-import ReleaseEditForm from "./ReleaseEditForm"
-import ReleaseInfo from "./ReleaseInfo"
-import UnsavedChangesModal from "../UnsavedChangesModal"
+import ReleaseActions from "./ReleaseActions";
+import ReleaseEditForm from "./ReleaseEditForm";
+import ReleaseInfo from "./ReleaseInfo";
+import UnsavedChangesModal from "../UnsavedChangesModal";
+import { formatDateForPreview } from "../../utils/date";
 
 export default function ReleaseHero({
   release,
@@ -47,20 +44,17 @@ export default function ReleaseHero({
   onDelete,
   hasChanges,
 }) {
-  const navigate = useNavigate()
-
-  const [showUnsavedModal, setShowUnsavedModal] =
-    useState(false)
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false);
 
   const handleCancelEdit = () => {
     if (hasChanges) {
-      setShowUnsavedModal(true)
-      return
+      setShowUnsavedModal(true);
+      return;
     }
 
-    resetEditor()
-    setIsEditing(false)
-  }
+    resetEditor();
+    setIsEditing(false);
+  };
 
   const actions = (
     <ReleaseActions
@@ -70,7 +64,7 @@ export default function ReleaseHero({
       setIsEditing={setIsEditing}
       onDelete={onDelete}
     />
-  )
+  );
 
   const editForm = (
     <ReleaseEditForm
@@ -96,39 +90,28 @@ export default function ReleaseHero({
       handleSave={handleUpdateRelease}
       handleCancel={handleCancelEdit}
     />
-  )
+  );
+
+  const mobileLabelStyles = {
+    fontSize: "10px",
+    fontWeight: "600",
+    letterSpacing: "1.5px",
+    color: "gray.300",
+    mb: 1,
+  };
+
+  const mobileValueStyles = {
+    fontSize: "11px",
+    fontWeight: "500",
+    lineHeight: "1.35",
+    color: "white",
+    overflowWrap: "anywhere",
+  };
 
   return (
     <>
-      <Box
-        w="100%"
-        maxW="950px"
-        mx="auto"
-        mb={{ base: 10, md: 20 }}
-      >
-        {/* BACK */}
-        <Flex
-          justify="flex-end"
-          mb={{ base: 2, md: 0 }}
-          h={{ base: "auto", md: 0 }}
-          position="relative"
-          zIndex={2}
-        >
-          <Icon
-            as={FaArrowLeft}
-            boxSize={6}
-            cursor="pointer"
-            transition="all .2s ease"
-            _hover={{
-              color: "gray.500",
-              transform: "scale(1.2)",
-            }}
-            onClick={() => navigate("/music")}
-          />
-        </Flex>
-
+      <Box w="100%" maxW="800px" mx="auto">
         {isEditing ? (
-          /* EDIT MODE — PRESERVED */
           <Flex
             direction={{ base: "column", md: "row" }}
             gap={{ base: 6, md: 10 }}
@@ -158,56 +141,181 @@ export default function ReleaseHero({
             </Box>
           </Flex>
         ) : (
-          /* EDITORIAL RELEASE PREVIEW */
-          <Box w="100%">
-            {/* TITLE */}
-            <Heading
-              as="h1"
-              maxW="650px"
-              fontSize={{
-                base: "30px",
-                md: "52px",
-                xl: "60px",
-              }}
-              fontWeight="700"
-              lineHeight="0.90"
-              letterSpacing="-2px"
-              overflowWrap="anywhere"
-            >
-              {release.title}
-            </Heading>
-
-            {/* ARTIST — RIGHT ALIGNED */}
-            <Text
-              mt={{ base: 3, md: 1 }}
-              mb={{ base: 2, md: 1 }}
+          <>
+            {/* MOBILE ONLY */}
+            <Box
+              display={{ base: "block", md: "none" }}
               w="100%"
-              textAlign="right"
-              color="white"
-              fontSize={{ base: "13px", md: "20px" }}
-              fontWeight="500"
-              letterSpacing="2px"
-              textTransform="uppercase"
-            >
-              {release.artist}
-            </Text>
-
-            {/* COVER + INFO */}
-            <Flex
-              direction={{ base: "column", md: "row" }}
-              align="stretch"
-              gap={{ base: 6, md: 7, xl: 9 }}
               minW={0}
+              position="relative"
+              overflow="hidden"
+              borderRadius="36px"
+              border="1px solid rgba(255,255,255,0.28)"
+              bg="rgba(8, 8, 12, 0.17)"
+              backdropFilter="blur(22px)"
+              WebkitBackdropFilter="blur(22px)"
+              p={4}
             >
-              {/* COVER */}
-              <Box
-                w={{ base: "100%", md: "350px" }}
-                maxW={{ base: "350px", md: "350px" }}
-                mx={{ base: "auto", md: 0 }}
-                flexShrink={0}
-                position="relative"
+              <Grid
+                templateColumns="minmax(0, 1fr) minmax(0, 1fr)"
+                gap={3}
+                alignItems="start"
+              >
+                {/* LEFT: TITLE, ARTIST, DATE, LABEL */}
+<Flex
+  direction="column"
+  minW={0}
+  h="100%"
+  justifyContent="center"
+  gap={3}
+>
+                  <Box minW={0}>
+                    <Heading
+                      as="h1"
+                      fontSize="17px"
+                      fontWeight="600"
+                      lineHeight="1.15"
+                      letterSpacing="-0.4px"
+                      overflowWrap="anywhere"
+                      mb={1}
+                    >
+                      {release.title}
+                    </Heading>
+
+                    <Text
+                      fontSize="12px"
+                      fontWeight="500"
+                      lineHeight="1.35"
+                      color="white"
+                      overflowWrap="anywhere"
+                    >
+                      {release.artist || "—"}
+                    </Text>
+                  </Box>
+
+<Box>
+  <Text {...mobileValueStyles}>
+    {formatDateForPreview(release.releaseDate)}
+  </Text>
+</Box>
+
+<Box>
+  <Text {...mobileValueStyles}>
+    {release.label || "—"}
+  </Text>
+</Box>
+                </Flex>
+
+                {/* RIGHT: COVER */}
+                <Box
+                  w="100%"
+                  minW={0}
+                  aspectRatio={1}
+                  position="relative"
+                  overflow="hidden"
+                  borderRadius="25px"
+                >
+                  <Image
+                    src={release.coverImage}
+                    alt={release.title}
+                    position="absolute"
+                    inset={0}
+                    w="100%"
+                    h="100%"
+                    objectFit="cover"
+                    display="block"
+                  />
+                </Box>
+              </Grid>
+
+              {/* MOBILE: PLATFORMS + BUY RELEASE */}
+              <Box mt={5}>
+                <ReleaseInfo
+                  release={release}
+                  actions={actions}
+                  mobileOnly
+                />
+              </Box>
+            </Box>
+
+            {/* DESKTOP — ORIGINAL LAYOUT */}
+            <Grid
+              display={{ base: "none", md: "grid" }}
+              w="100%"
+              templateColumns="repeat(2, minmax(0, 1fr))"
+              gap={3}
+              alignItems="stretch"
+            >
+              {/* INFORMATION CARD */}
+              <Flex
+                minW={0}
                 aspectRatio={1}
+                minH={0}
+                position="relative"
                 overflow="hidden"
+                borderRadius="54px"
+                border="1px solid rgba(255,255,255,0.28)"
+                bg="rgba(8, 8, 12, 0.17)"
+                backdropFilter="blur(22px)"
+                WebkitBackdropFilter="blur(22px)"
+                p={{ md: 7, lg: 8 }}
+                direction="column"
+                justify="space-between"
+                gap={0}
+              >
+                {/* TITLE + ARTIST */}
+                <Box minW={0} flexShrink={0}>
+                  <Heading
+                    as="h1"
+                    fontSize={{
+                      md: "26px",
+                      lg: "30px",
+                    }}
+                    fontWeight="500"
+                    lineHeight="1.15"
+                    letterSpacing="-0.8px"
+                    overflowWrap="anywhere"
+                    mb={2}
+                  >
+                    {release.title}
+                  </Heading>
+
+                  <Text
+                    fontSize="12px"
+                    fontWeight="600"
+                    letterSpacing="1.5px"
+                    color="gray.300"
+                    mb={1}
+                  >
+                    ARTIST
+                  </Text>
+
+                  <Text
+                    fontSize="16px"
+                    fontWeight="500"
+                    lineHeight="1.4"
+                    color="white"
+                    overflowWrap="anywhere"
+                  >
+                    {release.artist || "—"}
+                  </Text>
+                </Box>
+
+                <ReleaseInfo
+                  release={release}
+                  actions={actions}
+                />
+              </Flex>
+
+              {/* COVER CARD */}
+              <Box
+                minW={0}
+                aspectRatio={1}
+                position="relative"
+                overflow="hidden"
+                borderRadius="54px"
+                border="1px solid rgba(255,255,255,0.28)"
+                bg="rgba(0,0,0,0.4)"
               >
                 <Image
                   src={release.coverImage}
@@ -220,35 +328,22 @@ export default function ReleaseHero({
                   display="block"
                 />
               </Box>
-
-              {/* INFO */}
-              <Box
-                flex="1"
-                minW={0}
-                alignSelf="stretch"
-              >
-                <ReleaseInfo
-                  release={release}
-                  actions={actions}
-                />
-              </Box>
-            </Flex>
-          </Box>
+            </Grid>
+          </>
         )}
       </Box>
 
-      {/* UNSAVED CHANGES MODAL */}
       {showUnsavedModal && (
         <UnsavedChangesModal
           title="Discard changes?"
           onCancel={() => setShowUnsavedModal(false)}
           onConfirm={() => {
-            setShowUnsavedModal(false)
-            resetEditor()
-            setIsEditing(false)
+            setShowUnsavedModal(false);
+            resetEditor();
+            setIsEditing(false);
           }}
         />
       )}
     </>
-  )
+  );
 }

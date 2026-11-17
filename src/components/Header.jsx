@@ -102,7 +102,7 @@ export default function Header() {
       right={0}
       w="100%"
       zIndex={1000}
-      py={{ base: 2, lg: 4 }}
+      py={{ base: 2, lg: 2.5 }}
       bg="rgba(0, 0, 0, 0.15)"
       backdropFilter="blur(8px)"
       WebkitBackdropFilter="blur(8px)"
@@ -184,21 +184,21 @@ export default function Header() {
               >
                 <Text
                   fontFamily="'Bebas Neue', sans-serif"
-                  fontSize="4xl"
+                  fontSize="3xl"
                 >
                   ART
                 </Text>
 
                 <Text
                   fontFamily="'Bebas Neue', sans-serif"
-                  fontSize="4xl"
+                  fontSize="3xl"
                 >
                   NO
                 </Text>
 
                 <Text
                   fontFamily="'Bebas Neue', sans-serif"
-                  fontSize="4xl"
+                  fontSize="3xl"
                 >
                   LOGIA
                 </Text>
@@ -218,7 +218,6 @@ export default function Header() {
             <NavItem to="/">Home</NavItem>
             <NavItem to="/music">Music</NavItem>
             <NavItem to="/next-dates">Tour</NavItem>
-            <NavItem to="/video">Videos</NavItem>
           </Flex>
 
           {/* ADMIN LOGOUT */}

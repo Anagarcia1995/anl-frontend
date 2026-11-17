@@ -1,13 +1,6 @@
+import { Flex, Link, Text } from "@chakra-ui/react";
 
-import {
-  Button,
-  Flex,
-  Link,
-} from "@chakra-ui/react"
-
-import { SiBeatport } from "react-icons/si"
-
-import ReleaseAdminActions from "./ReleaseAdminActions"
+import ReleaseAdminActions from "./ReleaseAdminActions";
 
 export default function ReleaseActions({
   release,
@@ -27,8 +20,8 @@ export default function ReleaseActions({
       <ReleaseAdminActions
         isEditing={isEditing}
         onEdit={() => {
-          loadRelease(release)
-          setIsEditing(true)
+          loadRelease(release);
+          setIsEditing(true);
         }}
         onDelete={onDelete}
       />
@@ -37,33 +30,31 @@ export default function ReleaseActions({
         <Link
           href={release.beatport}
           isExternal
+          display="inline-flex"
+          alignItems="center"
           flexShrink={0}
+          color="white"
+          textDecoration="none"
+          transition="color .25s ease"
           _hover={{
+            color: "gray.400",
             textDecoration: "none",
           }}
+          _focusVisible={{
+            outline: "1px solid white",
+            outlineOffset: "5px",
+          }}
         >
-          <Button
-            bg="transparent"
-            color="white"
-            borderRadius="0"
-            border="1px solid white"
-            letterSpacing="2px"
-            fontSize={{ base: "10px", md: "12px" }}
+          <Text
+            fontSize={{ base: "11px", md: "12px" }}
             fontWeight="600"
-            rightIcon={<SiBeatport />}
-            w={{ base: "120px", md: "155px" }}
-            px={3}
-            h={{ base: "34px", md: "38px" }}
-            transition="all .25s ease"
-            _hover={{
-              bg: "white",
-              color: "black",
-            }}
+            letterSpacing="2px"
+            textTransform="uppercase"
           >
-            BUY ON
-          </Button>
+            BUY RELEASE
+          </Text>
         </Link>
       )}
     </Flex>
-  )
+  );
 }

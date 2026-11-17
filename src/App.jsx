@@ -79,14 +79,10 @@ function AppContent() {
               }
             />
 
-            <Route
-              path="/music/:id"
-              element={
-                <Box p={4}>
-                  <ReleasePreviewPage />
-                </Box>
-              }
-            />
+<Route
+  path="/music/:id"
+  element={<ReleasePreviewPage />}
+/>
 
             <Route
               path="/video"
