@@ -9,6 +9,28 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
+const galaxyMobileListStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    display: "none",
+  },
+};
+
+const galaxyDesktopGridStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    display: "none",
+  },
+};
+
+const galaxyListStyles = {
+  display: "none",
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    width: "100%",
+  },
+};
+
 export default function FeaturedReleaseList({ releases }) {
   const navigate = useNavigate();
 
@@ -16,13 +38,13 @@ export default function FeaturedReleaseList({ releases }) {
     navigate(`/music/${id}`);
   };
 
-const formatLabel = (label) => {
-  if (!label) return "";
+  const formatLabel = (label) => {
+    if (!label) return "";
 
-  return label
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-};
+    return label
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
 
   const handleKeyDown = (event, id) => {
     if (event.key === "Enter") {
@@ -41,7 +63,10 @@ const formatLabel = (label) => {
       bg="#080808"
     >
       {/* MOBILE: TEXT-ONLY LIST */}
-      <Box display={{ base: "block", md: "none" }}>
+      <Box
+        display={{ base: "block", md: "none" }}
+        sx={galaxyMobileListStyles}
+      >
         {selectedReleases.map((release, index) => (
           <Box key={release._id}>
             {index > 0 && (
@@ -149,6 +174,90 @@ const formatLabel = (label) => {
         ))}
       </Box>
 
+      {/* GALAXY TABLET: VERTICAL LIST */}
+      <Flex sx={galaxyListStyles}>
+        {selectedReleases.map((release, index) => (
+          <Flex
+            key={release._id}
+            flex="1"
+            minH={0}
+            direction="column"
+            justify="center"
+            px={3}
+            py={2}
+            borderBottom={
+              index < selectedReleases.length - 1
+                ? "1px solid rgba(255,255,255,0.25)"
+                : "none"
+            }
+            cursor="pointer"
+            role="link"
+            tabIndex={0}
+            onClick={() => goToRelease(release._id)}
+            onKeyDown={(event) =>
+              handleKeyDown(event, release._id)
+            }
+            _hover={{ bg: "#191919" }}
+            _focusVisible={{
+              outline: "1px solid white",
+              outlineOffset: "-3px",
+            }}
+          >
+            <Heading
+              as="h3"
+              fontFamily="'Bebas Neue', Impact, sans-serif"
+              fontWeight="400"
+              fontSize="19px"
+              lineHeight="1"
+              textTransform="uppercase"
+              overflowWrap="anywhere"
+            >
+              {release.title}
+            </Heading>
+
+            <Flex
+              align="center"
+              gap={2}
+              mt={1}
+              minW={0}
+            >
+              <Text
+                fontFamily="'Space Grotesk', Arial, sans-serif"
+                fontSize="9px"
+                fontWeight="500"
+                color="gray.300"
+                textTransform="uppercase"
+                minW={0}
+                noOfLines={1}
+              >
+                {release.artist}
+              </Text>
+
+              {release.label && (
+                <>
+                  <Box
+                    w="12px"
+                    h="1px"
+                    bg="gray.500"
+                    flexShrink={0}
+                  />
+
+                  <Text
+                    fontFamily="'Space Grotesk', Arial, sans-serif"
+                    fontSize="9px"
+                    color="gray.400"
+                    minW={0}
+                    noOfLines={1}
+                  >
+                    {formatLabel(release.label)}
+                  </Text>
+                </>
+              )}
+            </Flex>
+          </Flex>
+        ))}
+      </Flex>
+
       {/* TABLET + DESKTOP: ORIGINAL GRID */}
       <Box
         display={{ base: "none", md: "grid" }}
@@ -159,6 +268,7 @@ const formatLabel = (label) => {
         minH={0}
         minW={0}
         overflow="hidden"
+        sx={galaxyDesktopGridStyles}
       >
         {selectedReleases.map((release, index) => (
           <Flex
@@ -229,12 +339,22 @@ const formatLabel = (label) => {
 
             {/* COVER */}
             <Flex
-              flex="1"
+              flex={{
+                md: "0 1 auto",
+                xl: "1",
+              }}
               minH={0}
               minW={0}
-              align="flex-end"
+              align={{
+                md: "flex-start",
+                xl: "flex-end",
+              }}
               justify="flex-end"
-              pt={1}
+              pt={{
+                md: "10px",
+                lg: "10px",
+                xl: 1,
+              }}
             >
               <Image
                 className="featured-cover"
@@ -243,8 +363,14 @@ const formatLabel = (label) => {
                 display="block"
                 w="auto"
                 h="auto"
-                maxW="62%"
-                maxH="78%"
+                maxW={{
+                  md: "59%",
+                  xl: "62%",
+                }}
+                maxH={{
+                  md: "69%",
+                  xl: "78%",
+                }}
                 aspectRatio={1}
                 objectFit="contain"
               />

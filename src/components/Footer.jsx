@@ -69,6 +69,80 @@ const contactLinks = [
   },
 ];
 
+const galaxyFooterStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    padding: "28px 32px",
+
+    "& .footer-main": {
+      flexDirection: "row",
+      gap: 0,
+    },
+
+    "& .footer-contact": {
+      alignItems: "stretch",
+      gap: "12px",
+      paddingRight: "16px",
+    },
+
+    "& .footer-mobile-contact": {
+      display: "none",
+    },
+
+    "& .footer-tablet-contact": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      gap: "12px",
+    },
+
+    "& .footer-contact-heading": {
+      fontSize: "20px",
+      letterSpacing: "2.5px",
+    },
+
+    "& .footer-contact-list": {
+      width: "100%",
+      gap: "8px",
+    },
+
+    "& .footer-contact-row": {
+      gap: "12px",
+    },
+
+    "& .footer-contact-label": {
+      minWidth: "85px",
+      fontSize: "10px",
+      letterSpacing: "1.2px",
+    },
+
+    "& .footer-contact-email": {
+      fontSize: "12px",
+      letterSpacing: "0.1px",
+      whiteSpace: "nowrap",
+      overflowWrap: "normal",
+    },
+
+    "& .footer-social": {
+      borderLeft: "1px solid rgba(255,255,255,0.2)",
+      paddingLeft: "16px",
+      gap: "20px",
+    },
+
+    "& .footer-social-icons": {
+      columnGap: "16px",
+    },
+
+    "& .footer-social-link": {
+      fontSize: "24px",
+    },
+
+    "& .footer-copyright": {
+      fontSize: "9px",
+    },
+  },
+};
+
 export default function Footer() {
   return (
     <Box
@@ -81,14 +155,18 @@ export default function Footer() {
         base: 5,
         md: 8,
         lg: 12,
+        xl: 12,
       }}
       py={{
         base: 4,
         md: 7,
         lg: 4,
+        xl: 4,
       }}
+      sx={galaxyFooterStyles}
     >
       <Flex
+        className="footer-main"
         w="100%"
         maxW="1200px"
         mx="auto"
@@ -104,26 +182,35 @@ export default function Footer() {
       >
         {/* LEFT 50%: CONTACT */}
         <Flex
+          className="footer-contact"
           flex="1"
           minW={0}
           direction="column"
           align={{
             base: "stretch",
-            md: "center",
+            md: "stretch",
+            lg: "center",
+            xl: "center",
           }}
           justify="space-between"
           gap={{
             base: 3,
-            md: 5,
+            md: 3,
+            lg: 5,
+            xl: 5,
           }}
           pr={{
             base: 0,
-            md: 7,
-            lg: 10,
+            md: 4,
+            lg: 4,
+            xl: 10,
           }}
         >
-          {/* MOBILE CONTACT */}
-          <Box display={{ base: "block", md: "none" }}>
+          {/* MOBILE CONTACT - UNCHANGED */}
+          <Box
+            className="footer-mobile-contact"
+            display={{ base: "block", md: "none" }}
+          >
             <Heading
               as="h2"
               fontSize="13px"
@@ -177,84 +264,149 @@ export default function Footer() {
             </Flex>
           </Box>
 
-{/* DESKTOP CONTACT */}
-<Flex
-  display={{
-    base: "none",
-    md: "flex",
-  }}
-  direction="row"
-  align="center"
-  justify="space-between"
-  gap={5}
-  w="100%"
->
-  <Heading
-    as="h2"
-    flexShrink={0}
-    fontSize={{
-      md: "22px",
-      lg: "26px",
-    }}
-    fontWeight="500"
-    letterSpacing={{
-      md: "3px",
-      lg: "4px",
-    }}
-    lineHeight="1.1"
-  >
-    CONTACT
-  </Heading>
+          {/* TABLET + DESKTOP CONTACT */}
+          <Flex
+            className="footer-tablet-contact"
+            display={{
+              base: "none",
+              md: "flex",
+            }}
+            direction={{
+              md: "column",
+              lg: "row",
+              xl: "row",
+            }}
+            align={{
+              md: "flex-start",
+              lg: "center",
+              xl: "center",
+            }}
+            justify={{
+              md: "center",
+              lg: "space-between",
+              xl: "space-between",
+            }}
+            gap={{
+              md: 3,
+              lg: 2,
+              xl: 5,
+            }}
+            w="100%"
+          >
+            <Heading
+              className="footer-contact-heading"
+              as="h2"
+              flexShrink={0}
+              fontSize={{
+                md: "20px",
+                lg: "18px",
+                xl: "26px",
+              }}
+              fontWeight="500"
+              letterSpacing={{
+                md: "2.5px",
+                lg: "2px",
+                xl: "4px",
+              }}
+              lineHeight="1.1"
+            >
+              CONTACT
+            </Heading>
 
-  <VStack
-    align="stretch"
-    spacing={4}
-    minW={0}
-  >
-    {contactLinks.map(({ label, email }) => (
-      <Flex
-        key={label}
-        direction="row"
-        align="center"
-        gap={0}
-      >
-        <Text
-          minW="100px"
-          fontSize="10px"
-          fontWeight="600"
-          letterSpacing="1.5px"
-          color="gray.500"
-        >
-          {label}
-        </Text>
+            <VStack
+              className="footer-contact-list"
+              align="stretch"
+              spacing={{
+                md: 2,
+                lg: 3,
+                xl: 4,
+              }}
+              minW={0}
+              w={{
+                md: "100%",
+                lg: "auto",
+                xl: "auto",
+              }}
+            >
+              {contactLinks.map(({ label, email }) => (
+                <Flex
+                  className="footer-contact-row"
+                  key={label}
+                  direction="row"
+                  align="center"
+                  gap={{
+                    md: 3,
+                    lg: 2,
+                    xl: 0,
+                  }}
+                  minW={0}
+                >
+                  <Text
+                    className="footer-contact-label"
+                    minW={{
+                      md: "85px",
+                      lg: "65px",
+                      xl: "100px",
+                    }}
+                    flexShrink={0}
+                    fontSize={{
+                      md: "10px",
+                      lg: "12px",
+                      xl: "10px",
+                    }}
+                    fontWeight="600"
+                    letterSpacing={{
+                      md: "1.2px",
+                      lg: "0.8px",
+                      xl: "1.5px",
+                    }}
+                    color="gray.500"
+                  >
+                    {label}
+                  </Text>
 
-        <Link
-          href={`mailto:${email}`}
-          fontSize={{
-            md: "12px",
-            lg: "13px",
-          }}
-          fontWeight="400"
-          letterSpacing="0.2px"
-          color="white"
-          overflowWrap="anywhere"
-          transition="color 0.2s ease"
-          _hover={{
-            color: "gray.400",
-            textDecoration: "none",
-          }}
-        >
-          {email}
-        </Link>
-      </Flex>
-    ))}
-  </VStack>
-</Flex>
-
+                  <Link
+                    className="footer-contact-email"
+                    href={`mailto:${email}`}
+                    fontSize={{
+                      md: "12px",
+                      lg: "14px",
+                      xl: "13px",
+                    }}
+                    fontWeight="400"
+                    letterSpacing={{
+                      md: "0.1px",
+                      lg: "0",
+                      xl: "0.2px",
+                    }}
+                    color="white"
+                    whiteSpace={{
+                      md: "nowrap",
+                      lg: "nowrap",
+                      xl: "normal",
+                    }}
+                    overflowWrap={{
+                      md: "normal",
+                      lg: "normal",
+                      xl: "anywhere",
+                    }}
+                    transition="color 0.2s ease"
+                    _hover={{
+                      color: "gray.400",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {email}
+                  </Link>
+                </Flex>
+              ))}
+            </VStack>
+          </Flex>
         </Flex>
 
         {/* RIGHT 50%: SOCIALS + COPYRIGHT */}
         <Flex
+          className="footer-social"
           flex="1"
           minW={0}
           direction="column"
@@ -267,8 +419,9 @@ export default function Footer() {
           borderColor="rgba(255,255,255,0.2)"
           pl={{
             base: 0,
-            md: 7,
-            lg: 10,
+            md: 4,
+            lg: 5,
+            xl: 10,
           }}
           gap={{
             base: 3,
@@ -277,10 +430,12 @@ export default function Footer() {
         >
           {/* SOCIAL ICONS */}
           <HStack
+            className="footer-social-icons"
             spacing={{
               base: 5,
               md: 4,
-              lg: 6,
+              lg: 4,
+              xl: 6,
             }}
             justify="center"
             flexWrap="wrap"
@@ -289,6 +444,7 @@ export default function Footer() {
           >
             {socialLinks.map(({ href, icon, label }) => (
               <Link
+                className="footer-social-link"
                 key={href}
                 href={href}
                 isExternal
@@ -300,6 +456,7 @@ export default function Footer() {
                   base: "20px",
                   md: "24px",
                   lg: "27px",
+                  xl: "27px",
                 }}
                 transition="all 0.25s ease"
                 _hover={{
@@ -318,6 +475,7 @@ export default function Footer() {
 
           {/* COPYRIGHT */}
           <Text
+            className="footer-copyright"
             fontSize={{
               base: "8px",
               md: "9px",

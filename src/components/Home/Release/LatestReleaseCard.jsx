@@ -47,7 +47,8 @@ export default function LatestReleaseCard({ release }) {
         justify="space-between"
         w={{
           base: "55%",
-          md: "30%",
+          md: "45%",
+          xl: "30%",
         }}
         flexShrink={0}
         minW={0}
@@ -130,7 +131,7 @@ export default function LatestReleaseCard({ release }) {
             </Text>
           )}
 
-          {/* DESKTOP LABEL */}
+          {/* TABLET / DESKTOP LABEL */}
           {release.label && (
             <Text
               display={{ base: "none", md: "block" }}
@@ -176,7 +177,8 @@ export default function LatestReleaseCard({ release }) {
         order={{ base: 1, md: 2 }}
         w={{
           base: "45%",
-          md: "70%",
+          md: "55%",
+          xl: "70%",
         }}
         flexShrink={0}
         minW={0}
@@ -198,20 +200,23 @@ export default function LatestReleaseCard({ release }) {
           position="relative"
           w={{
             base: "100%",
-            md: "100%",
+            md: "1000%",
+            xl: "100%",
           }}
           maxW={{
             base: "100%",
-            md: "360px",
+            md: "288px",
+            xl: "360px",
           }}
           maxH={{
             base: "none",
-            md: "calc(400px - 32px)",
+            md: "294.4px",
+            xl: "368px",
           }}
           aspectRatio={1}
           flexShrink={1}
           sx={{
-            "@media (min-width: 48em)": {
+            "@media (min-width: 80em)": {
               width: "min(100%, 360px, calc(400px - 32px))",
             },
           }}

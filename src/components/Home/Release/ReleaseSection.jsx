@@ -6,6 +6,29 @@ import useReleasesData from "../../../hooks/useReleasesData";
 import LatestReleaseCard from "./LatestReleaseCard";
 import FeaturedReleaseList from "./FeaturedReleaseList";
 
+const galaxyStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    gridTemplateColumns: "minmax(0, 2fr) minmax(0, 1fr)",
+    gridTemplateRows: "minmax(0, 1fr)",
+    height: "210px",
+    overflow: "hidden",
+  },
+};
+
+const galaxyLatestStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    height: "100%",
+    borderRight: "1px solid rgba(255,255,255,0.45)",
+    borderBottom: "none",
+  },
+};
+
+const galaxyFeaturedStyles = {
+  "@media (min-width: 700px) and (max-width: 767px)": {
+    height: "100%",
+  },
+};
+
 export default function ReleaseSection() {
   const { releases } = useReleasesData();
 
@@ -70,6 +93,7 @@ export default function ReleaseSection() {
             RELEASES
           </Heading>
 
+          {/* EXPLORE THE SOUND - ALL DEVICES */}
           <Box
             as={RouterLink}
             to="/music"
@@ -80,20 +104,18 @@ export default function ReleaseSection() {
             fontWeight="400"
             color="white"
             textDecoration="none"
-transition="opacity .2s ease"
-_hover={{
-  opacity: 0.65,
-  textDecoration: "none",
-}}
+            transition="opacity .2s ease"
+            _hover={{
+              opacity: 0.65,
+              textDecoration: "none",
+            }}
             _focusVisible={{
               outline: "1px solid white",
               outlineOffset: "5px",
             }}
             aria-label="Explore all releases"
           >
-            {/* MOBILE */}
             <Flex
-              display={{ base: "flex", md: "none" }}
               direction="column"
               align="flex-end"
               gap={0}
@@ -102,29 +124,26 @@ _hover={{
                 <Text
                   key={word}
                   fontFamily="inherit"
-                  fontSize="20px"
+                  fontSize={{
+                    base: "20px",
+                    md: "24px",
+                    lg: "30px",
+                    xl: "38px",
+                  }}
                   fontWeight="400"
-                  lineHeight="0.80"
+                  lineHeight={{
+                    base: "0.80",
+                    md: "0.85",
+                    lg: "0.85",
+                    xl: "0.85",
+                  }}
+                  textTransform="uppercase"
+                  whiteSpace="nowrap"
                 >
                   {word}
                 </Text>
               ))}
             </Flex>
-
-            {/* DESKTOP */}
-            <Text
-              display={{ base: "none", md: "block" }}
-              fontFamily="inherit"
-              fontSize={{
-                md: "35px",
-                lg: "clamp(32.5px, 4vw, 57.5px)",
-              }}
-              fontWeight="400"
-              lineHeight="1"
-              whiteSpace="nowrap"
-            >
-              Explore The Sound
-            </Text>
           </Box>
         </Flex>
 
@@ -141,13 +160,16 @@ _hover={{
           }}
           h={{
             base: "auto",
-            md: "400px",
+            md: "310px",
+            lg: "360px",
+            xl: "400px",
           }}
           minH={0}
           alignItems="stretch"
           overflow={{ base: "visible", md: "hidden" }}
           border="1px solid rgba(255,255,255,0.45)"
           borderTop="none"
+          sx={galaxyStyles}
         >
           {/* LATEST RELEASE */}
           <Box
@@ -162,6 +184,7 @@ _hover={{
               base: "1px solid rgba(255,255,255,0.45)",
               md: "none",
             }}
+            sx={galaxyLatestStyles}
           >
             <LatestReleaseCard release={latestRelease} />
           </Box>
@@ -172,6 +195,7 @@ _hover={{
             minH={0}
             h={{ base: "auto", md: "100%" }}
             position="relative"
+            sx={galaxyFeaturedStyles}
           >
             <FeaturedReleaseList releases={featuredReleases} />
           </Box>

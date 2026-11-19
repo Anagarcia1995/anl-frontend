@@ -14,8 +14,8 @@ export default function AboutSection() {
   return (
     <>
       {/* =========================
-          MOBILE ABOUT
-          ========================= */}
+          MOBILE ABOUT - UNCHANGED
+      ========================= */}
       <Box
         as="section"
         display={{ base: "block", md: "none" }}
@@ -55,7 +55,9 @@ export default function AboutSection() {
             lineHeight="1.55"
             color="rgba(255,255,255,0.78)"
           >
-            A chance to take their time, explore different sounds and build a journey at the dancefloor from the first track to the last.
+            A chance to take their time, explore different
+            sounds and build a journey at the dancefloor
+            from the first track to the last.
           </Text>
         </Box>
 
@@ -127,38 +129,52 @@ export default function AboutSection() {
           pb={9}
           alignItems="start"
         >
-{/* LEFT TEXT */}
-<Text
-  fontFamily="'Space Grotesk', Arial, sans-serif"
-  fontSize="13px"
-  lineHeight="1.6"
-  color="rgba(255,255,255,0.88)"
->
-  ART NO LOGIA is a DJ and producer duo
-driven by curiosity, instinct and a
-passion for exploring new sounds
-and pushing their musical boundaries.
-</Text>
+          <Text
+            fontFamily="'Space Grotesk', Arial, sans-serif"
+            fontSize="13px"
+            lineHeight="1.6"
+            color="rgba(255,255,255,0.88)"
+          >
+            ART NO LOGIA is a DJ and producer duo
+            driven by curiosity, instinct and a
+            passion for exploring new sounds
+            and pushing their musical boundaries.
+          </Text>
 
-{/* RIGHT TEXT */}
-<Text
-  fontFamily="'Space Grotesk', Arial, sans-serif"
-  fontSize="13px"
-  lineHeight="1.6"
-  color="rgba(255,255,255,0.88)"
->
-From <Text as="span" fontWeight="700">Cova Santa Ibiza</Text>
-{" "}and <Text as="span" fontWeight="700">INPUT Barcelona</Text>
-{" "}to <Text as="span" fontWeight="700">Fabrik Madrid</Text>
-{" "}and <Text as="span" fontWeight="700">Lost Beach Ecuador</Text>,
-their sound travels worldwide, reaching audiences across the globe.
-</Text>
+          <Text
+            fontFamily="'Space Grotesk', Arial, sans-serif"
+            fontSize="13px"
+            lineHeight="1.6"
+            color="rgba(255,255,255,0.88)"
+          >
+            From{" "}
+            <Text as="span" fontWeight="700">
+              Cova Santa Ibiza
+            </Text>
+            {" "}and{" "}
+            <Text as="span" fontWeight="700">
+              INPUT Barcelona
+            </Text>
+            {" "}to{" "}
+            <Text as="span" fontWeight="700">
+              Fabrik Madrid
+            </Text>
+            {" "}and{" "}
+            <Text as="span" fontWeight="700">
+              Lost Beach Ecuador
+            </Text>
+            , their sound travels worldwide,
+            reaching audiences across the globe.
+          </Text>
         </SimpleGrid>
       </Box>
 
       {/* =========================
-          DESKTOP ABOUT - UNCHANGED
-          ========================= */}
+          TABLET + DESKTOP ABOUT
+          MD: IPAD MINI
+          LG: IPAD PRO
+          XL: DESKTOP ORIGINAL
+      ========================= */}
       <Box
         as="section"
         display={{ base: "none", md: "block" }}
@@ -181,7 +197,7 @@ their sound travels worldwide, reaching audiences across the globe.
         overflow="hidden"
         isolation="isolate"
       >
-        {/* DESKTOP BACKGROUND */}
+        {/* BACKGROUND */}
         <Image
           src={IMAGE}
           alt=""
@@ -205,7 +221,7 @@ their sound travels worldwide, reaching audiences across the globe.
           pointerEvents="none"
         />
 
-        {/* DESKTOP CONTENT */}
+        {/* MAIN CONTENT */}
         <Flex
           position="relative"
           zIndex={2}
@@ -214,60 +230,88 @@ their sound travels worldwide, reaching audiences across the globe.
           h="100%"
           mx="auto"
           px={{
-            md: 8,
+            md: 6,
             lg: 8,
+            xl: 8,
             "2xl": 0,
           }}
           pt={{
-            md: 7,
-            lg: 9,
+            md: 6,
+            lg: 8,
+            xl: 9,
           }}
           pb={{
-            md: "110px",
-            lg: "130px",
+            md: "135px",
+            lg: "155px",
+            xl: "130px",
           }}
           direction="row"
           justify="space-between"
           align="flex-start"
           gap={{
-            md: 12,
-            lg: 20,
+            md: 8,
+            lg: 12,
+            xl: 20,
           }}
         >
-          {/* LEFT COLUMN */}
+          {/* =========================
+              LEFT COLUMN
+          ========================= */}
           <Box
             w={{
-              md: "25%",
-              lg: "23%",
+              md: "22%",
+              lg: "20%",
+              xl: "23%",
             }}
             maxW={{
               md: "267px",
               lg: "280px",
             }}
+            minW={0}
             alignSelf="flex-start"
           >
+            {/* INTRO */}
             <Text
               fontSize={{
-                md: "15px",
-                lg: "16px",
+                md: "13px",
+                lg: "15px",
+                xl: "16px",
               }}
-              lineHeight="1.75"
+              lineHeight={{
+                md: "1.48",
+                lg: "1.55",
+                xl: "1.75",
+              }}
               color="rgba(255,255,255,0.94)"
-              mb={8}
+              mb={{
+                md: 4,
+                lg: 5,
+                xl: 8,
+              }}
             >
               ART NO LOGIA is a DJ and producer duo
               with a sound shaped by curiosity, instinct
               and a constant desire to explore.
             </Text>
 
+            {/* JOURNEY */}
             <Text
               fontSize={{
-                md: "14px",
-                lg: "15px",
+                md: "12px",
+                lg: "14px",
+                xl: "15px",
               }}
-              lineHeight="1.8"
+              lineHeight={{
+                md: "1.5",
+                lg: "1.55",
+                xl: "1.8",
+              }}
               color="rgba(255,255,255,0.8)"
-              mb={8}
+              mb={{
+                md: 4,
+                lg: 5,
+                xl: 8,
+              }}
             >
               From the dancefloors of{" "}
               <Text
@@ -310,12 +354,18 @@ their sound travels worldwide, reaching audiences across the globe.
               with every new destination.
             </Text>
 
+            {/* CLOSING TEXT */}
             <Text
               fontSize={{
-                md: "14px",
-                lg: "15px",
+                md: "12px",
+                lg: "14px",
+                xl: "15px",
               }}
-              lineHeight="1.8"
+              lineHeight={{
+                md: "1.5",
+                lg: "1.55",
+                xl: "1.8",
+              }}
               color="rgba(255,255,255,0.88)"
             >
               Always moving forward, but staying true
@@ -324,43 +374,68 @@ their sound travels worldwide, reaching audiences across the globe.
             </Text>
           </Box>
 
-          {/* RIGHT COLUMN */}
+          {/* =========================
+              RIGHT COLUMN
+          ========================= */}
           <Box
             w={{
-              md: "27%",
-              lg: "25.2%",
+              md: "24%",
+              lg: "22%",
+              xl: "25.2%",
             }}
             maxW="306px"
+            minW={0}
             alignSelf="flex-start"
             mt={{
-              md: 4,
+              md: 0,
               lg: 0,
+              xl: 0,
             }}
             textAlign="left"
           >
+            {/* EDITORIAL HEADING */}
             <Text
               fontSize={{
-                md: "21px",
-                lg: "24px",
+                md: "19px",
+                lg: "22px",
+                xl: "24px",
               }}
               fontWeight="700"
-              lineHeight="1.3"
+              lineHeight={{
+                md: "1.2",
+                lg: "1.25",
+                xl: "1.3",
+              }}
               letterSpacing="-0.5px"
-              mb={4}
+              mb={{
+                md: 3,
+                lg: 3,
+                xl: 4,
+              }}
             >
               Every night tells
               <br />
               a different story.
             </Text>
 
+            {/* EDITORIAL DESCRIPTION */}
             <Text
               fontSize={{
-                md: "14px",
-                lg: "15px",
+                md: "12px",
+                lg: "14px",
+                xl: "15px",
               }}
-              lineHeight="1.8"
+              lineHeight={{
+                md: "1.5",
+                lg: "1.55",
+                xl: "1.8",
+              }}
               color="rgba(255,255,255,0.86)"
-              mb={8}
+              mb={{
+                md: 4,
+                lg: 5,
+                xl: 8,
+              }}
             >
               Among the experiences they enjoy most
               are their{" "}
@@ -377,44 +452,60 @@ their sound travels worldwide, reaching audiences across the globe.
               journey from the first track to the last.
             </Text>
 
+            {/* NO RUSH */}
             <Heading
               as="h3"
               fontFamily="'Roboto Condensed', 'Arial Narrow', sans-serif"
               fontSize={{
-                md: "33px",
-                lg: "38px",
+                md: "29px",
+                lg: "35px",
+                xl: "38px",
               }}
               fontWeight="700"
               lineHeight="1.05"
               letterSpacing="-0.8px"
               textTransform="uppercase"
-              mb={4}
+              mb={{
+                md: 3,
+                lg: 3,
+                xl: 4,
+              }}
             >
               NO RUSH.
               <br />
               NO FIXED FORMULA.
             </Heading>
 
+            {/* CLOSING DESCRIPTION */}
             <Text
               fontSize={{
-                md: "13px",
-                lg: "14px",
+                md: "12px",
+                lg: "13px",
+                xl: "14px",
               }}
-              lineHeight="1.7"
+              lineHeight={{
+                md: "1.45",
+                lg: "1.55",
+                xl: "1.7",
+              }}
               color="rgba(255,255,255,0.8)"
             >
-              Just music, freedom and a dancefloor to share it with, where everyone can truly belong.
+              Just music, freedom and a dancefloor
+              to share it with, where everyone
+              can truly belong.
             </Text>
           </Box>
         </Flex>
 
-        {/* DESKTOP MAIN TITLE */}
+        {/* =========================
+            OVERSIZED MAIN TITLE
+        ========================= */}
         <Box
           position="absolute"
           zIndex={3}
           bottom={{
-            md: "-16px",
-            lg: "-24px",
+            md: "-6px",
+            lg: "-10px",
           }}
           left="0"
           w="100%"

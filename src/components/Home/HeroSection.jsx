@@ -1,3 +1,4 @@
+
 import {
   Box,
   Flex,
@@ -69,16 +70,16 @@ export default function HeroSection() {
           xl: "78%",
         }}
         maxW="1120px"
-mt={{
-  base: 14,
-  md: 10,
-  lg: 12,
-}}
-mb={{
-  base: 8,
-  md: 10,
-  lg: 12,
-}}
+        mt={{
+          base: 14,
+          md: 10,
+          lg: 12,
+        }}
+        mb={{
+          base: 8,
+          md: 10,
+          lg: 12,
+        }}
       >
         {/* MAIN CARD */}
         <Flex
@@ -114,15 +115,15 @@ mb={{
               w="100%"
               h="100%"
               objectFit="cover"
-transform={{
-  base: "scale(1.35) translateY(-10%)",
-  md: "scale(1)",
-}}
-transformOrigin="center center"
+              transform={{
+                base: "scale(1.35) translateY(-10%)",
+                md: "scale(1)",
+              }}
+              transformOrigin="center center"
               objectPosition={{
                 base: "center 30%",
-                md: "center 50%",
-                lg: "center 50%",
+                md: "center 85%",
+                lg: "center 60%",
               }}
             />
 
@@ -160,7 +161,7 @@ transformOrigin="center center"
             overflow="hidden"
           >
             <Box>
-              {/* MOBILE TITLE */}
+              {/* MOBILE + GALAXY TITLE */}
               <Heading
                 as="h1"
                 display={{ base: "block", md: "none" }}
@@ -168,7 +169,7 @@ transformOrigin="center center"
                 fontWeight="400"
                 fontSize={{
                   base: "clamp(28px, 10.5vw, 42px)",
-                  sm: "clamp(34px, 7vw, 48px)",
+                  sm: "clamp(38px, 8.6vw, 64px)",
                 }}
                 lineHeight="0.9"
                 letterSpacing="-0.02em"
@@ -180,15 +181,15 @@ transformOrigin="center center"
                 THE FUTURE.
               </Heading>
 
-              {/* DESKTOP TITLE */}
+              {/* TABLET / DESKTOP TITLE */}
               <Heading
                 as="h1"
                 display={{ base: "none", md: "block" }}
                 fontFamily="'Bebas Neue', Impact, sans-serif"
                 fontWeight="400"
                 fontSize={{
-                  md: "clamp(36px, 4vw, 60px)",
-                  lg: "clamp(48px, 4.5vw, 72px)",
+                  md: "54px",
+                  lg: "clamp(48px, 6.5vw, 72px)",
                   xl: "clamp(58px, 7vw, 82px)",
                 }}
                 lineHeight="0.92"
@@ -209,15 +210,18 @@ transformOrigin="center center"
                 mb={{ base: 4, md: 4 }}
               />
 
-              {/* MOBILE DESCRIPTION */}
+              {/* MOBILE + GALAXY DESCRIPTION */}
               <Text
                 display={{ base: "block", md: "none" }}
                 fontFamily="'Space Grotesk', Arial, sans-serif"
                 fontSize={{
                   base: "12px",
-                  sm: "11px",
+                  sm: "16px",
                 }}
-                lineHeight="1.45"
+                lineHeight={{
+                  base: "1.45",
+                  sm: "1.5",
+                }}
                 color="#252525"
                 textAlign="justify"
                 textJustify="inter-word"
@@ -227,15 +231,18 @@ transformOrigin="center center"
                 {mobileDescription}
               </Text>
 
-              {/* DESKTOP DESCRIPTION */}
+              {/* TABLET / DESKTOP DESCRIPTION */}
               <Text
                 display={{ base: "none", md: "block" }}
                 fontFamily="'Space Grotesk', Arial, sans-serif"
                 fontSize={{
-                  md: "11px",
+                  md: "14px",
                   lg: "14px",
                 }}
-                lineHeight="1.55"
+                lineHeight={{
+                  md: "1.45",
+                  lg: "1.55",
+                }}
                 color="#252525"
                 textAlign="justify"
                 textJustify="inter-word"
@@ -246,13 +253,22 @@ transformOrigin="center center"
               </Text>
             </Box>
 
-            {/* DESKTOP BOTTOM */}
+            {/* TABLET / DESKTOP BOTTOM */}
             <Flex
               display={{ base: "none", md: "flex" }}
-              justify="center"
+              justify={{
+                md: "space-between",
+                xl: "center",
+              }}
               align="center"
-              flexWrap="wrap"
-              gap={{ md: 2, lg: 16 }}
+              flexWrap={{
+                md: "nowrap",
+                xl: "wrap",
+              }}
+              gap={{
+                md: 1,
+                xl: 16,
+              }}
               borderTop="1px solid rgba(0,0,0,0.25)"
               pt={3}
             >
@@ -261,9 +277,16 @@ transformOrigin="center center"
                   key={word}
                   fontSize={{
                     base: "xs",
-                    lg: "md",
+                    md: "11px",
+                    lg: "10px",
+                    xl: "md",
                   }}
-                  letterSpacing="4px"
+                  letterSpacing={{
+                    base: "4px",
+                    md: "1px",
+                    lg: "1.5px",
+                    xl: "4px",
+                  }}
                   textTransform="uppercase"
                   transition="all .4s ease"
                   fontWeight={500}
