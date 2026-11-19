@@ -57,7 +57,9 @@ export default function EventMonthList({
           <Text
             fontSize={{
               base: "12px",
-              md: "13px",
+              md: "15px",
+              lg: "17px",
+              xl: "13px",
             }}
             fontWeight="600"
             letterSpacing="3px"

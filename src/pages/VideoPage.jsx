@@ -1,3 +1,4 @@
+
 import {
   Box,
   Flex,
@@ -47,21 +48,25 @@ export default function VideosSection() {
       bg="black"
       color="white"
       mt={{
-  base: "60px",
-  md: "120px",
-  lg: "120px",
-}}
+        base: "60px",
+        md: "55px",
+        lg: "70px",
+        xl: "120px",
+      }}
     >
       {/* VIDEOS GRID */}
       <Flex
         direction={{
           base: "column",
-          lg: "row",
+          md: "column",
+          lg: "column",
+          xl: "row",
         }}
         gap={{
           base: 10,
           md: 12,
-          lg: "72px",
+          lg: 8,
+          xl: "72px",
         }}
         align="stretch"
         w="100%"

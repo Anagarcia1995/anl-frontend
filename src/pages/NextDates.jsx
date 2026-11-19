@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+
 import {
   Text,
   Box,
@@ -281,45 +282,42 @@ export default function NextDates() {
     <Box
       position="relative"
       w="100%"
-      minH={{
-        base: "auto",
-        md: "100vh",
-      }}
+      minH="auto"
       isolation="isolate"
       bg="transparent"
       overflow="hidden"
     >
-{/* FIXED BACKGROUND */}
-<Box
-  position="fixed"
-  top={0}
-  left={0}
-  w="100vw"
-  h="100dvh"
-  zIndex={0}
-  overflow="hidden"
-  pointerEvents="none"
-  bg="#080808"
->
-  <Box
-    position="absolute"
-    inset={0}
-    bgImage="url('/images/hero8.jpg')"
-    bgSize={{
-      base: "140% auto",
-      md: "cover",
-    }}
-    bgPosition={{
-      base: "center top",
-      md: "center center",
-      lg: "center 38%",
-    }}
-    bgRepeat={{
-      base: "repeat-y",
-      md: "no-repeat",
-    }}
-  />
-</Box>
+      {/* FIXED BACKGROUND */}
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        w="100vw"
+        h="100dvh"
+        zIndex={0}
+        overflow="hidden"
+        pointerEvents="none"
+        bg="#080808"
+      >
+        <Box
+          position="absolute"
+          inset={0}
+          bgImage="url('/images/hero8.jpg')"
+          bgSize={{
+            base: "140% auto",
+            md: "cover",
+          }}
+          bgPosition={{
+            base: "center top",
+            md: "center center",
+            lg: "center 38%",
+          }}
+          bgRepeat={{
+            base: "repeat-y",
+            md: "no-repeat",
+          }}
+        />
+      </Box>
 
       {/* FIXED LIGHT OVERLAY */}
       <Box
@@ -337,10 +335,7 @@ export default function NextDates() {
         display="flex"
         flexDirection="column"
         w="100%"
-        minH={{
-          base: "auto",
-          md: "100vh",
-        }}
+        minH="auto"
         maxW="800px"
         mx="auto"
         px={{
@@ -441,23 +436,17 @@ export default function NextDates() {
 
         {/* EVENTS AREA */}
         <Box
-          flex={{
-            base: "initial",
-            md: 1,
-          }}
+          flex="initial"
           display="flex"
           flexDirection="column"
-          justifyContent={{
-            base: "flex-start",
-            md: "center",
-          }}
+          justifyContent="flex-start"
           pt={{
             base: 3,
             md: 10,
           }}
           pb={{
             base: 5,
-            md: 10,
+            md: 6,
           }}
         >
           {currentLoading ? (
