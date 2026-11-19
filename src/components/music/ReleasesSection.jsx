@@ -151,6 +151,11 @@ export default function ReleasesSection({
   return (
     <Box
       maxW={{ base: "700px", md: "100%" }}
+      sx={{
+        "@media (min-width: 700px) and (max-width: 767px)": {
+          maxWidth: "100%",
+        },
+      }}
       mx="auto"
       w="100%"
     >
@@ -171,6 +176,12 @@ export default function ReleasesSection({
               xl: 4,
             }}
             spacing={{ base: 4, lg: 10 }}
+            sx={{
+              "@media (min-width: 700px) and (max-width: 767px)": {
+                gridTemplateColumns:
+                  "repeat(3, minmax(0, 1fr))",
+              },
+            }}
           >
             {releasesToRender.map((release) => (
               <Box

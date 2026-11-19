@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 import {
@@ -92,14 +93,6 @@ export default function ReleaseHero({
     />
   );
 
-  const mobileLabelStyles = {
-    fontSize: "10px",
-    fontWeight: "600",
-    letterSpacing: "1.5px",
-    color: "gray.300",
-    mb: 1,
-  };
-
   const mobileValueStyles = {
     fontSize: "11px",
     fontWeight: "500",
@@ -142,9 +135,14 @@ export default function ReleaseHero({
           </Flex>
         ) : (
           <>
-            {/* MOBILE ONLY */}
+            {/* MOBILE: BELOW 700PX */}
             <Box
               display={{ base: "block", md: "none" }}
+              sx={{
+                "@media (min-width: 700px) and (max-width: 767px)": {
+                  display: "none",
+                },
+              }}
               w="100%"
               minW={0}
               position="relative"
@@ -162,13 +160,13 @@ export default function ReleaseHero({
                 alignItems="start"
               >
                 {/* LEFT: TITLE, ARTIST, DATE, LABEL */}
-<Flex
-  direction="column"
-  minW={0}
-  h="100%"
-  justifyContent="center"
-  gap={3}
->
+                <Flex
+                  direction="column"
+                  minW={0}
+                  h="100%"
+                  justifyContent="center"
+                  gap={3}
+                >
                   <Box minW={0}>
                     <Heading
                       as="h1"
@@ -193,17 +191,17 @@ export default function ReleaseHero({
                     </Text>
                   </Box>
 
-<Box>
-  <Text {...mobileValueStyles}>
-    {formatDateForPreview(release.releaseDate)}
-  </Text>
-</Box>
+                  <Box>
+                    <Text {...mobileValueStyles}>
+                      {formatDateForPreview(release.releaseDate)}
+                    </Text>
+                  </Box>
 
-<Box>
-  <Text {...mobileValueStyles}>
-    {release.label || "—"}
-  </Text>
-</Box>
+                  <Box>
+                    <Text {...mobileValueStyles}>
+                      {release.label || "—"}
+                    </Text>
+                  </Box>
                 </Flex>
 
                 {/* RIGHT: COVER */}
@@ -238,9 +236,14 @@ export default function ReleaseHero({
               </Box>
             </Box>
 
-            {/* DESKTOP — ORIGINAL LAYOUT */}
+            {/* GALAXY 700PX+ / TABLET / DESKTOP */}
             <Grid
               display={{ base: "none", md: "grid" }}
+              sx={{
+                "@media (min-width: 700px) and (max-width: 767px)": {
+                  display: "grid",
+                },
+              }}
               w="100%"
               templateColumns="repeat(2, minmax(0, 1fr))"
               gap={3}
@@ -258,7 +261,7 @@ export default function ReleaseHero({
                 bg="rgba(8, 8, 12, 0.17)"
                 backdropFilter="blur(22px)"
                 WebkitBackdropFilter="blur(22px)"
-                p={{ md: 7, lg: 8 }}
+                p={{ base: 7, md: 7, lg: 8 }}
                 direction="column"
                 justify="space-between"
                 gap={0}
@@ -268,6 +271,7 @@ export default function ReleaseHero({
                   <Heading
                     as="h1"
                     fontSize={{
+                      base: "26px",
                       md: "26px",
                       lg: "30px",
                     }}

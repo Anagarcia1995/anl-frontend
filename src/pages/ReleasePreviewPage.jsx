@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 import {
@@ -322,6 +323,11 @@ export default function ReleasePreview() {
           left="50%"
           transform="translateX(-50%)"
           mb={{ base: 7, md: 50 }}
+          sx={{
+            "@media (min-width: 700px) and (max-width: 767px)": {
+              marginBottom: "40px",
+            },
+          }}
         >
           <Divider
             borderColor="rgba(255,255,255,0.35)"
@@ -342,6 +348,14 @@ export default function ReleasePreview() {
               pb={{ base: 4, md: 10, lg: 5 }}
               transition="color .25s ease"
               _hover={{ color: "gray.400" }}
+              sx={{
+                "@media (min-width: 700px) and (max-width: 767px)": {
+                  paddingLeft: "40px",
+                  paddingRight: "40px",
+                  paddingTop: "48px",
+                  paddingBottom: "40px",
+                },
+              }}
             >
               <Heading
                 as="h2"
@@ -358,6 +372,11 @@ export default function ReleasePreview() {
                 color="white"
                 textTransform="uppercase"
                 whiteSpace="nowrap"
+                sx={{
+                  "@media (min-width: 700px) and (max-width: 767px)": {
+                    fontSize: "clamp(36px, 5.5vw, 42px)",
+                  },
+                }}
               >
                 TAKE A DEEPER LOOK INTO OUR SOUND
               </Heading>

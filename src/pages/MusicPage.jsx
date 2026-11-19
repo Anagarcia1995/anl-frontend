@@ -205,8 +205,8 @@ export default function MusicPage() {
       }}
       pt={{
         base: "85px",
-        md: "140px",
-        lg: "165px",
+        md: "80px",
+        lg: "125px",
       }}
       pb={{
         base: 5,

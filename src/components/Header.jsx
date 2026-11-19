@@ -218,6 +218,7 @@ export default function Header() {
             <NavItem to="/">Home</NavItem>
             <NavItem to="/music">Music</NavItem>
             <NavItem to="/next-dates">Tour</NavItem>
+            <NavItem to="/video">Video</NavItem>
           </Flex>
 
           {/* ADMIN LOGOUT */}
